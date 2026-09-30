@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akash | Brand, web and video</title>
+<meta name="description" content="Brand, web and video for businesses and people. Never templated.">
+<meta property="og:title" content="Akash | Brand, web and video">
+<meta property="og:description" content="Brand, web and video for businesses and people. Never templated.">
+<meta property="og:image" content="https://akash-sg.github.io/images/nyra.jpg">
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Instrument+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#2E7BFF;--navy:#0B1B33;--sky:#BFE3FF;--mist:#F4F9FF;--line:#DCE9F7;--muted:#4A5D7A}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--navy);font-family:'Instrument Sans',sans-serif;line-height:1.5;overflow-x:hidden}
+h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-.035em;line-height:1;margin:0}
+a{color:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+section{position:relative;padding:96px 0}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:16px}
+h2{font-size:clamp(36px,5vw,60px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:54px;padding:0 30px;border-radius:999px;background:var(--blue);color:#fff;font-weight:700;text-decoration:none;border:0;font:inherit;font-weight:700;cursor:pointer;transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:20;height:68px;display:flex;align-items:center;background:rgba(255,255,255,.85);backdrop-filter:blur(10px)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;width:100%}
+.logo{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:22px;text-decoration:none}
+nav .links{display:flex;gap:28px;align-items:center;font-size:14px;font-weight:500;color:var(--muted)}
+nav .links a{text-decoration:none}
+nav .cta{height:42px;padding:0 20px;background:var(--navy);color:#fff!important;font-size:14px}
+/* hero */
+.hero{min-height:100vh;padding-top:120px;display:flex;align-items:center}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;will-change:transform}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
+.hero h1{font-size:clamp(56px,9vw,104px);margin-bottom:24px}
+.hero h1 span{color:var(--blue)}
+.hero p{font-size:20px;color:var(--muted);max-width:460px;margin:0 0 28px}
+.hero .row{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.hero .row a.u{font-weight:700}
+.stage{position:relative;height:460px;perspective:1200px}
+.card3d{position:absolute;width:230px;height:310px;border-radius:26px;overflow:hidden;box-shadow:0 28px 50px rgba(11,27,51,.2);transform:rotateY(-18deg) rotateX(5deg);animation:bob 8s ease-in-out infinite;will-change:transform}
+.card3d img{width:100%;height:100%;object-fit:cover;display:block}
+.c1{left:0;top:60px}
+.c2{left:170px;top:150px;animation-delay:-3s;background:#B2F000}
+.c2 img{object-fit:contain}
+@keyframes bob{50%{margin-top:-14px}}
+/* work */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.work{display:block;text-decoration:none;border-radius:22px;overflow:hidden;background:var(--mist);border:1px solid var(--line);transition:transform .25s,box-shadow .25s}
+.work:hover{transform:translateY(-6px);box-shadow:0 24px 40px rgba(11,27,51,.12)}
+.work .pic{aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.work .pic img{width:100%;height:100%;object-fit:cover;display:block}
+.work .pic img.contain{object-fit:contain}
+.work .tile{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:56px;letter-spacing:-.04em;color:#fff;padding:24px;text-align:center;line-height:1}
+.work .meta{padding:18px 22px 22px}
+.work .meta b{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;letter-spacing:-.02em;display:block}
+.work .meta small{color:var(--muted);font-size:14px}
+.tag{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:6px;display:block}
+/* services */
+.services{background:var(--mist)}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.three div{border-top:2px solid var(--navy);padding-top:20px}
+.three h3{font-size:32px;margin-bottom:12px}
+.three p{margin:0;color:var(--muted)}
+/* packages */
+.pk{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.pk .p{border:1px solid var(--line);border-radius:24px;padding:32px;background:#fff}
+.pk .p.big{background:var(--navy);color:#fff;border-color:var(--navy)}
+.pk h3{font-size:26px;margin-bottom:8px}
+.pk .from{font-size:13px;color:var(--muted)}
+.pk .big .from,.pk .big li{color:#C9D8FF}
+.pk .price{font-family:'Bricolage Grotesque',sans-serif;font-size:48px;letter-spacing:-.04em;margin:4px 0 20px}
+.pk ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;color:var(--muted)}
+.note{margin-top:24px;color:var(--muted);font-size:14px}
+.strip{margin-top:40px;font-family:'Bricolage Grotesque',sans-serif;font-size:22px;letter-spacing:-.02em;color:var(--muted)}
+/* testimonials */
+.quotes{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px}
+.quotes blockquote{margin:0;padding:28px;border-radius:22px;background:var(--mist);font-size:18px}
+.quotes cite{display:block;margin-top:14px;font-size:14px;font-style:normal;font-weight:700;color:var(--muted)}
+/* form */
+.contact{background:var(--navy);color:#fff}
+.contact .eyebrow{color:#9DB4DA}
+form{display:grid;gap:16px;margin-top:40px;max-width:640px}
+label{display:grid;gap:6px;font-size:14px;font-weight:500;color:#C9D8FF}
+input,select,textarea{font:inherit;color:var(--navy);padding:14px 16px;border-radius:14px;border:0;background:#fff;width:100%}
+textarea{min-height:90px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+#msg{color:#BFE3FF;font-size:14px;margin:0}
+footer{padding:32px 0;font-size:14px;color:var(--muted)}
+footer .wrap{display:flex;gap:24px;flex-wrap:wrap;justify-content:space-between}
+footer a{text-decoration:none;margin-right:18px}
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+.rv.in{opacity:1;transform:none}
+@media(max-width:820px){
+  section{padding:64px 0}
+  nav .links a:not(.cta){display:none}
+  .hero{min-height:auto;padding-top:100px}
+  .hero .wrap{grid-template-columns:1fr}
+  .stage{height:340px}
+  .card3d{width:170px;height:240px}
+  .c1{left:0;top:30px}.c2{left:140px;top:90px}
+  .grid,.three,.pk,.quotes{grid-template-columns:1fr}
+  .two{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){.card3d{animation:none}.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* Direction F: big sky hero */
+nav{background:transparent;backdrop-filter:none;transition:background .3s}
+nav.on{background:rgba(255,255,255,.9);backdrop-filter:blur(10px)}
+nav .links{color:var(--navy)}
+.hero{display:block;min-height:100vh;padding:0;background:#4FA9FF;color:var(--navy);overflow:hidden;position:relative}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(180deg,rgba(255,255,255,0),#fff)}
+.hero .wrap{display:block;position:relative;height:100vh;min-height:640px;z-index:2}
+.tagline{position:absolute;left:24px;bottom:calc(24vw + 16px);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;max-width:420px;line-height:1.5}
+.hero h1{position:absolute;left:12px;bottom:70px;margin:0;font-size:clamp(110px,26vw,340px);color:#fff;letter-spacing:-.06em;line-height:.85}
+.hero h1 span{color:inherit}
+.bottom{position:absolute;right:24px;bottom:28px;display:flex;gap:20px;align-items:center}
+.scroll{font-size:12px;font-weight:700;letter-spacing:.12em}
+.btn.dark{background:var(--navy)}
+.fl{position:absolute;z-index:1;border-radius:14px;overflow:hidden;box-shadow:0 24px 50px rgba(6,24,58,.28);animation:fl 9s ease-in-out infinite;will-change:transform}
+.fl img{width:100%;height:100%;object-fit:cover;display:block}
+.fl.a{left:9%;top:17%;width:16%;aspect-ratio:9/16;transform:rotate(-3deg)}
+.fl.b{left:42%;top:12%;width:18%;aspect-ratio:2/3;transform:rotate(2deg);animation-delay:-3s}
+.fl.c{right:9%;top:16%;width:18%;aspect-ratio:2/3;transform:rotate(4deg);animation-delay:-5s}
+@keyframes fl{50%{margin-top:-14px}}
+@media(max-width:820px){
+  .hero .wrap{min-height:600px}
+  .fl.a{left:5%;top:14%;width:34%}.fl.b{left:33%;top:22%;width:32%}.fl.c{right:5%;top:12%;width:32%}
+  .tagline{bottom:calc(30vw + 20px);max-width:260px}
+  .hero h1{font-size:33vw}
+}
+@media(prefers-reduced-motion:reduce){.fl{animation:none}}
+
+.hero .wrap{display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;padding-bottom:84px}
+.tagline{position:static;margin:0 0 14px 0;max-width:460px}
+.hero h1{position:static;margin:0 0 0 -8px}
+.fl.a{left:9%;top:15%;width:14%;aspect-ratio:3/4;transform:rotate(-3deg)}
+.fl.b{left:42%;top:11%;width:16%;aspect-ratio:3/4;transform:rotate(2deg);animation-delay:-3s}
+.fl.c{right:9%;top:14%;width:16%;aspect-ratio:3/4;transform:rotate(4deg);animation-delay:-5s}
+@media(max-width:820px){
+  .fl.a{left:5%;top:16%;width:34%}.fl.b{left:33%;top:24%;width:32%}.fl.c{right:5%;top:14%;width:32%}
+  .tagline{max-width:280px}
+  .bottom{left:24px;right:24px;justify-content:space-between}
+  .hero .wrap{padding-bottom:96px}
+}
+</style>
+<nav><div class="wrap"><a class="logo" href="#top" id="brand"></a>
+<div class="links"><a href="#work">Work</a><a href="#services">Services</a><a href="#pricing">Pricing</a><a class="btn cta" href="#start">Start a project</a></div></div></nav>
+
+<header class="hero" id="top">
+  <div class="orb" id="o1" style="left:55%;top:-120px;width:620px;height:620px;background:#BFE6FF;opacity:.75"></div>
+  <div class="orb" id="o2" style="left:-160px;top:55%;width:520px;height:520px;background:#fff;opacity:.35"></div>
+  <div class="fl a" data-speed="0.05"><img data-hero alt=""></div>
+  <div class="fl b" data-speed="0.14"><img data-hero alt=""></div>
+  <div class="fl c" data-speed="0.08"><img data-hero alt=""></div>
+  <div class="wrap">
+    <div class="tagline" id="subline"></div>
+    <h1 id="headline"></h1>
+    <div class="bottom"><span class="scroll">SCROLL &darr;</span><a class="btn dark" href="#start">Start a project &rarr;</a></div>
+  </div>
+</header>
+
+<section id="work"><div class="wrap">
+  <div class="eyebrow rv">Chapter I</div>
+  <h2 class="rv">Selected work.</h2>
+  <div class="grid" id="projects"></div>
+</div></section>
+
+<section id="services" class="services"><div class="wrap">
+  <div class="eyebrow rv">What I do</div>
+  <h2 class="rv">Three crafts, made with care.</h2>
+  <div class="three" id="serviceList"></div>
+</div></section>
+
+<section id="pricing"><div class="wrap">
+  <div class="eyebrow rv">Packages</div>
+  <h2 class="rv">Simple starting prices.</h2>
+  <div class="pk" id="packageList"></div>
+  <p class="note" id="pkNote"></p>
+  <div class="strip">Enquire &rarr; Quote &rarr; Build &rarr; Deliver</div>
+</div></section>
+
+<section id="quotes" hidden><div class="wrap">
+  <div class="eyebrow rv">Testimonials</div>
+  <h2 class="rv">Kind words.</h2>
+  <div class="quotes" id="quoteList"></div>
+</div></section>
+
+<section id="start" class="contact"><div class="wrap">
+  <div class="eyebrow">Start a project</div>
+  <h2>Tell me what you need.</h2>
+  <form id="form">
+    <div class="two">
+      <label>Your name<input name="name" required></label>
+      <label>WhatsApp number or email<input name="contact" required></label>
+    </div>
+    <div class="two">
+      <label>What do you need?<select name="need"><option>Logo</option><option>Website</option><option>Video</option><option>Poster</option><option>Not sure</option></select></label>
+      <label>Budget range<select name="budget"><option>Under &#8377;5k</option><option>&#8377;5-15k</option><option>&#8377;15-25k</option><option>&#8377;25k+</option><option>Not sure</option></select></label>
+    </div>
+    <label>One line about your business<input name="business"></label>
+    <div class="two">
+      <label>A website or example you like (optional)<input name="ref"></label>
+      <label>When do you need it? (optional)<input name="when"></label>
+    </div>
+    <div><button class="btn" type="submit">Send</button></div>
+    <p id="msg">I'll reply on WhatsApp or email.</p>
+  </form>
+</div></section>
+
+<footer><div class="wrap"><span id="links"></span><span id="copy"></span></div></footer>
+
+<script src="data.js"></script>
+<script>
+const $=id=>document.getElementById(id), S=DATA.site;
+const inr=n=>"₹"+n.toLocaleString("en-IN");
+document.title=S.name+" — Brand, web and video";
+$("brand").textContent=S.name;
+$("headline").textContent=S.name;
+$("subline").textContent=S.headline+" "+S.subline;
+$("projects").innerHTML=DATA.projects.map(p=>{
+  const pic=p.image?`<img class="${p.fit||""}" src="${p.image}" alt="${p.title}" loading="lazy">`:`<div class="tile">${p.title}</div>`;
+  const tag=p.link?"a":"div", href=p.link?` href="${p.link}" target="_blank" rel="noopener"`:"";
+  return `<${tag} class="work rv"${href}><div class="pic" style="background:${p.tint||"#DCE9F7"}">${pic}</div><div class="meta"><span class="tag">${p.type}</span><b>${p.title}</b><small>${p.line}</small></div></${tag}>`;
+}).join("");
+$("serviceList").innerHTML=DATA.services.map(s=>`<div class="rv"><h3>${s.name}</h3><p>${s.line}</p></div>`).join("");
+$("packageList").innerHTML=DATA.packages.map((p,i)=>`<div class="p rv${i==2?" big":""}"><h3>${p.name}</h3><div class="from">Starting from</div><div class="price">${inr(p.from)}</div><ul>${p.items.map(x=>`<li>${x}</li>`).join("")}</ul></div>`).join("");
+$("pkNote").textContent=DATA.packageNote;
+const real=DATA.testimonials.filter(t=>!t.placeholder);
+if(real.length){$("quotes").hidden=false;$("quoteList").innerHTML=real.map(t=>`<blockquote class="rv">&ldquo;${t.quote}&rdquo;<cite>${t.who}</cite></blockquote>`).join("")}
+const l=[];
+if(S.whatsapp)l.push(`<a href="https://wa.me/${S.whatsapp}">WhatsApp</a>`);
+if(S.instagram)l.push(`<a href="${S.instagram}">Instagram</a>`);
+if(S.linkedin)l.push(`<a href="${S.linkedin}">LinkedIn</a>`);
+$("links").innerHTML=l.join("");
+$("copy").textContent="© "+new Date().getFullYear()+" "+S.name;
+// form: sends to formEmail through FormSubmit (free)
+$("form").onsubmit=async e=>{
+  e.preventDefault();
+  if(!S.formEmail){$("msg").textContent="Form is not connected yet (add formEmail in data.js).";return}
+  $("msg").textContent="Sending...";
+  try{
+    const r=await fetch("https://formsubmit.co/ajax/"+S.formEmail,{method:"POST",headers:{"Accept":"application/json"},body:new FormData(e.target)});
+    if(!r.ok)throw 0; e.target.reset(); $("msg").textContent="Thank you! I'll reply on WhatsApp or email.";
+  }catch{$("msg").textContent="Something went wrong. Please try again."}
+};
+// scroll: reveal + light parallax
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:.12});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
+  const nav=document.querySelector("nav");addEventListener("scroll",()=>nav.classList.toggle("on",scrollY>80),{passive:true});const o1=$("o1"),o2=$("o2"),cards=[...document.querySelectorAll("[data-speed]")];let t=0;
+  addEventListener("scroll",()=>{if(t)return;t=requestAnimationFrame(()=>{t=0;const y=scrollY;
+    o1.style.transform=`translateY(${y*.25}px)`;o2.style.transform=`translateY(${y*-.12}px)`;
+    cards.forEach(c=>c.style.translate=`0 ${y*-c.dataset.speed}px`)})},{passive:true});
+}
+</script>
+<script src="work.js"></script>
+<script src="extra.js"></script>
+</body>
+</html>
