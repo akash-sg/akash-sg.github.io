@@ -148,6 +148,18 @@ nav .links{color:var(--navy)}
   .bottom{left:24px;right:24px;justify-content:space-between}
   .hero .wrap{padding-bottom:96px}
 }
+/* desktop: images sit in one row above the name, sized by screen height so they never cover the text */
+@media(min-width:821px){
+  .hero h1{font-size:min(26vw,30vh,340px)}
+  .fls{position:absolute;z-index:1;top:104px;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:0 max(24px,calc((100vw - 1160px)/2))}
+  .hero .fls .fl{position:relative;left:auto;right:auto;top:auto;height:clamp(160px,30vh,320px);width:auto!important;aspect-ratio:3/4}
+  .hero .fls .fl.shotcard{aspect-ratio:16/11!important}
+  .hero .fls .fl.b{margin-top:5vh}
+}
+/* spam trap: hidden from people, bots fill it */
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+#wa-next{display:none;justify-self:start;margin-top:4px;background:#25D366;color:#0B1B33}
+#wa-next.on{display:inline-flex}
 </style>
 <nav><div class="wrap"><a class="logo" href="#top" id="brand"></a>
 <div class="links"><a href="#work">Work</a><a href="#services">Services</a><a href="#pricing">Pricing</a><a class="btn cta" href="#start">Start a project</a></div></div></nav>
@@ -155,9 +167,11 @@ nav .links{color:var(--navy)}
 <header class="hero" id="top">
   <div class="orb" id="o1" style="left:55%;top:-120px;width:620px;height:620px;background:#BFE6FF;opacity:.75"></div>
   <div class="orb" id="o2" style="left:-160px;top:55%;width:520px;height:520px;background:#fff;opacity:.35"></div>
+  <div class="fls">
   <div class="fl a" data-speed="0.05"><img data-hero alt=""></div>
   <div class="fl b" data-speed="0.14"><img data-hero alt=""></div>
   <div class="fl c" data-speed="0.08"><img data-hero alt=""></div>
+  </div>
   <div class="wrap">
     <div class="tagline" id="subline"></div>
     <h1 id="headline"></h1>
@@ -195,9 +209,10 @@ nav .links{color:var(--navy)}
   <div class="eyebrow">Start a project</div>
   <h2>Tell me what you need.</h2>
   <form id="form">
+    <div class="hp" aria-hidden="true"><label>Leave this empty<input name="_honey" tabindex="-1" autocomplete="off"></label></div>
     <div class="two">
-      <label>Your name<input name="name" required></label>
-      <label>WhatsApp number or email<input name="contact" required></label>
+      <label>Your name<input name="name" required maxlength="60"></label>
+      <label>WhatsApp number or email<input name="contact" required maxlength="80"></label>
     </div>
     <div class="two">
       <label>What do you need?<select name="need"><option>Logo</option><option>Website</option><option>Video</option><option>Poster</option><option>Not sure</option></select></label>
@@ -210,6 +225,7 @@ nav .links{color:var(--navy)}
     </div>
     <div><button class="btn" type="submit">Send</button></div>
     <p id="msg">I'll reply on WhatsApp or email.</p>
+    <a class="btn" id="wa-next" target="_blank" rel="noopener">Also send on WhatsApp &rarr;</a>
   </form>
 </div></section>
 
@@ -240,14 +256,27 @@ if(S.linkedin)l.push(`<a href="${S.linkedin}">LinkedIn</a>`);
 $("links").innerHTML=l.join("");
 $("copy").textContent="© "+new Date().getFullYear()+" "+S.name;
 // form: sends to formEmail through FormSubmit (free)
+// spam checks: hidden trap field, too-fast submits, junk contact, links in text, one send per minute
+const loadedAt=Date.now();let lastSent=0;
 $("form").onsubmit=async e=>{
   e.preventDefault();
-  if(!S.formEmail){$("msg").textContent="Form is not connected yet (add formEmail in data.js).";return}
-  $("msg").textContent="Sending...";
+  const f=e.target,d=new FormData(f),say=t=>$("msg").textContent=t;
+  if(!S.formEmail){say("Form is not connected yet (add formEmail in data.js).");return}
+  if(d.get("_honey")||Date.now()-loadedAt<4000){say("Thank you!");return} // bot: pretend it worked
+  const c=(d.get("contact")||"").trim(),digits=c.replace(/\D/g,"");
+  if(!/^\S+@\S+\.\S+$/.test(c)&&!(digits.length>=10&&digits.length<=13)){say("Please enter a valid WhatsApp number or email.");return}
+  if(/https?:|www\.|<a|\[url/i.test(d.get("name")+" "+d.get("business"))){say("Please remove links from your name and business line.");return}
+  if(Date.now()-lastSent<60000){say("Already sent. I'll reply soon.");return}
+  d.append("_subject","New enquiry: "+d.get("need")+" from "+d.get("name"));d.append("_template","table");d.append("_captcha","false");
+  say("Sending...");
   try{
-    const r=await fetch("https://formsubmit.co/ajax/"+S.formEmail,{method:"POST",headers:{"Accept":"application/json"},body:new FormData(e.target)});
-    if(!r.ok)throw 0; e.target.reset(); $("msg").textContent="Thank you! I'll reply on WhatsApp or email.";
-  }catch{$("msg").textContent="Something went wrong. Please try again."}
+    const r=await fetch("https://formsubmit.co/ajax/"+S.formEmail,{method:"POST",headers:{"Accept":"application/json"},body:d});
+    if(!r.ok)throw 0; lastSent=Date.now();
+    const text=`Hi Akash, I just sent an enquiry from your website.\nName: ${d.get("name")}\nNeed: ${d.get("need")}\nBudget: ${d.get("budget")}`+(d.get("business")?`\nBusiness: ${d.get("business")}`:"")+(d.get("when")?`\nWhen: ${d.get("when")}`:"");
+    f.reset();
+    if(S.whatsapp){say("Thank you! Got it. For a faster reply, send it on WhatsApp too.");const w=$("wa-next");w.href="https://wa.me/"+S.whatsapp+"?text="+encodeURIComponent(text);w.classList.add("on")}
+    else say("Thank you! I'll reply on WhatsApp or email.");
+  }catch{say("Something went wrong. Please try again, or message me on WhatsApp.")}
 };
 // scroll: reveal + light parallax
 const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:.12});
