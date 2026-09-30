@@ -142,7 +142,7 @@ html,body{overflow-x:clip!important}
 .fl.shotcard{aspect-ratio:16/11!important;width:24%!important;background:#fff;padding-top:14px}
 .fl.shotcard::before{content:"";position:absolute;left:0;right:0;top:0;height:14px;background-color:#E8EDF4;background-image:radial-gradient(circle at 10px 7px,#FF6159 3px,transparent 3.5px),radial-gradient(circle at 20px 7px,#FFBD2E 3px,transparent 3.5px),radial-gradient(circle at 30px 7px,#28C840 3px,transparent 3.5px)}
 .fl.shotcard img{object-fit:cover;object-position:top}
-@media(max-width:820px){.fl.shotcard{width:46%!important}}
+@media(max-width:820px){.fl.shotcard{width:46%!important}.fl .cap{display:none}}
 .cv-hero h3 .wip{display:inline-block;vertical-align:middle;font-size:14px;letter-spacing:0;font-weight:600;padding:6px 12px;border-radius:999px;background:#FFE9A8;color:#0B1B33;margin-left:10px}
 `;
 const st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
@@ -156,6 +156,7 @@ document.querySelectorAll("img[data-hero]").forEach((im, i) => {
   if (!pool[i]) return;
   im.src = pool[i];
   const src = DATA.projects.find(p => p.image === pool[i]); if (src && src.shot) im.parentElement.classList.add("shotcard");
+  if (src) { const k = { web: "Web", brand: "Brand", print: "Design", media: "Photo" }[src.cat] || src.type; const cp = document.createElement("span"); cp.className = "cap"; cp.textContent = src.title + " / " + k; im.parentElement.appendChild(cp); }
   if (logoFit[pool[i]]) { im.style.objectFit = "contain"; im.style.padding = "10%"; im.style.background = logoFit[pool[i]]; }
 });
 const P = DATA.projects, pad = n => String(n).padStart(2, "0");
