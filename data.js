@@ -63,7 +63,7 @@ const DATA = {
       about: "A short logo reveal animation, made for social media and video intros.", gallery: [], video: "images/bigwayz.mp4" }
   ],
   // The hero shows 3 of these at random on every page load.
-  heroImages: ["images/nyra.jpg", "images/picklo.jpg", "images/gmap.jpg", "images/ranks.jpg", "images/finewines.jpg", "images/picklo-site.jpg", "images/tbc.jpg", "images/melb.jpg", "images/jsk.jpg", "images/xpulse.jpg", "images/bigwayz.jpg", "images/arv.jpg", "images/realestate.jpg", "images/cleaneats.jpg", "images/hms.jpg"],
+  heroImages: ["images/nyra.jpg", "images/picklo.jpg", "images/tbc.jpg", "images/melb.jpg", "images/jsk.jpg", "images/bigwayz.jpg"],  // logos only
   // How it works. Keep each line short.
   steps: [
     { name: "Enquire", line: "Fill the form. Two minutes." },
