@@ -62,8 +62,7 @@ const DATA = {
     { id: "bigwayz", cat: "media", title: "Bigwayz", type: "Content", line: "Logo reveal animation", image: "images/bigwayz.jpg", tint: "#F2F4F7", link: "", fit: "contain",
       about: "A short logo reveal animation, made for social media and video intros.", gallery: [], video: "images/bigwayz.mp4" }
   ],
-  // The hero shows 3 of these at random on every page load.
-  heroImages: ["images/nyra.jpg", "images/picklo.jpg", "images/tbc.jpg", "images/melb.jpg", "images/jsk.jpg", "images/bigwayz.jpg"],  // logos only
+  heroReel: ["images/finewines.jpg", "images/picklo.jpg", "images/vasudha.jpg", "images/arv.jpg", "images/realestate.jpg", "images/cleaneats.jpg"],  // flips inside the hero letters; colourful, full-bleed images read best (logos on white do not)
   // How it works. Keep each line short.
   steps: [
     { name: "Enquire", line: "Fill the form. Two minutes." },

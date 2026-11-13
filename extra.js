@@ -2,7 +2,8 @@
 (() => {
 const css = `
 html,body{overflow-x:clip}
-.hero{position:relative;overflow:hidden}
+.cat{scale:calc(.93 + var(--t,1)*.07);opacity:calc(.25 + var(--t,1)*.75)}
+.cat .fan{translate:0 calc((1 - var(--t,1))*70px)}
 /* headings: words slide up */
 section h2.rv{opacity:1;transform:none}
 section h2 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
@@ -118,6 +119,7 @@ if (fine && !reduce) {
 
 // scroll-linked motion
 const imgs = [...document.querySelectorAll(".work .pic img:not(.contain)")];
+const cats = [...document.querySelectorAll(".cat")];
 let raf = 0;
 function frame() {
   raf = 0;
@@ -129,8 +131,10 @@ function frame() {
       const off = (r.top + r.height / 2 - vh / 2) * -0.08;
       img.style.setProperty("--py", Math.max(-36, Math.min(36, off)) + "px");
     });
+    const side = document.documentElement.classList.contains("hs"), vw = innerWidth;
+    cats.forEach(c => { const r = c.getBoundingClientRect(); c.style.setProperty("--t", Math.max(0, Math.min(1, side ? (vw - r.left) / (vw * .45) : (vh - r.top) / (vh * .55))).toFixed(3)); });
     const sr = svc.getBoundingClientRect();
-    if (sr.bottom > 0 && sr.top < vh) band.style.transform = `translateX(${(sr.top - vh) * 0.45}px)`;
+    if (side ? sr.right > 0 && sr.left < vw : sr.bottom > 0 && sr.top < vh) band.style.transform = `translateX(${(side ? sr.left - vw : sr.top - vh) * 0.45}px)`;
   }
   if (!strip) return;
   const r = strip.getBoundingClientRect();
@@ -139,6 +143,7 @@ function frame() {
   stepEls.forEach((s, i) => { s.classList.toggle("on", i < n); s.classList.toggle("last", i < n && i == stepEls.length - 1); });
 }
 addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(frame); }, { passive: true });
+addEventListener("hs", frame);
 addEventListener("resize", frame);
 frame();
 })();

@@ -149,16 +149,6 @@ const st = document.createElement("style"); st.textContent = css; document.head.
 const $ = id => document.getElementById(id);
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const desk = () => innerWidth > 820;
-// hero: 3 random images on every load
-const pool = [...(DATA.heroImages || [])].sort(() => Math.random() - .5);
-const logoFit = { "images/picklo.jpg": "#B2F000", "images/tbc.jpg": "#fff", "images/melb.jpg": "#fff", "images/jsk.jpg": "#fff", "images/bigwayz.jpg": "#F2F4F7" };
-document.querySelectorAll("img[data-hero]").forEach((im, i) => {
-  if (!pool[i]) return;
-  im.src = pool[i];
-  const src = DATA.projects.find(p => p.image === pool[i]); if (src && src.shot) im.parentElement.classList.add("shotcard");
-  if (src) { const k = { web: "Web", brand: "Brand", print: "Design", media: "Photo" }[src.cat] || src.type; const cp = document.createElement("span"); cp.className = "cap"; cp.textContent = src.title + " / " + k; im.parentElement.appendChild(cp); }
-  if (logoFit[pool[i]]) { im.style.objectFit = "contain"; im.style.padding = "10%"; im.style.background = logoFit[pool[i]]; }
-});
 const P = DATA.projects, pad = n => String(n).padStart(2, "0");
 
 /* ----- Chapter I: categories ----- */
@@ -257,7 +247,7 @@ proc.innerHTML = `<div class="pr"><div class="pr-sticky"><div class="pr-ghost" a
   <div class="pr-steps">${S.map((s, i) => `<div class="st"><div class="n">${pad(i + 1)}</div><h3>${s.name}</h3><p>${s.line}</p></div>`).join("")}</div>
 </div></div></div>`;
 pricing.after(proc);
-const pr = proc.querySelector(".pr"), ghost = proc.querySelector(".pr-ghost"), stEls = [...proc.querySelectorAll(".st")];
+const pr = proc.querySelector(".pr"), sticky = proc.querySelector(".pr-sticky"), ghost = proc.querySelector(".pr-ghost"), stEls = [...proc.querySelectorAll(".st")];
 
 /* ----- scroll ----- */
 let raf = 0;
@@ -266,7 +256,10 @@ function frame() {
   const vh = innerHeight;
   // steps
   let p;
-  if (desk()) { const r = pr.getBoundingClientRect(); p = Math.max(0, Math.min(1, -r.top / (pr.offsetHeight - vh) * 1.15)); }
+  if (document.documentElement.classList.contains("hs")) { // sideways page: hold the panel still while the steps fill in
+    const r = pr.getBoundingClientRect(), span = pr.offsetWidth - innerWidth, x = Math.max(0, Math.min(span, -r.left));
+    sticky.style.transform = `translateX(${x}px)`; p = Math.min(1, x / span * 1.15); }
+  else if (desk()) { const r = pr.getBoundingClientRect(); p = Math.max(0, Math.min(1, -r.top / (pr.offsetHeight - vh) * 1.15)); }
   else { const r = proc.getBoundingClientRect(); p = Math.max(0, Math.min(1, (vh * .75 - r.top) / (r.height * .85))); }
   if (reduce) p = 1;
   proc.style.setProperty("--p", p);
@@ -275,6 +268,7 @@ function frame() {
   ghost.textContent = pad(Math.max(1, n));
 }
 addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(frame); }, { passive: true });
+addEventListener("hs", frame);
 addEventListener("resize", frame);
 frame();
 })();

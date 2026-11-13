@@ -11,7 +11,7 @@
 </head>
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Instrument+Sans:wght@400;500;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Instrument+Sans:wght@400;500;700&family=DM+Mono:wght@400&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
 <style>
 :root{--blue:#2E7BFF;--navy:#0B1B33;--sky:#BFE3FF;--mist:#F4F9FF;--line:#DCE9F7;--muted:#4A5D7A}
 *{box-sizing:border-box}
@@ -109,61 +109,75 @@ footer a{text-decoration:none;margin-right:18px}
 }
 @media(prefers-reduced-motion:reduce){.card3d{animation:none}.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 
-/* Direction F: big sky hero */
-nav{background:transparent;backdrop-filter:none;transition:background .3s}
+/* hero: the name is made of the work. Project images flip inside giant letters (multiply mask);
+   scrolling zooms into one letter until the work fills the screen. JS sets --z --mo --r --b on .hero */
+nav{background:transparent;backdrop-filter:none;transition:background .3s,color .3s}
 nav.on{background:rgba(255,255,255,.9);backdrop-filter:blur(10px)}
-nav .links{color:var(--navy)}
-.hero{display:block;min-height:100vh;padding:0;background:#4FA9FF;color:var(--navy);overflow:hidden;position:relative}
-.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(180deg,rgba(255,255,255,0),#fff)}
-.hero .wrap{display:block;position:relative;height:100vh;min-height:640px;z-index:2}
-.tagline{position:absolute;left:24px;bottom:calc(24vw + 16px);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;max-width:420px;line-height:1.5}
-.hero h1{position:absolute;left:12px;bottom:70px;margin:0;font-size:clamp(110px,26vw,340px);color:#fff;letter-spacing:-.06em;line-height:.85}
-.hero h1 span{color:inherit}
-.bottom{position:absolute;right:24px;bottom:28px;display:flex;gap:20px;align-items:center}
-.scroll{font-size:12px;font-weight:700;letter-spacing:.12em}
-.btn.dark{background:var(--navy)}
-.fl{position:absolute;z-index:1;border-radius:14px;overflow:hidden;box-shadow:0 24px 50px rgba(6,24,58,.28);animation:fl 9s ease-in-out infinite;will-change:transform}
-.fl img{width:100%;height:100%;object-fit:cover;display:block}
-.fl.a{left:9%;top:17%;width:16%;aspect-ratio:9/16;transform:rotate(-3deg)}
-.fl.b{left:42%;top:12%;width:18%;aspect-ratio:2/3;transform:rotate(2deg);animation-delay:-3s}
-.fl.c{right:9%;top:16%;width:18%;aspect-ratio:2/3;transform:rotate(4deg);animation-delay:-5s}
-@keyframes fl{50%{margin-top:-14px}}
+nav .links{color:inherit}
+nav:not(.on){color:#EDEAE3}
+nav:not(.on) .cta{background:#EDEAE3;color:#0C0C0B!important}
+.btn.dark{background:#EDEAE3;color:#0C0C0B}
+.hero{display:block;height:320vh;min-height:0;padding:0;background:#000;color:#EDEAE3}
+.pin{position:sticky;top:0;height:100vh;overflow:hidden;background:#000}
+.media{position:absolute;inset:-40px}
+.media img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(1.15) saturate(1.1);translate:var(--mx,0px) var(--my,0px);transition:translate .8s cubic-bezier(.2,.8,.2,1)}
+.mask{position:absolute;inset:0;background:#000;mix-blend-mode:multiply;display:flex;align-items:center;justify-content:center;opacity:var(--mo,1)}
+.word{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;color:#fff;font-size:min(31vw,62vh);line-height:.8;letter-spacing:-.06em;white-space:nowrap;padding-bottom:.06em;transform-origin:var(--ox,50%) var(--oy,50%);transform:perspective(1400px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) scale(var(--z,1))}
+.word span{display:inline-block;animation:rise 1.2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{transform:translateY(30%);opacity:0}}
+.shade{position:absolute;inset:0;background:#fff;opacity:var(--r,0);pointer-events:none}
+.hero .wrap{position:absolute;inset:0;max-width:none;display:flex;flex-direction:column;justify-content:flex-end;padding:0 max(24px,calc((100vw - 1160px)/2 + 24px)) 36px}
+.hero h1.end{position:absolute;left:max(24px,calc((100vw - 1160px)/2 + 24px));top:50%;margin:0;font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:clamp(60px,10vw,150px);letter-spacing:-.025em;line-height:.95;color:var(--navy);opacity:var(--r,0);translate:0 calc(-50% + (1 - var(--r,0))*48px)}
+.hx-bot{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:24px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:var(--b,1)}
+.hero .hx-bot .tagline{margin:0;max-width:360px;font-size:13px;line-height:1.55;color:inherit}
+.hx-count{display:flex;align-items:flex-end;gap:12px;line-height:1.3}
+.odo{display:inline-flex;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:64px;line-height:1;height:1em;overflow:hidden;text-transform:none;padding-right:.1em}
+.odo span{display:flex;flex-direction:column;transition:transform 2s cubic-bezier(.2,.8,.2,1) .6s}
+.odo i{font-style:normal;height:1em}
+.hx-end{justify-self:end;display:flex;flex-direction:column;align-items:flex-end;gap:14px}
+.hx-bot .btn{font-family:'Instrument Sans',sans-serif;text-transform:none;letter-spacing:0;font-size:15px;white-space:nowrap}
 @media(max-width:820px){
-  .hero .wrap{min-height:600px}
-  .fl.a{left:5%;top:14%;width:34%}.fl.b{left:33%;top:22%;width:32%}.fl.c{right:5%;top:12%;width:32%}
-  .tagline{bottom:calc(30vw + 20px);max-width:260px}
-  .hero h1{font-size:33vw}
+  .hero{height:260vh}
+  .hero .wrap{padding:0 20px 24px}
+  .word{font-size:34vw}
+  .hx-bot{grid-template-columns:auto 1fr;gap:18px}
+  .hero .hx-bot .tagline{grid-column:1/-1}
+  .odo{font-size:52px}
+  .hero h1.end{left:20px;right:20px}
 }
-@media(prefers-reduced-motion:reduce){.fl{animation:none}}
-
-.hero .wrap{display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;padding-bottom:84px}
-.tagline{position:static;margin:0 0 14px 0;max-width:460px}
-.hero h1{position:static;margin:0 0 0 -8px}
-.fl.a{left:9%;top:15%;width:14%;aspect-ratio:3/4;transform:rotate(-3deg)}
-.fl.b{left:42%;top:11%;width:16%;aspect-ratio:3/4;transform:rotate(2deg);animation-delay:-3s}
-.fl.c{right:9%;top:14%;width:16%;aspect-ratio:3/4;transform:rotate(4deg);animation-delay:-5s}
-@media(max-width:820px){
-  .fl.a{left:5%;top:16%;width:34%}.fl.b{left:33%;top:24%;width:32%}.fl.c{right:5%;top:14%;width:32%}
-  .tagline{max-width:280px}
-  .bottom{left:24px;right:24px;justify-content:space-between}
-  .hero .wrap{padding-bottom:96px}
-}
-/* desktop: same arrangement as design F. Everything is sized from the screen height so nothing overlaps. */
-@media(min-width:821px){
-  .fls{display:contents}
-  .fl{overflow:visible;box-shadow:none}
-  .fl img{border-radius:14px;box-shadow:0 24px 50px rgba(6,24,58,.28)}
-  .hero .fl{height:36vh;width:auto!important}
-  .hero .fl.a{left:8.6%;top:14vh;aspect-ratio:9/16}
-  .hero .fl.b{left:40.6%;top:9vh;aspect-ratio:2/3}
-  .hero .fl.c{left:auto;right:9%;top:13vh;aspect-ratio:2/3}
-  .fl .cap{position:absolute;left:0;top:calc(100% + 12px);white-space:nowrap;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
-  .tagline{font-family:'DM Mono',monospace;font-weight:400;font-size:13px}
-  .hero .wrap{padding-bottom:3vh;padding-left:16px}
-  .hero h1{font-size:min(26vw,33vh);margin-left:-6px}
-  .bottom{flex-direction:column;align-items:flex-end;gap:16px;bottom:44px}
-  .scroll{font-family:'DM Mono',monospace;font-weight:400;font-size:12px}
-}
+@media(prefers-reduced-motion:reduce){.hero{height:auto}.word span{animation:none}.odo span{transition:none}.hero h1.end{opacity:1;translate:none;top:96px;color:#EDEAE3;font-size:clamp(36px,5vw,64px)}}
+/* desktop: Khanh-style sideways page. Vertical scroll first plays the hero zoom, then slides a track of
+   full-height panels to the left. html.hs is set by the script; phones and portrait screens stay vertical. */
+html.hs{scroll-behavior:auto}
+html.hs #track{position:fixed;top:0;left:0;height:100vh;display:flex;will-change:transform}
+html.hs #track>*{flex:none;height:100vh;position:relative;overflow:hidden}
+html.hs #track>[hidden]{display:none}
+html.hs .hero{height:100vh;width:100vw}
+html.hs #track>section{display:flex;flex-direction:column;justify-content:center;padding:0;width:100vw}
+html.hs #track>section>.wrap{width:100%}
+html.hs h2{font-size:clamp(36px,min(5vw,7.5vh),60px)}
+html.hs #track>#work{width:auto}
+html.hs #work>.wrap{max-width:none;margin:0;display:grid;grid-template-columns:340px auto;grid-template-rows:auto auto 1fr;column-gap:72px;align-content:center;padding:0 140px 0 max(24px,calc((100vw - 1160px)/2 + 24px))}
+html.hs #work .cats{grid-column:2;grid-row:1/4;margin:0;grid-template-columns:repeat(4,min(420px,58vh));align-self:center}
+html.hs #work .cat{height:min(460px,64vh)}
+html.hs #work .cat h3{font-size:min(36px,5vh)}
+html.hs #services .marq{padding:0 0 3vh}
+html.hs #services .marq .t{font-size:clamp(64px,16vh,170px)}
+html.hs #services .three{margin-top:3vh}
+html.hs #services .three div{padding:2.2vh 0}
+html.hs #services .three h3{font-size:clamp(36px,min(6vw,8vh),84px)}
+html.hs #pricing .pk{margin-top:4vh}
+html.hs #pricing .pk .p{padding:min(32px,3.6vh) 32px}
+html.hs #track>#process{width:auto;background:#fff}
+html.hs .pr{height:100vh;width:240vw}
+html.hs .pr-sticky{position:relative;width:100vw;height:100vh;will-change:transform}
+html.hs #start>.wrap{display:grid;grid-template-columns:1fr minmax(0,620px);column-gap:72px;align-items:center}
+html.hs #start .eyebrow,html.hs #start h2{grid-column:1}
+html.hs #start h2{font-size:clamp(52px,min(7vw,13vh),120px)}
+html.hs #start form{grid-column:2;grid-row:1/4;margin:0;gap:min(16px,1.8vh)}
+html.hs #start input,html.hs #start select{padding:min(14px,1.5vh) 16px}
+html.hs footer{width:min(520px,40vw);display:flex;align-items:flex-end;background:var(--navy);color:#9DB4DA;padding:0 0 36px}
+html.hs footer .wrap{flex-direction:column;gap:16px}
 /* spam trap: hidden from people, bots fill it */
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 #wa-next{display:none;justify-self:start;margin-top:4px;background:#25D366;color:#0B1B33}
@@ -172,20 +186,20 @@ nav .links{color:var(--navy)}
 <nav><div class="wrap"><a class="logo" href="#top" id="brand"></a>
 <div class="links"><a href="#work">Work</a><a href="#services">Services</a><a href="#pricing">Pricing</a><a class="btn cta" href="#start">Start a project</a></div></div></nav>
 
-<header class="hero" id="top">
-  <div class="orb" id="o1" style="left:55%;top:-120px;width:620px;height:620px;background:#BFE6FF;opacity:.75"></div>
-  <div class="orb" id="o2" style="left:-160px;top:55%;width:520px;height:520px;background:#fff;opacity:.35"></div>
-  <div class="fls">
-  <div class="fl a" data-speed="0.05"><img data-hero alt=""></div>
-  <div class="fl b" data-speed="0.14"><img data-hero alt=""></div>
-  <div class="fl c" data-speed="0.08"><img data-hero alt=""></div>
-  </div>
+<main id="track">
+<header class="hero" id="top"><div class="pin">
+  <div class="media" aria-hidden="true"><img id="reel" alt=""></div>
+  <div class="mask" aria-hidden="true"><div class="word" id="word"></div></div>
+  <div class="shade" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="tagline" id="subline"></div>
-    <h1 id="headline"></h1>
-    <div class="bottom"><span class="scroll">SCROLL &darr;</span><a class="btn dark" href="#start">Start a project &rarr;</a></div>
+    <h1 class="end" id="headline"></h1>
+    <div class="hx-bot" id="bottom">
+      <p class="tagline" id="subline"></p>
+      <div class="hx-count"><b class="odo" id="odo"></b><span>Projects<br>made so far</span></div>
+      <div class="hx-end"><span id="clock"></span><a class="btn dark" href="#start">Start a project &rarr;</a></div>
+    </div>
   </div>
-</header>
+</div></header>
 
 <section id="work"><div class="wrap">
   <div class="eyebrow rv">Chapter I</div>
@@ -238,6 +252,7 @@ nav .links{color:var(--navy)}
 </div></section>
 
 <footer><div class="wrap"><span id="links"></span><span id="copy"></span></div></footer>
+</main>
 
 <script src="data.js"></script>
 <script>
@@ -245,8 +260,18 @@ const $=id=>document.getElementById(id), S=DATA.site;
 const inr=n=>"₹"+n.toLocaleString("en-IN");
 document.title=S.name+" — Brand, web and video";
 $("brand").textContent=S.name;
-$("headline").textContent=S.name;
-$("subline").textContent=S.headline+" "+S.subline;
+$("headline").textContent=S.headline;
+$("word").innerHTML=[...S.name].map((c,i)=>`<span style="animation-delay:${150+i*90}ms">${c}</span>`).join("");
+$("subline").textContent=S.subline;
+// reel: project images flip inside the letters (hard cuts, like a flipbook)
+const reel=$("reel"),R=DATA.heroReel||[];let ri=0,reelOn=true;
+R.forEach(src=>{new Image().src=src});
+if(R.length){reel.src=R[0];if(!matchMedia("(prefers-reduced-motion: reduce)").matches)setInterval(()=>{if(reelOn)reel.src=R[ri=(ri+1)%R.length]},650)}
+// project count rolls up like an odometer
+const odo=$("odo"),N=String(DATA.projects.length).padStart(2,"0");
+odo.setAttribute("aria-label",N);odo.innerHTML=[...N].map(()=>`<span aria-hidden="true">${[..."0123456789"].map(d=>`<i>${d}</i>`).join("")}</span>`).join("");
+requestAnimationFrame(()=>requestAnimationFrame(()=>[...odo.children].forEach((c,i)=>c.style.transform=`translateY(-${N[i]}em)`)));
+const clk=()=>$("clock").textContent="Bengaluru "+new Date().toLocaleTimeString("en-GB",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit"})+" IST";clk();setInterval(clk,30000);
 $("projects").innerHTML=DATA.projects.map(p=>{
   const pic=p.image?`<img class="${p.fit||""}" src="${p.image}" alt="${p.title}" loading="lazy">`:`<div class="tile">${p.title}</div>`;
   const tag=p.link?"a":"div", href=p.link?` href="${p.link}" target="_blank" rel="noopener"`:"";
@@ -289,11 +314,42 @@ $("form").onsubmit=async e=>{
 // scroll: reveal + light parallax
 const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:.12});
 document.querySelectorAll(".rv").forEach(el=>io.observe(el));
-if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
-  const nav=document.querySelector("nav");addEventListener("scroll",()=>nav.classList.toggle("on",scrollY>80),{passive:true});const o1=$("o1"),o2=$("o2"),cards=[...document.querySelectorAll("[data-speed]")];let t=0;
-  addEventListener("scroll",()=>{if(t)return;t=requestAnimationFrame(()=>{t=0;const y=scrollY;
-    o1.style.transform=`translateY(${y*.25}px)`;o2.style.transform=`translateY(${y*-.12}px)`;
-    cards.forEach(c=>c.style.translate=`0 ${y*-c.dataset.speed}px`)})},{passive:true});
+const nav=document.querySelector("nav"),hero=$("top"),word=$("word"),track=$("track");
+const reduceMo=matchMedia("(prefers-reduced-motion: reduce)").matches;
+// sideways page (desktop, landscape): scrollY drives HS.cur (eased); the first heroLen px play the hero, the rest slide the track
+const HS={on:matchMedia("(min-width:1024px) and (min-aspect-ratio:1/1)").matches,cur:scrollY,heroLen:0,max:0};
+document.documentElement.classList.toggle("hs",HS.on);
+matchMedia("(min-width:1024px) and (min-aspect-ratio:1/1)").onchange=()=>location.reload(); // ponytail: switching layouts mid-visit is rare, a reload is simplest
+const heroP=()=>Math.max(0,Math.min(1,HS.on?HS.cur/HS.heroLen:scrollY/(hero.offsetHeight-innerHeight)));
+const onScroll=()=>nav.classList.toggle("on",HS.on?HS.cur>HS.heroLen*.78:scrollY>hero.offsetHeight-70);addEventListener("scroll",onScroll,{passive:true});addEventListener("hs",onScroll);onScroll();
+if(HS.on){
+  const size=()=>{HS.heroLen=reduceMo?0:innerHeight*2.2;HS.max=Math.max(0,track.scrollWidth-innerWidth);document.body.style.height=(HS.heroLen+HS.max+innerHeight)+"px"};
+  let running=false;
+  const loop=()=>{const target=scrollY;HS.cur+=(target-HS.cur)*(reduceMo?1:.11);if(Math.abs(target-HS.cur)<.4)HS.cur=target;
+    track.style.transform=`translate3d(${-Math.min(HS.max,Math.max(0,HS.cur-HS.heroLen))}px,0,0)`;
+    dispatchEvent(new Event("hs"));running=HS.cur!==target;if(running)requestAnimationFrame(loop)};
+  const kick=()=>{if(!running){running=true;requestAnimationFrame(loop)}};
+  addEventListener("scroll",kick,{passive:true});
+  const resize=()=>{size();kick()};addEventListener("resize",resize);addEventListener("load",resize);document.fonts.ready.then(resize);size();
+  // in-page links and keyboard focus: jump to the panel that holds the target
+  HS.go=el=>{const panel=[...track.children].find(c=>c.contains(el));if(panel)scrollTo(0,panel===hero?0:HS.heroLen+panel.offsetLeft)};
+  document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]'),t=a&&a.hash&&document.getElementById(a.hash.slice(1));if(t&&track.contains(t)){e.preventDefault();HS.go(t)}},true);
+  document.addEventListener("focusin",e=>{if(!track.contains(e.target))return;const r=e.target.getBoundingClientRect();if(r.left<0||r.right>innerWidth)HS.go(e.target)});
+}
+if(!reduceMo){
+  const cl=v=>Math.max(0,Math.min(1,v)),ss=t=>t*t*(3-2*t),set=(k,v)=>hero.style.setProperty(k,v);
+  // zoom origin: inside the stem of the 2nd letter ("k" in Akash). ponytail: tuned for this name; the mask fades out at the end anyway, so a miss only looks less crisp
+  const aim=()=>{const L=word.children[1]||word.children[0];if(!L)return;const w=word.getBoundingClientRect(),r=L.getBoundingClientRect();
+    set("--ox",(r.left-w.left+r.width*.2)+"px");set("--oy",(r.top-w.top+r.height*.55)+"px")};
+  let t=0,px=.5,py=.5;
+  const tick=()=>{t=0;const p=heroP(),e=ss(cl((p-.1)/.55)),k=1-e;
+    set("--z",Math.pow(110,e).toFixed(3));set("--mo",(1-cl((p-.58)/.1)).toFixed(3));set("--r",cl((p-.7)/.15).toFixed(3));set("--b",(1-cl(p/.08)).toFixed(3));
+    set("--rx",((.5-py)*8*k).toFixed(2)+"deg");set("--ry",((px-.5)*10*k).toFixed(2)+"deg");
+    set("--mx",((.5-px)*40)+"px");set("--my",((.5-py)*40)+"px");
+    $("bottom").inert=p>.1;reelOn=p<.68};
+  if(matchMedia("(hover:hover) and (pointer:fine)").matches)hero.addEventListener("pointermove",e=>{px=e.clientX/innerWidth;py=e.clientY/innerHeight;t=t||requestAnimationFrame(tick)});
+  addEventListener("scroll",()=>{t=t||requestAnimationFrame(tick)},{passive:true});addEventListener("hs",tick);addEventListener("resize",()=>{set("--z",1);aim();tick()});
+  document.fonts.ready.then(()=>{set("--z",1);aim();tick()});aim();tick();
 }
 </script>
 <script src="work.js"></script>
