@@ -115,7 +115,8 @@
   .hero-top { position: relative; z-index: 3; display: flex; justify-content: space-between; padding: clamp(1.1rem, 3vh, 2rem) var(--gut); grid-row: 1; }
   .hero-mid { position: relative; z-index: 3; grid-row: 3; padding: 0 var(--gut) clamp(1rem, 3vh, 2.2rem); display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; }
   .hero-mid .line { display: flex; gap: 1rem; max-width: min(30rem, 52vw); min-width: 0; font-size: clamp(1.2rem, 1.7vw, 1.7rem); line-height: 1.35; font-weight: 500; }
-  .hero-mid .star { color: var(--ink); }   /* cream, not blue: blue vanished on the blue glass */
+  /* small cream square: same shape as the square after AKASH; cream because blue vanished on the glass */
+  .hero-mid .mark { flex: none; width: 0.5em; height: 0.5em; margin-top: 0.42em; background: var(--ink); }
   .star { color: var(--blue-hot); flex: none; font-size: 1.5rem; line-height: 1; translate: 0 -0.15em; }
   .hero-name { position: relative; z-index: 3; grid-row: 4; padding: 0 var(--gut); }
   .hero-name h1 { font-size: clamp(4.4rem, min(25vw, 42svh), 29rem); }   /* capped by height too, so short wide windows don't blow it up */
@@ -248,7 +249,7 @@
     <div class="hero-top lbl"><span>Akash S G</span><span>Portfolio 2026</span></div>
     <div class="hero-mid">
       <span class="lbl" data-split>Hi there</span>
-      <p class="line" data-fade><span class="star" aria-hidden="true">✺</span><span>Websites, systems and content that help businesses grow.</span></p>
+      <p class="line" data-fade><span class="mark" aria-hidden="true"></span><span>Websites, systems and content that help businesses grow.</span></p>
     </div>
     <div class="hero-name">
       <div class="rule"></div>
