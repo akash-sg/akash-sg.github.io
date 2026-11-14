@@ -3,405 +3,298 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Akash S G | Digital systems and marketing content for businesses</title>
-<meta name="description" content="I build digital systems for businesses, and the content that sells them. Type your business name and watch it get built.">
-<meta property="og:title" content="Akash S G | Digital systems and marketing content for businesses">
-<meta property="og:description" content="Type your business name and watch it get a logo, a website, bookings and a WhatsApp bot as you scroll.">
+<title>AKASH — Portfolio 2026</title>
+<meta name="description" content="Akash S G builds the systems businesses run on, and the content that makes them famous. Portfolio 2026.">
+<meta property="og:title" content="AKASH — Portfolio 2026">
+<meta property="og:description" content="I build the systems businesses run on. And the content that makes them famous.">
 <meta property="og:image" content="https://akash-sg.github.io/img/picklo.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231B3BFF'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23FFD43B'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080809'/%3E%3Ctext x='16' y='23' font-family='Arial Black' font-size='19' font-weight='900' fill='%232E55FF' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,500..900&family=Instrument+Serif:ital@1&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="scrollcraft.css">
 <style>
-  /* Edit text in this file to update the site. scrollcraft.js / .css are the scroll engine: leave them alone. */
+  /* Edit the words in this file to update the site. scrollcraft.js/.css are the engine: leave them. */
   :root {
-    --blue: #1B3BFF; --night: #0B1020; --paper: #F3F5FA; --sun: #FFD43B;
-    --sc-canvas: var(--blue); --sc-surface: #2F4DFF;
-    --sc-ink: #ffffff; --sc-ink-soft: #CBD4FF;
-    --sc-accent: var(--sun); --sc-accent-ink: var(--night);
-    --sc-font-display: "Syne", system-ui, sans-serif;
+    --ink: #EDEDEA; --soft: #8E8E96; --line: #ffffff1c;
+    --blue: #2E55FF; --blue-hot: #3D66FF; --blue-deep: #0A1340;
+    --bg: #080809; --bg2: #0D0D10;
+    --sc-canvas: var(--bg); --sc-surface: #141418;
+    --sc-ink: var(--ink); --sc-ink-soft: var(--soft);
+    --sc-accent: var(--blue); --sc-accent-ink: #fff;
+    --sc-font-display: "Archivo", system-ui, sans-serif;
     --sc-font-text: "Instrument Sans", system-ui, sans-serif;
-    /* brand of the visitor's business, set from the name they type */
-    --brand: hsl(152 62% 34%); --brand-tint: hsl(152 70% 93%); --brand-deep: hsl(152 55% 14%);
+    --gut: clamp(1.1rem, 4vw, 3.5rem);
   }
-  .sc-display { font-weight: 800; }
-  .on-paper { --sc-canvas: var(--paper); --sc-ink: var(--night); --sc-ink-soft: #55607A; background: var(--paper); color: var(--night); }
-  .on-night { --sc-canvas: var(--night); --sc-ink: #F3F5FA; --sc-ink-soft: #9CA6C4; background: var(--night); color: #F3F5FA; }
-  .on-blue  { background: var(--blue); color: #fff; }
+  html { background: var(--bg); }
+  body { background: var(--bg); color: var(--ink); overflow-x: clip; }
   a { color: inherit; }
-  img { height: auto; }
+  .disp { font-family: var(--sc-font-display); font-variation-settings: "wdth" 125; font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; line-height: 0.92; margin: 0; }
+  /* the slanted-O trick, like the reference: every O in display text turns italic serif */
+  .oo { font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; text-transform: none; letter-spacing: 0; }
+  .label { font-family: var(--sc-font-display); font-variation-settings: "wdth" 125; font-weight: 600; font-size: clamp(0.72rem, 1.1vw, 0.85rem); text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink); }
+  .label.dim { color: var(--soft); }
 
-  .cta {
-    display: inline-block; padding: 0.95em 1.5em; border-radius: 999px; border: 0; cursor: pointer;
-    background: var(--sun); color: var(--night); font-weight: 700; text-decoration: none; font-size: 1.05rem;
-    box-shadow: 0 6px 0 #0b102033;
-  }
-  .cta:hover { background: #fff; }
+  /* chrome */
+  .chrome { position: fixed; z-index: 60; inset: 0 0 auto 0; display: flex; justify-content: space-between; align-items: center; padding: 1.1rem var(--gut); pointer-events: none; mix-blend-mode: difference; }
+  .chrome a { pointer-events: auto; text-decoration: none; }
+  .counter { position: fixed; z-index: 60; top: 1.1rem; left: 50%; translate: -50% 0; mix-blend-mode: difference; }
+  @media (max-width: 600px) { .counter { display: none; } }
+  .menu-btn { position: fixed; z-index: 80; right: var(--gut); bottom: 1.4rem; display: flex; gap: 0.6rem; align-items: center; padding: 0.95em 1.4em; border-radius: 14px; border: 1px solid var(--line); background: #101014E6; color: var(--ink); cursor: pointer; backdrop-filter: blur(10px); }
+  .menu-btn i { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); }
+  .mark3d { position: fixed; z-index: 80; left: var(--gut); bottom: 1.4rem; width: 54px; height: 54px; border-radius: 12px; border: 1px solid var(--line); background: #101014E6; display: grid; place-items: center; font-family: var(--sc-font-display); font-weight: 900; color: var(--blue); font-size: 1.5rem; backdrop-filter: blur(10px); text-decoration: none; }
+  .menu { position: fixed; z-index: 90; inset: 0; background: #060607F2; backdrop-filter: blur(14px); display: grid; align-content: center; gap: 0.4rem; padding: 0 var(--gut); opacity: 0; pointer-events: none; transition: opacity .3s; }
+  .menu.open { opacity: 1; pointer-events: auto; }
+  .menu a { font-family: var(--sc-font-display); font-variation-settings: "wdth" 125; font-weight: 800; text-transform: uppercase; font-size: clamp(2.2rem, 7vw, 4.6rem); line-height: 1.08; text-decoration: none; color: var(--ink); }
+  .menu a:hover { color: var(--blue-hot); }
+  .menu .small { margin-top: 2rem; display: flex; gap: 1.6rem; }
+  .menu .small a { font: 600 1rem var(--sc-font-text); text-transform: none; color: var(--soft); }
+  .menu-close { position: absolute; top: 1.2rem; right: var(--gut); background: none; border: 1px solid var(--line); color: var(--ink); border-radius: 999px; padding: 0.7em 1.3em; cursor: pointer; font: 600 0.95rem var(--sc-font-text); }
 
-  /* ---------- hero ---------- */
-  .bar { position: absolute; z-index: 30; inset: 0 0 auto 0; display: flex; justify-content: space-between; align-items: center; padding: 18px var(--sc-gutter); font-weight: 700; }
-  .bar a { text-decoration: none; }
-  .bar .wa { padding: 0.5em 1em; border-radius: 999px; box-shadow: inset 0 0 0 1.5px #ffffff88; font-size: 0.95rem; }
-  .bar .wa:hover { background: #fff; color: var(--blue); }
-  .hero-copy { top: clamp(5.5rem, 15vh, 9rem); bottom: auto; max-width: min(56rem, 60vw); }
-  .hero-copy h1 { font-size: clamp(2.05rem, 4.5vw, 4.3rem); line-height: 1.02; }
-  .hero-copy h1 em { font-style: normal; color: var(--sun); }
-  .namebox { margin-top: clamp(1.4rem, 3.5vh, 2.6rem); max-width: 34rem; }
-  .namebox label { display: block; font-weight: 600; font-size: 1.1rem; margin-bottom: 0.6rem; }
-  .namebox .row { display: flex; gap: 10px; flex-wrap: wrap; }
-  .namebox input {
-    flex: 1 1 14rem; min-width: 0; padding: 0.95em 1.2em; border-radius: 999px; border: 0; outline: 0;
-    background: #fff; color: var(--night); font-size: 1.05rem; font-weight: 600; box-shadow: 0 6px 0 #0b102033;
-  }
-  .namebox input:focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; }
-  .namebox p { margin: 0.8rem 0 0; color: var(--sc-ink-soft); font-size: 0.98rem; }
+  /* hero */
+  .hero { position: relative; min-height: 100svh; display: grid; overflow: clip; background: radial-gradient(90% 70% at 50% 88%, #11204E 0%, #0B1333 34%, var(--bg) 72%); }
+  .portrait { position: absolute; inset: 0; overflow: hidden; }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 36%; }
+  /* light photo, so the hero text goes dark */
+  .hero-line { color: #141416; }
+  .wordmark b { color: #0A0A0B; }
+  .hero .rule { background: #00000024; }
+  .hero-line { position: absolute; z-index: 5; right: var(--gut); top: 30%; max-width: 20rem; display: flex; gap: 0.8rem; font-size: 1.02rem; line-height: 1.45; }
+  @media (max-width: 700px) { .hero-line { top: 16%; right: var(--gut); left: auto; max-width: 15rem; } }
+  .hero-line .star { color: var(--blue-hot); flex: none; font-size: 1.4rem; line-height: 1; }
+  .wordmark { position: absolute; z-index: 5; left: 0; right: 0; bottom: -0.12em; display: flex; justify-content: center; pointer-events: none; }
+  .wordmark b { font-family: var(--sc-font-display); font-variation-settings: "wdth" 125; font-weight: 900; text-transform: uppercase; font-size: clamp(4rem, 19vw, 18rem); line-height: 0.8; letter-spacing: -0.01em; white-space: nowrap; }
+  .wordmark .sg { color: var(--blue-hot); }
+  .hero .rule { position: absolute; z-index: 5; left: var(--gut); right: var(--gut); bottom: clamp(4.2rem, 16.2vw, 15.4rem); height: 1px; background: var(--line); }
 
-  /* floating pieces of a business: the depth planes */
-  .orbit { position: absolute; z-index: 5; inset: 0 0 0 62%; pointer-events: none; }
-  .chip {
-    position: absolute; background: #fff; color: var(--night); border-radius: 18px; padding: 12px 16px;
-    font-size: 0.92rem; font-weight: 600; line-height: 1.3; box-shadow: 0 18px 40px -12px #05083399, 0 2px 0 #0b10201a;
-    max-width: 15rem;
-  }
-  .chip > div { translate: calc(var(--px, 0) * var(--d, 10) * 1px) calc(var(--py, 0) * var(--d, 10) * 1px); }
-  .chip small { display: block; font-weight: 500; color: #55607A; font-size: 0.8rem; }
-  .chip b { color: var(--brand); }
-  .c-logo { left: 6%; top: 15%; rotate: -7deg; padding: 14px; --d: 26; }
-  .c-logo .mark { width: 64px; height: 64px; font-size: 30px; }
-  .c-wa   { right: 8%;  top: 31%; rotate: 5deg;  background: #DCF8C6; --d: 16; }
-  .c-slot { left: 2%; top: 50%; rotate: 3deg;  --d: 34; }
-  .c-rev  { right: 6%;  top: 66%; rotate: -5deg; --d: 22; }
-  .c-post { left: 22%; top: 82%; rotate: -3deg; background: var(--brand); color: #fff; font-family: var(--sc-font-display); font-size: 1.15rem; --d: 12; }
-  .stars { color: #F5A400; letter-spacing: 2px; }
-  .mark { display: grid; place-items: center; border-radius: 28%; background: var(--brand); color: #fff; font-family: var(--sc-font-display); font-weight: 800; }
-  @media (max-width: 900px) {
-    .hero-copy { top: 4.6rem; max-width: none; }
-    .orbit { inset: 0; }
-    .chip { font-size: 0.78rem; padding: 9px 12px; border-radius: 14px; max-width: 9.6rem; }
-    .c-logo { right: auto; left: 6%; top: auto; bottom: 27%; padding: 10px; } .c-logo .mark { width: 44px; height: 44px; font-size: 20px; }
-    .c-wa { right: 5%; top: auto; bottom: 30%; }
-    .c-slot { left: 5%; top: auto; bottom: 11%; }
-    .c-rev { right: 4%; top: auto; bottom: 14%; }
-    .c-post { display: none; }
-  }
-  @media (max-height: 640px) and (max-width: 900px) { .orbit { display: none; } }
+  /* sections */
+  section { position: relative; }
+  .wrap2 { max-width: 90rem; margin-inline: auto; padding: clamp(4.5rem, 9vw, 9rem) var(--gut); }
+  .sec-label { margin-bottom: clamp(1.6rem, 4vw, 3rem); }
 
-  /* ---------- build: the phone ---------- */
-  .build-stage { display: grid; grid-template-columns: 1fr; grid-template-rows: auto 1fr; padding: 4.2rem var(--sc-gutter) 1.2rem; gap: 1rem; }
-  .segs { position: absolute; top: 1.4rem; left: var(--sc-gutter); right: var(--sc-gutter); display: flex; gap: 6px; }
-  .segs i { flex: 1; height: 4px; border-radius: 4px; background: #0b10201f; }
-  .segs i.on { background: var(--blue); }
-  .says { display: grid; }
-  .say { grid-area: 1 / 1; opacity: 0; transform: translateY(10px); transition: opacity .12s, transform .12s; pointer-events: none; }
-  .say.on { opacity: 1; transform: none; pointer-events: auto; transition: opacity .35s .12s, transform .35s .12s; }
-  .say h2 { font-family: var(--sc-font-display); font-weight: 800; font-size: clamp(1.9rem, 5.2vw, 4.4rem); line-height: 1; letter-spacing: -0.03em; margin: 0; }
-  .say p { margin: 0.5rem 0 0; font-size: clamp(1rem, 1.6vw, 1.3rem); color: var(--sc-ink-soft); max-width: 30ch; }
-  .say .real { font-size: 0.92rem; font-weight: 600; color: var(--blue); margin-top: 0.4rem; }
-  .steps-nav { display: none; }
-  .phone-wrap { display: grid; place-items: center; min-height: 0; }
-  .phone {
-    --ph: min(58svh, 560px); height: var(--ph); aspect-ratio: 9 / 18.5; font-size: calc(var(--ph) / 44);
-    background: var(--night); border-radius: 3.2em; padding: 0.7em; position: relative;
-    box-shadow: 0 2.4em 5em -1.6em #0b102066, 0 0 0 1px #0b1020;
-  }
-  .phone::before { content: ""; position: absolute; z-index: 5; top: 1.25em; left: 50%; translate: -50% 0; width: 5.6em; height: 1.5em; border-radius: 1em; background: var(--night); }
-  .screens { position: relative; height: 100%; border-radius: 2.6em; overflow: hidden; background: #fff; color: var(--night); }
-  .screen { position: absolute; inset: 0; padding: 3.6em 1.2em 1.2em; opacity: 0; transform: translateY(1.2em) scale(.98); transition: opacity .12s, transform .12s; display: flex; flex-direction: column; gap: 0.8em; line-height: 1.3; }
-  .screen.on { opacity: 1; transform: none; transition: opacity .35s .12s, transform .35s .12s; }
-  .screen [data-at]:not(.pick) { opacity: 0; transform: translateY(0.7em); transition: opacity .35s, transform .35s; }
-  .screen [data-at].on { opacity: 1; transform: none; }
-  .demo-tag { position: absolute; bottom: -2.2em; left: 0; right: 0; text-align: center; font-size: max(0.78rem, 0.9em); color: var(--sc-ink-soft); }
-  .nm { overflow-wrap: anywhere; }
-
-  /* 1 brand */
-  .s-brand { align-items: center; justify-content: center; text-align: center; background: var(--brand-tint); }
-  .s-brand .mark { width: 7em; height: 7em; font-size: 1.6em; }
-  .s-brand .mark span { font-size: 2.6em; }
-  .s-brand .nm { font-family: var(--sc-font-display); font-weight: 800; font-size: 2em; line-height: 1.05; }
-  .swatches { display: flex; gap: 0.6em; }
-  .swatches i { width: 2.6em; height: 2.6em; border-radius: 50%; }
-  /* 2 website */
-  .s-web { padding: 3.4em 0 0; gap: 0; }
-  .s-web .top { display: flex; align-items: center; gap: 0.6em; padding: 0 1.2em 0.8em; font-weight: 700; font-size: 1.1em; }
-  .s-web .top .mark { width: 2em; height: 2em; font-size: 1em; }
-  .s-web .top .burger { margin-left: auto; width: 1.4em; height: 0.9em; border-block: 0.18em solid var(--night); }
-  .s-web .hero { background: var(--brand); color: #fff; padding: 1.6em 1.2em; }
-  .s-web .hero h3 { font-family: var(--sc-font-display); font-size: 2em; line-height: 1.05; margin: 0 0 0.5em; }
-  .pill { display: inline-block; background: #fff; color: var(--night); border-radius: 99em; padding: 0.5em 1em; font-weight: 700; font-size: 1em; }
-  .s-web .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7em; padding: 1em 1.2em; }
-  .s-web .cards div { background: var(--brand-tint); border-radius: 1em; padding: 0.9em; font-weight: 600; font-size: 0.95em; min-height: 5.5em; }
-  .s-web .cards small { display: block; font-weight: 500; color: #55607A; }
-  /* 3 booking */
-  .s-book h3, .s-lock h3 { margin: 0; font-size: 1.5em; font-family: var(--sc-font-display); }
-  .days { display: flex; gap: 0.5em; }
-  .days span { flex: 1; text-align: center; padding: 0.5em 0; border-radius: 0.8em; background: #EEF1F8; font-weight: 600; font-size: 0.95em; }
-  .days span:first-child { background: var(--night); color: #fff; }
-  .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5em; }
-  .slots span { text-align: center; padding: 0.85em 0; border-radius: 0.8em; box-shadow: inset 0 0 0 1.5px #D6DBE8; font-weight: 600; font-size: 0.95em; transition: background .25s, color .25s; }
-  .slots span.x { background: #EEF1F8; color: #A3ABC0; box-shadow: none; text-decoration: line-through; }
-  .slots span.pick.on { background: var(--brand); color: #fff; box-shadow: none; }
-  .pay { margin-top: auto; display: flex; align-items: center; justify-content: space-between; background: var(--night); color: #fff; border-radius: 1.2em; padding: 0.9em 1em; font-weight: 600; }
-  .pay b { background: var(--sun); color: var(--night); border-radius: 99em; padding: 0.45em 1em; }
-  .pay b.pick::after { content: "Pay"; } .pay b.pick.on::after { content: "Paid ✓"; } .pay b.pick.on { background: #4ADE80; }
-  /* 4 whatsapp */
-  .s-wa { background: #ECE5DD; padding: 0; gap: 0; }
-  .s-wa .head { background: #075E54; color: #fff; padding: 3.4em 1.2em 0.8em; display: flex; gap: 0.7em; align-items: center; font-weight: 700; }
-  .s-wa .head .mark { width: 2.4em; height: 2.4em; font-size: 0.9em; flex: none; }
-  .s-wa .head small { display: block; font-weight: 500; opacity: .8; }
-  .chat { padding: 1em; display: flex; flex-direction: column; gap: 0.55em; }
-  .chat p { margin: 0; padding: 0.55em 0.8em; border-radius: 0.9em; max-width: 84%; background: #fff; box-shadow: 0 1px 0 #0001; }
-  .chat p.me { align-self: flex-end; background: #DCF8C6; }
-  .chat p u { display: block; text-decoration: none; text-align: center; color: #0A7CFF; font-weight: 600; border-top: 1px solid #E6E6E6; padding-top: 0.4em; margin-top: 0.4em; }
-  /* 5 content */
-  .s-reel { background: var(--brand); color: #fff; justify-content: flex-end; padding-bottom: 2em; }
-  .s-reel .big { font-family: var(--sc-font-display); font-weight: 800; font-size: 3.4em; line-height: 0.95; }
-  .s-reel .nm2 { font-family: var(--sc-font-display); font-size: 1.7em; background: #fff; color: var(--brand-deep); align-self: flex-start; padding: 0.2em 0.5em; rotate: -2deg; }
-  .s-reel .play { position: absolute; top: 38%; left: 50%; translate: -50% -50%; width: 5em; height: 5em; border-radius: 50%; background: #ffffff33; display: grid; place-items: center; }
-  .s-reel .play::after { content: ""; border-left: 1.6em solid #fff; border-block: 1em solid transparent; margin-left: 0.4em; }
-  .s-reel .side { position: absolute; right: 1em; bottom: 7em; display: grid; gap: 1em; text-align: center; font-size: 0.9em; font-weight: 600; }
-  .s-reel .side i { display: block; width: 2.6em; height: 2.6em; border-radius: 50%; background: #ffffff33; margin: 0 auto 0.2em; }
-  /* 6 lock screen */
-  .s-lock { background: var(--brand-deep); color: #fff; }
-  .s-lock .clock { font-family: var(--sc-font-display); font-weight: 700; font-size: 4.6em; text-align: center; line-height: 1; margin-top: 0.2em; }
-  .s-lock .date { text-align: center; opacity: .8; margin-top: -0.4em; }
-  .note { background: #ffffff22; backdrop-filter: blur(8px); border-radius: 1.1em; padding: 0.75em 0.9em; }
-  .note b { display: block; }
-  .note small { opacity: .85; font-size: 0.92em; }
-
+  /* about */
+  .about-grid { display: grid; gap: 2.5rem; }
+  .figure-card { position: relative; border-radius: 10px; overflow: hidden; background: radial-gradient(120% 100% at 50% 100%, #1B2E6E 0%, #0D1536 45%, #07080E 100%); min-height: 21rem; }
+  .figure-card canvas, .figure-card .fallbackA { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .fallbackA { display: grid; place-items: center; font-family: var(--sc-font-display); font-weight: 900; font-size: 9rem; color: var(--blue-hot); }
+  .rows .row2 { display: flex; justify-content: space-between; gap: 2rem; align-items: baseline; padding: 1.05rem 0; border-bottom: 1px solid var(--line); }
+  .rows .row2:first-child { border-top: 1px solid var(--line); }
+  .rows dt { margin: 0; }
+  .rows dd { margin: 0; text-align: right; }
+  .view-work { display: inline-block; margin-top: 2rem; background: var(--blue); color: #fff; font: 700 1rem var(--sc-font-text); padding: 1em 1.6em; border-radius: 10px; text-decoration: none; }
+  .view-work:hover { background: var(--blue-hot); }
   @media (min-width: 900px) {
-    .build-stage { grid-template-columns: 1.1fr 0.9fr; grid-template-rows: 1fr; align-items: center; padding: 0 var(--sc-gutter); gap: 4vw; }
-    .segs { display: none; }
-    .phone { --ph: min(80svh, 680px); }
-    .steps-nav { display: flex; gap: 1.4rem; margin: 2.5rem 0 0; padding: 0; list-style: none; font-weight: 600; color: #667089; }
-    .steps-nav li.on { color: var(--night); box-shadow: 0 2px 0 var(--blue); }
+    .about-grid { grid-template-columns: 1fr 1.05fr; align-items: stretch; gap: 4rem; }
+    .figure-card { min-height: 30rem; }
   }
 
-  /* ---------- proof rail ---------- */
-  .rail { align-items: center; height: 100%; gap: clamp(1.2rem, 3vw, 3rem); padding-inline: var(--sc-gutter); }
-  .rail > * { flex: none; }
-  .rail-lead { width: min(34rem, 82vw); }
-  .rail-lead h2 { font-size: clamp(2.2rem, 5.6vw, 5rem); }
-  .rail-lead p { margin-top: 1rem; }
-  .work { width: clamp(17rem, 36vw, 30rem); text-decoration: none; display: block; }
-  .work .pic { border-radius: 16px; overflow: hidden; background: #1A2140; box-shadow: 0 30px 60px -30px #000; }
-  .work img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
-  .work h3 { font-family: var(--sc-font-display); font-size: clamp(1.3rem, 2.2vw, 1.9rem); margin: 1.1rem 0 0.2rem; line-height: 1.1; }
-  .work p { margin: 0; color: var(--sc-ink-soft); font-size: 0.98rem; }
-  .work .live { margin-top: 0.6rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.88rem; font-weight: 600; color: #7CF0B0; min-height: 1.4em; }
-  .work .live::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 4px #7cf0b02e; }
-  .work.unknown .live { color: #9CA6C4; }
-  .rail-end { width: min(26rem, 80vw); font-family: var(--sc-font-display); font-size: clamp(1.6rem, 3vw, 2.6rem); line-height: 1.05; font-weight: 800; }
+  /* because */
+  .because { display: grid; gap: 2rem; }
+  .because p { margin: 0; color: var(--soft); max-width: 36ch; line-height: 1.7; }
+  .because p b { color: var(--ink); font-weight: 600; }
+  @media (min-width: 900px) { .because { grid-template-columns: 1fr 1fr 1fr; } .because .lbl { grid-column: 1; } .because p:nth-of-type(1) { grid-column: 2; } .because p:nth-of-type(2) { grid-column: 3; } }
 
-  /* ---------- content ---------- */
-  .content h2 { font-size: clamp(2.2rem, 6vw, 5.4rem); max-width: 14ch; }
-  .reels { margin-top: clamp(2rem, 5vw, 4rem); display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.6rem, 2vw, 1.6rem); max-width: 56rem; }
-  .reels figure { margin: 0; }
-  .reels video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: clamp(12px, 2vw, 26px); background: var(--night); box-shadow: 0 30px 50px -30px #0b102088; }
-  .reels figure:nth-child(2) { translate: 0 8%; }
-  .reels figcaption { margin-top: 0.7rem; font-weight: 600; font-size: clamp(0.8rem, 1.4vw, 1rem); }
-  .reels figcaption small { display: block; font-weight: 500; color: var(--sc-ink-soft); }
-  .logos { margin-top: clamp(4rem, 9vw, 7rem); display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(0.5rem, 1.4vw, 1rem); max-width: 56rem; }
-  .logos img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 14px; background: #fff; }
-  .also { margin-top: 2rem; max-width: 46rem; font-size: clamp(1.05rem, 1.8vw, 1.35rem); }
+  /* work */
+  .work-word { padding: clamp(3rem, 7vw, 6rem) 0 0; overflow: clip; }
+  .work-word b { display: block; text-align: center; font-family: var(--sc-font-display); font-variation-settings: "wdth" 125; font-weight: 900; text-transform: uppercase; font-size: clamp(5.5rem, 22vw, 21rem); line-height: 0.86; }
+  .case { padding: clamp(3.5rem, 8vw, 7rem) var(--gut); max-width: 90rem; margin-inline: auto; }
+  .case .head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 1.4rem; flex-wrap: wrap; }
+  .case h3 { font-size: clamp(1.9rem, 4.6vw, 3.8rem); }
+  .case .pic { display: block; border-radius: 10px; overflow: hidden; background: var(--bg2); border: 1px solid var(--line); }
+  .case .pic img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: top; display: block; transition: scale .6s var(--sc-ease-out); }
+  .case a.pic:hover img { scale: 1.025; }
+  .case .under { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+  .case .under p { margin: 0; color: var(--soft); max-width: 52ch; }
+  .case .under .label { white-space: nowrap; }
+  .case .label.blue { color: var(--blue-hot); }
 
-  /* ---------- close ---------- */
-  .close { display: grid; align-content: center; padding: 0 var(--sc-gutter); }
-  .close h2 { font-size: clamp(2.4rem, 7.4vw, 6.6rem); max-width: 16ch; }
-  .close h2 .nm { color: var(--sun); }
-  .close .acts { margin-top: clamp(1.6rem, 4vh, 3rem); display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
-  .close .alt { font-weight: 600; text-underline-offset: 0.25em; }
-  .foot { position: absolute; left: var(--sc-gutter); right: var(--sc-gutter); bottom: 1.4rem; font-size: 0.9rem; color: var(--sc-ink-soft); }
+  /* lab */
+  .lab-grid { display: grid; gap: 1.6rem 1.4rem; grid-template-columns: 1fr; }
+  .lab-grid a { text-decoration: none; display: block; }
+  .lab-grid .pic { border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--bg2); }
+  .lab-grid img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; display: block; }
+  .lab-grid .tile { width: 100%; aspect-ratio: 16 / 10; display: grid; place-items: center; background: radial-gradient(100% 100% at 50% 100%, #14255E, #0B1026); color: var(--blue-hot); font-family: var(--sc-font-display); font-weight: 900; font-size: 3rem; }
+  .lab-grid h4 { margin: 0.9rem 0 0.15rem; font-size: 1.05rem; font-weight: 600; font-family: var(--sc-font-text); }
+  .lab-grid p { margin: 0; color: var(--soft); font-size: 0.92rem; }
+  @media (min-width: 640px) { .lab-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1024px) { .lab-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  /* content strip */
+  .strip { background: var(--bg2); }
+  .reels2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.6rem, 1.6vw, 1.4rem); max-width: 54rem; }
+  .reels2 video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 10px; background: #000; display: block; border: 1px solid var(--line); }
+  .reels2 figure { margin: 0; }
+  .reels2 figcaption { margin-top: 0.6rem; color: var(--soft); font-size: 0.88rem; }
+  .logo-wall { margin-top: clamp(2.4rem, 5vw, 4rem); display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; max-width: 54rem; }
+  .logo-wall img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; background: #fff; display: block; }
+  @media (min-width: 640px) { .logo-wall { grid-template-columns: repeat(6, 1fr); } }
+  .strip .foot-line { margin-top: 2rem; color: var(--soft); max-width: 60ch; }
+
+  /* contact */
+  .contact2 { position: relative; overflow: clip; background: radial-gradient(110% 90% at 50% 100%, #1B2E6E 0%, #0C1434 45%, var(--bg) 80%); }
+  .contact2 .wrap2 { display: grid; gap: 3rem; padding-bottom: clamp(7rem, 24vw, 18rem); }
+  .contact2 dl { margin: 0; }
+  .contact2 .row2 { display: flex; justify-content: space-between; gap: 2rem; align-items: baseline; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+  .contact2 dd { margin: 0; text-align: right; }
+  .contact2 dd a { text-decoration: none; }
+  .contact2 dd a:hover { color: var(--blue-hot); }
+  .marquee { position: absolute; left: 0; right: 0; bottom: -0.14em; overflow: clip; pointer-events: none; }
+  .marquee b { display: inline-block; font-family: var(--sc-font-display); font-variation-settings: "wdth" 125; font-weight: 900; text-transform: uppercase; font-size: clamp(5rem, 19vw, 18rem); line-height: 0.8; white-space: nowrap; animation: slide 26s linear infinite; }
+  .marquee .sg { color: var(--blue-hot); }
+  @keyframes slide { to { translate: -50% 0; } }
+  @media (prefers-reduced-motion: reduce) { .marquee b { animation: none; } }
 </style>
 </head>
 <body>
 
+<div class="sc-grain" aria-hidden="true"></div>
+
+<header class="chrome">
+  <a class="label" href="#top">Akash S G</a>
+  <a class="label" href="#contact">Portfolio 2026</a>
+</header>
+<span class="label dim counter" id="counter" aria-hidden="true">01/07</span>
+<a class="mark3d" href="#top" aria-label="Top">A</a>
+<button class="menu-btn" id="menuBtn" aria-haspopup="true" aria-expanded="false"><i></i><span class="label">Menu</span></button>
+<nav class="menu" id="menu" aria-label="Menu">
+  <button class="menu-close" id="menuClose">Close</button>
+  <a href="#about">About</a>
+  <a href="#work">Work</a>
+  <a href="#content">Content</a>
+  <a href="#contact">Contact</a>
+  <div class="small">
+    <a href="https://wa.me/918762290104">WhatsApp</a>
+    <a href="mailto:akash.s.gangolli@gmail.com">Mail</a>
+    <a href="https://instagram.com/akash_sg" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</nav>
+
 <main id="top">
 
-  <!-- 1. HERO: the claim, and the one field the whole page hangs on -->
-  <section class="on-blue" data-sc-act="pin" data-sc-span="1.5">
-    <div data-sc-stage>
-      <header class="bar">
-        <a href="#top">Akash S G</a>
-        <a class="wa" data-wa href="https://wa.me/918762290104">Message me</a>
-      </header>
-
-      <div class="orbit" aria-hidden="true">
-        <div class="chip c-logo" data-sc-parallax="-1.2"><div><div class="mark"><span data-initial>Y</span></div></div></div>
-        <div class="chip c-wa" data-sc-parallax="-0.7"><div>Hi, I want to book<small><span data-name>Your Business</span> replies in 2 seconds</small></div></div>
-        <div class="chip c-slot" data-sc-parallax="-1.6"><div>Today, 6 PM <b>Booked ✓</b><small>Paid online</small></div></div>
-        <div class="chip c-rev" data-sc-parallax="-1"><div><span class="stars">★★★★★</span><small>New review for <span data-name>Your Business</span></small></div></div>
-        <div class="chip c-post" data-sc-parallax="-0.5"><div>Now open</div></div>
-      </div>
-
-      <div class="sc-copy hero-copy" data-sc-cue="0 0.82 0">
-        <h1 class="sc-display">I build digital systems for businesses. <em>And the content that sells them.</em></h1>
-        <form class="namebox" id="nameform">
-          <label for="biz">What is your business called?</label>
-          <div class="row">
-            <input id="biz" type="text" maxlength="24" autocomplete="organization" placeholder="Type its name here">
-            <button class="cta" type="submit">Build it</button>
-          </div>
-          <p>Then keep scrolling. I'll build it in front of you.</p>
-        </form>
-      </div>
-    </div>
+  <!-- 01 hero -->
+  <section class="hero" data-sec="01">
+    <div class="portrait" aria-hidden="true"><img src="img/akash-gallery.jpg" alt="" fetchpriority="high"></div>
+    <p class="hero-line"><span class="star" aria-hidden="true">✺</span><span>I build the systems businesses run on.<br>And the content that makes them famous.</span></p>
+    <div class="rule" aria-hidden="true"></div>
+    <h1 class="wordmark" aria-label="Akash"><b>Akash<span class="sg">.</span></b></h1>
   </section>
 
-  <!-- 2. BUILD: one phone, six states, all carrying the visitor's business name -->
-  <section class="on-paper" id="build" data-sc-act="pin" data-sc-span="7">
-    <div data-sc-stage class="build-stage">
-      <div class="segs" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
-
-      <div class="copy-col">
-        <div class="says">
-          <div class="say on"><h2>First, a face.</h2><p>A logo, colours and type, so people know it is you.</p><p class="real">Done for real: Picklo, NYRA Estates, MELB Designs</p></div>
-          <div class="say"><h2>Then a website.</h2><p>Fast, clear, and made for phones first.</p><p class="real">Done for real: RANKS Institute, ARV Equipments</p></div>
-          <div class="say"><h2>Then a system.</h2><p>Bookings, orders and payments, without the phone calls.</p><p class="real">Done for real: Picklo, Clean Eats Bowls</p></div>
-          <div class="say"><h2>A WhatsApp that answers.</h2><p>Customers book inside the chat they already use.</p><p class="real">Done for real: Picklo's booking bot</p></div>
-          <div class="say"><h2>Content that stops the thumb.</h2><p>Reels and posters, in English and Kannada.</p><p class="real">Done for real: Picklo, Gmap AI Reviews</p></div>
-          <div class="say"><h2>Then it runs. You watch.</h2><p>Every booking, review and report lands on your phone.</p><p class="real">Done for real: daily reports for Gmap AI Reviews</p></div>
-        </div>
-        <ol class="steps-nav" aria-hidden="true"><li class="on">Brand</li><li>Website</li><li>System</li><li>WhatsApp</li><li>Content</li><li>Running</li></ol>
-      </div>
-
-      <div class="phone-wrap">
-        <div class="phone">
-          <div class="screens">
-
-            <div class="screen s-brand on">
-              <div class="mark" data-at="0"><span data-initial>Y</span></div>
-              <div class="nm" data-at="0.3" data-name>Your Business</div>
-              <div class="swatches" data-at="0.55"><i style="background:var(--brand)"></i><i style="background:var(--brand-deep)"></i><i style="background:#fff"></i><i style="background:var(--sun)"></i></div>
-            </div>
-
-            <div class="screen s-web">
-              <div class="top" data-at="0"><div class="mark"><span data-initial>Y</span></div><span class="nm" data-name>Your Business</span><i class="burger"></i></div>
-              <div class="hero" data-at="0.2"><h3>Welcome to <span class="nm" data-name>Your Business</span></h3><span class="pill">Book now</span></div>
-              <div class="cards"><div data-at="0.45">Prices<small>Clear, up front</small></div><div data-at="0.55">Find us<small>Map and timings</small></div><div data-at="0.65">Gallery<small>Real photos</small></div><div data-at="0.75">Reviews<small>From Google</small></div></div>
-            </div>
-
-            <div class="screen s-book">
-              <h3 data-at="0">Pick a slot</h3>
-              <div class="days" data-at="0.1"><span>Today</span><span>Tue</span><span>Wed</span><span>Thu</span></div>
-              <div class="slots" data-at="0.2">
-                <span class="x">4 PM</span><span>5 PM</span><span class="pick" data-at="0.4">6 PM</span>
-                <span class="pick" data-at="0.55">7 PM</span><span class="x">8 PM</span><span>9 PM</span>
-                <span>10 AM</span><span>11 AM</span><span class="x">12 PM</span>
-              </div>
-              <div class="pay" data-at="0.62"><span>2 slots, ₹700</span><b class="pick" data-at="0.8"></b></div>
-            </div>
-
-            <div class="screen s-wa">
-              <div class="head"><div class="mark"><span data-initial>Y</span></div><div><span class="nm" data-name>Your Business</span><small>online</small></div></div>
-              <div class="chat">
-                <p class="me" data-at="0.04">Hi</p>
-                <p data-at="0.2">Welcome to <span class="nm" data-name>Your Business</span>. What would you like?<u>Book a slot</u><u>Prices</u></p>
-                <p class="me" data-at="0.42">Book a slot</p>
-                <p data-at="0.56">6 PM today is free. Confirm?</p>
-                <p class="me" data-at="0.7">Yes</p>
-                <p data-at="0.84">Confirmed ✓ See you at 6 PM.</p>
-              </div>
-            </div>
-
-            <div class="screen s-reel">
-              <div class="play" data-at="0.1"></div>
-              <div class="side" data-at="0.5"><span><i></i>Like</span><span><i></i>Share</span></div>
-              <div class="big" data-at="0.25">Now open.</div>
-              <div class="nm nm2" data-at="0.45" data-name>Your Business</div>
-              <div data-at="0.65">Say Hi on WhatsApp to book</div>
-            </div>
-
-            <div class="screen s-lock">
-              <div class="clock" data-clock>9:41</div>
-              <div class="date"><span class="nm" data-name>Your Business</span>, today</div>
-              <div class="note" data-at="0.1"><b>New booking</b><small>6 PM today, ₹700 paid online</small></div>
-              <div class="note" data-at="0.3"><b>WhatsApp bot</b><small>Answered 3 enquiries while you were busy</small></div>
-              <div class="note" data-at="0.5"><b>Google</b><small>New 5 star review ★★★★★</small></div>
-              <div class="note" data-at="0.7"><b>Daily report</b><small>Today's numbers are ready</small></div>
-            </div>
-
-          </div>
-          <div class="demo-tag">Demo with sample data</div>
+  <!-- 02 about -->
+  <section id="about" data-sec="02">
+    <div class="wrap2">
+      <p class="label dim sec-label">Ab<span class="oo">o</span>ut</p>
+      <div class="about-grid">
+        <div class="figure-card" id="figureCard" data-sc-in></div>
+        <div data-sc-in>
+          <dl class="rows label">
+            <div class="row2"><dt class="dim">Services</dt><dd>Website design<br>and marketing</dd></div>
+            <div class="row2"><dt class="dim">Experience</dt><dd>Since 2017</dd></div>
+            <div class="row2"><dt class="dim">Projects</dt><dd>15+ shipped</dd></div>
+            <div class="row2"><dt class="dim">Availability</dt><dd>Taking <span class="oo">o</span>n new pr<span class="oo">o</span>jects</dd></div>
+          </dl>
+          <a class="view-work" href="#work">View work ●</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 3. PROOF: sideways rail of real work, each checked live from the visitor's device -->
-  <section class="on-night" data-sc-act="pan" data-sc-span="6">
-    <div data-sc-stage>
-      <div class="rail" data-sc-pan="0.04">
-        <div class="rail-lead">
-          <h2 class="sc-display">That was a demo. These are real.</h2>
-          <p class="sc-lede" id="note" aria-live="polite">Real businesses, using these every day.</p>
-        </div>
+  <!-- 03 because -->
+  <section data-sec="03">
+    <div class="wrap2 because" data-sc-in data-sc-stagger="90">
+      <p class="label dim lbl">Because</p>
+      <p>I'm Akash, from Shimoga. I bring <b>strategy, build and content together</b>: the booking system, the website, the WhatsApp bot that answers at midnight, and the reels that bring people in. One person, start to live.</p>
+      <p>I work with real businesses: a pickleball club, a meal kitchen, a training institute, a manufacturer. <b>Their systems run every day.</b> When a project needs more hands, I bring them in. One vision, one build that works as one.</p>
+    </div>
+  </section>
 
-        <a class="work" href="https://pickloshimoga.com" target="_blank" rel="noopener" data-check="https://pickloshimoga.com/">
-          <div class="pic"><img src="img/picklo.jpg" alt="Picklo Shimoga website" width="1200" height="750"></div>
-          <h3>Picklo Shimoga</h3><p>Court booking, payments, passes, tournaments, a WhatsApp booking bot, the logo and the reels.</p><div class="live"></div>
-        </a>
-        <div class="work" data-check="https://bowls.cleaneats.in/login">
-          <div class="pic"><img src="img/bowls.jpg" alt="Clean Eats Bowls delivery form with map pin" width="1200" height="750" loading="lazy"></div>
-          <h3>Clean Eats Bowls</h3><p>Meal subscriptions, delivery charge by distance, routes for the delivery team. Private app.</p><div class="live"></div>
-        </div>
-        <a class="work" href="https://gmap-ai-review.vercel.app" target="_blank" rel="noopener" data-check="https://gmap-ai-review.vercel.app/">
-          <div class="pic"><img src="img/gmap.jpg" alt="Gmap AI Reviews" width="1200" height="750" loading="lazy"></div>
-          <h3>Gmap AI Reviews</h3><p>My own product. A customer scans, taps, and AI writes their Google review.</p><div class="live"></div>
-        </a>
-        <a class="work" href="https://ranksinstitute.in" target="_blank" rel="noopener" data-check="https://ranksinstitute.in/">
-          <div class="pic"><img src="img/ranks.jpg" alt="RANKS Institute website" width="1200" height="750" loading="lazy"></div>
-          <h3>RANKS Institute</h3><p>Courses with fees, free demo lessons, a jobs page and student login.</p><div class="live"></div>
-        </a>
-        <a class="work" href="https://arvequipments.com" target="_blank" rel="noopener" data-check="https://arvequipments.com/">
-          <div class="pic"><img src="img/arv.jpg" alt="ARV Equipments website" width="1600" height="900" loading="lazy"></div>
-          <h3>ARV Equipments</h3><p>Website for a bakery and kitchen equipment maker in Shivamogga.</p><div class="live"></div>
-        </a>
-        <a class="work" href="https://finewinesonline.in" target="_blank" rel="noopener" data-check="https://finewinesonline.in/">
-          <div class="pic"><img src="img/finewines.jpg" alt="Fine Wines online store" width="1600" height="900" loading="lazy"></div>
-          <h3>Fine Wines</h3><p>Online store with products and a cart. They came back for a second store.</p><div class="live"></div>
-        </a>
-        <a class="work" href="https://hms-hosanagara-site.vercel.app/" target="_blank" rel="noopener" data-check="https://hms-hosanagara-site.vercel.app/">
-          <div class="pic"><img src="img/hms.jpg" alt="Ganeshotsava Hosanagara website in Kannada" width="1600" height="900" loading="lazy"></div>
-          <h3>Ganeshotsava Hosanagara</h3><p>A Kannada festival site with the full programme and a countdown.</p><div class="live"></div>
-        </a>
+  <!-- 04 work -->
+  <section id="work" data-sec="04">
+    <div class="work-word" aria-hidden="true"><b>W<span class="oo">o</span>rk</b></div>
 
-        <div class="rail-end">Systems, check. Now the part people see first.</div>
+    <article class="case" data-sc-in>
+      <div class="head"><h3 class="disp">Pickl<span class="oo">o</span> Shim<span class="oo">o</span>ga</h3><span class="label blue">01</span></div>
+      <a class="pic" href="https://pickloshimoga.com" target="_blank" rel="noopener"><img src="img/picklo.jpg" alt="Picklo Shimoga website" width="1200" height="675" loading="lazy"></a>
+      <div class="under"><p>A pickleball club that runs itself: court booking with payments, passes, tournaments, a staff panel on the phone, and a WhatsApp bot that takes bookings.</p><span class="label dim">Brand · B<span class="oo">o</span>oking system · WhatsApp b<span class="oo">o</span>t · Reels</span></div>
+    </article>
+
+    <article class="case" data-sc-in>
+      <div class="head"><h3 class="disp">Gmap AI Reviews</h3><span class="label blue">02</span></div>
+      <a class="pic" href="https://gmap-ai-review.vercel.app" target="_blank" rel="noopener"><img src="img/gmap.jpg" alt="Gmap AI Reviews" width="1200" height="675" loading="lazy"></a>
+      <div class="under"><p>My own product. A customer scans a code, taps a few answers, and AI writes their Google review in their words, ready to post.</p><span class="label dim">Own pr<span class="oo">o</span>duct · AI · Dashb<span class="oo">o</span>ard</span></div>
+    </article>
+
+    <article class="case" data-sc-in>
+      <div class="head"><h3 class="disp">Clean Eats B<span class="oo">o</span>wls</h3><span class="label blue">03</span></div>
+      <div class="pic"><img src="img/bowls.jpg" alt="Clean Eats Bowls ordering app" width="1200" height="675" loading="lazy"></div>
+      <div class="under"><p>Meal subscriptions for a healthy kitchen: day, week and month plans, delivery charged by map distance, and routes for the delivery team. Private app.</p><span class="label dim">Ordering system · Delivery r<span class="oo">o</span>utes</span></div>
+    </article>
+
+    <article class="case" data-sc-in>
+      <div class="head"><h3 class="disp">RANKS Institute</h3><span class="label blue">04</span></div>
+      <a class="pic" href="https://ranksinstitute.in" target="_blank" rel="noopener"><img src="img/ranks.jpg" alt="RANKS Institute website" width="1200" height="675" loading="lazy"></a>
+      <div class="under"><p>A training institute with proof up front: every course with fees, free demo lessons behind a short form, a jobs page and student login.</p><span class="label dim">Website · Dem<span class="oo">o</span> less<span class="oo">o</span>ns · SEO</span></div>
+    </article>
+
+    <article class="case" data-sc-in>
+      <div class="head"><h3 class="disp">ARV Equipments</h3><span class="label blue">05</span></div>
+      <a class="pic" href="https://arvequipments.com" target="_blank" rel="noopener"><img src="img/arv.jpg" alt="ARV Equipments website" width="1600" height="900" loading="lazy"></a>
+      <div class="under"><p>A bakery and kitchen equipment maker in Shivamogga: product lines from rotary ovens to mixers, with WhatsApp enquiries.</p><span class="label dim">Website · Catal<span class="oo">o</span>gue</span></div>
+    </article>
+
+    <article class="case" data-sc-in>
+      <div class="head"><h3 class="disp">Fine Wines</h3><span class="label blue">06</span></div>
+      <a class="pic" href="https://finewinesonline.in" target="_blank" rel="noopener"><img src="img/finewines.jpg" alt="Fine Wines online store" width="1600" height="900" loading="lazy"></a>
+      <div class="under"><p>An online store with products, prices and a cart. The same client came back for a second store, Clean Eats.</p><span class="label dim">Online st<span class="oo">o</span>re</span></div>
+    </article>
+  </section>
+
+  <!-- 05 lab -->
+  <section data-sec="05">
+    <div class="wrap2">
+      <p class="label dim sec-label">The lab — built, n<span class="oo">o</span>t yet famous</p>
+      <div class="lab-grid" data-sc-in data-sc-stagger="70">
+        <a href="https://techwiser-store-demo.netlify.app" target="_blank" rel="noopener"><div class="pic"><img src="img/techwiser.jpg" alt="Techwiser Store concept" loading="lazy"></div><h4>Techwiser Store</h4><p>Concept store for a tech creator</p></a>
+        <a href="https://hms-hosanagara-site.vercel.app/" target="_blank" rel="noopener"><div class="pic"><img src="img/hms.jpg" alt="Ganeshotsava Hosanagara website" loading="lazy"></div><h4>Ganeshotsava Hosanagara</h4><p>Kannada festival site, live</p></a>
+        <a href="https://akash-sg.github.io/freelance-management-platform/" target="_blank" rel="noopener"><div class="pic"><img src="img/freelance.jpg" alt="Freelance Manager" loading="lazy"></div><h4>Freelance Manager</h4><p>Tasks, approvals, payments. Demo login</p></a>
+        <a href="https://akash-sg.github.io/real-estate-website/" target="_blank" rel="noopener"><div class="pic"><img src="img/realestate.jpg" alt="Real estate landing page" loading="lazy"></div><h4>Real Estate</h4><p>Landing page for a builder</p></a>
+        <a href="https://akash-sg.github.io/vasudha-website/" target="_blank" rel="noopener"><div class="pic"><img src="img/vasudha.jpg" alt="Vasudha Organic Mart" loading="lazy"></div><h4>Vasudha Organic Mart</h4><p>Organic store website</p></a>
+        <a href="https://github.com/akash-sg/wa-broadcast-dashboard" target="_blank" rel="noopener"><div class="tile" aria-hidden="true">WA</div><h4>WhatsApp Broadcast Dashboard</h4><p>Bulk messaging with live status. Open source</p></a>
       </div>
     </div>
   </section>
 
-  <!-- 4. CONTENT: real reels, playing -->
-  <section class="sc-section on-paper content" data-sc-act="flow">
-    <div class="sc-wrap">
-      <h2 class="sc-display">And the content that sells them.</h2>
-      <div class="reels">
-        <figure><video muted loop playsinline preload="none" poster="img/reel-picklo-poster.jpg" src="img/reel-picklo.mp4"></video><figcaption>Picklo<small>WhatsApp booking reel</small></figcaption></figure>
-        <figure><video muted loop playsinline preload="none" poster="img/reel-xpulse-poster.jpg" src="img/reel-xpulse.mp4"></video><figcaption>Xpulse<small>Shot and edited ride reel</small></figcaption></figure>
-        <figure><video muted loop playsinline preload="none" poster="img/reel-nyra-poster.jpg" src="img/reel-nyra.mp4"></video><figcaption>NYRA Estates<small>Logo animation</small></figcaption></figure>
+  <!-- 06 content -->
+  <section id="content" class="strip" data-sec="06">
+    <div class="wrap2">
+      <p class="label dim sec-label">C<span class="oo">o</span>ntent</p>
+      <div class="reels2">
+        <figure><video muted loop playsinline preload="none" poster="img/reel-picklo-poster.jpg" src="img/reel-picklo.mp4"></video><figcaption>Picklo · WhatsApp booking reel</figcaption></figure>
+        <figure><video muted loop playsinline preload="none" poster="img/reel-xpulse-poster.jpg" src="img/reel-xpulse.mp4"></video><figcaption>Xpulse · shot and edited</figcaption></figure>
+        <figure><video muted loop playsinline preload="none" poster="img/reel-nyra-poster.jpg" src="img/reel-nyra.mp4"></video><figcaption>NYRA · logo animation</figcaption></figure>
       </div>
-      <div class="logos">
-        <img src="img/picklo-logo.jpg" alt="Picklo logo" width="900" height="900" loading="lazy">
-        <img src="img/nyra.jpg" alt="NYRA Estates logo" width="506" height="900" loading="lazy">
-        <img src="img/tbc.jpg" alt="The Barbel Culture gym logo" width="900" height="898" loading="lazy">
-        <img src="img/melb.jpg" alt="MELB Designs logo" width="900" height="900" loading="lazy">
-        <img src="img/jsk.jpg" alt="Jai Shree Krushna restaurant logo" width="900" height="900" loading="lazy">
+      <div class="logo-wall">
+        <img src="img/picklo-logo.jpg" alt="Picklo logo" loading="lazy">
+        <img src="img/nyra.jpg" alt="NYRA Estates logo" loading="lazy">
+        <img src="img/tbc.jpg" alt="The Barbel Culture logo" loading="lazy">
+        <img src="img/melb.jpg" alt="MELB Designs logo" loading="lazy">
+        <img src="img/jsk.jpg" alt="Jai Shree Krushna logo" loading="lazy">
+        <img src="img/gaav.jpg" alt="Gaav Naturals banner" loading="lazy">
       </div>
-      <p class="also">Logos, posters, reels, logo animations, and step-by-step videos that teach your staff the system.</p>
+      <p class="foot-line">Logos, posters, reels, logo animations, and step-by-step training videos that teach staff the system. English and Kannada.</p>
     </div>
   </section>
 
-  <!-- 5. CLOSE: the name comes back -->
-  <section class="on-blue" id="contact" data-sc-act="pin" data-sc-span="1.2">
-    <div data-sc-stage class="close">
-      <h2 class="sc-display" data-sc-cue="0 1 0 0">Now let's build <span class="nm" data-name-close>yours</span> for real.</h2>
-      <div class="acts" data-sc-cue="0 1 0 0">
-        <a class="cta" data-wa data-sc-magnet="0.25" href="https://wa.me/918762290104">Message me</a>
-        <span>on WhatsApp, or</span> <a class="alt" href="mailto:akash.s.gangolli@gmail.com">send an email</a>
-        <a class="alt" href="https://instagram.com/akash_sg" target="_blank" rel="noopener">Instagram</a>
-      </div>
-      <footer class="foot">Akash S G, Shimoga, Karnataka</footer>
+  <!-- 07 contact -->
+  <section id="contact" class="contact2" data-sec="07">
+    <div class="wrap2">
+      <h2 class="disp" style="font-size: clamp(2rem, 5.4vw, 4.4rem); max-width: 14ch;">Let's build y<span class="oo">o</span>urs.</h2>
+      <dl class="label">
+        <div class="row2"><dt class="dim">WhatsApp</dt><dd><a href="https://wa.me/918762290104?text=Hi%20Akash%2C%20I%20saw%20your%20portfolio.">+91 87622 90104</a></dd></div>
+        <div class="row2"><dt class="dim">Mail</dt><dd><a href="mailto:akash.s.gangolli@gmail.com">akash.s.gang<span class="oo">o</span>lli@gmail.c<span class="oo">o</span>m</a></dd></div>
+        <div class="row2"><dt class="dim">Instagram</dt><dd><a href="https://instagram.com/akash_sg" target="_blank" rel="noopener">@akash_sg</a></dd></div>
+      </dl>
     </div>
+    <div class="marquee" aria-hidden="true"><b>Akash<span class="sg">.</span>&ensp;Akash<span class="sg">.</span>&ensp;</b></div>
   </section>
 
 </main>
@@ -413,86 +306,70 @@ ScrollCraft.mount(document.body);
 (() => {
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
-  /* ---- the signature: one name, used everywhere ---- */
-  const input = document.getElementById('biz');
-  function setName(raw) {
-    const name = raw.trim().replace(/\s+/g, ' ').slice(0, 24);
-    const shown = name || 'Your Business';
-    $$('[data-name]').forEach(e => e.textContent = shown);          // textContent only: typed text is never treated as HTML
-    $$('[data-initial]').forEach(e => e.textContent = shown[0].toUpperCase());
-    $$('[data-name-close]').forEach(e => e.textContent = name || 'yours');
-    let h = 0; for (const c of shown.toLowerCase()) h = (h * 31 + c.charCodeAt(0)) % 360;   // same name, same colour, every time
-    const root = document.documentElement.style;
-    root.setProperty('--brand', `hsl(${h} 62% 36%)`);
-    root.setProperty('--brand-tint', `hsl(${h} 70% 94%)`);
-    root.setProperty('--brand-deep', `hsl(${h} 55% 14%)`);
-    const msg = name ? `Hi Akash, I run ${name}. I saw your website.` : 'Hi Akash, I saw your website.';
-    $$('[data-wa]').forEach(a => a.href = 'https://wa.me/918762290104?text=' + encodeURIComponent(msg));
-  }
-  input.addEventListener('input', () => setName(input.value));
-  document.getElementById('nameform').addEventListener('submit', e => {
-    e.preventDefault(); input.blur();
-    document.getElementById('build').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-  });
-  setName(input.value);
+  /* menu */
+  const menu = document.getElementById('menu'), btn = document.getElementById('menuBtn');
+  const toggle = open => { menu.classList.toggle('open', open); btn.setAttribute('aria-expanded', open); };
+  btn.addEventListener('click', () => toggle(true));
+  document.getElementById('menuClose').addEventListener('click', () => toggle(false));
+  $$('a', menu).forEach(a => a.addEventListener('click', () => toggle(false)));
+  addEventListener('keydown', e => { if (e.key === 'Escape') toggle(false); });
 
-  /* ---- hero depth: chips lean toward the pointer at different strengths ---- */
-  if (matchMedia('(hover: hover) and (pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const orbit = document.querySelector('.orbit');
-    addEventListener('pointermove', e => {
-      orbit.style.setProperty('--px', (e.clientX / innerWidth - 0.5).toFixed(3));
-      orbit.style.setProperty('--py', (e.clientY / innerHeight - 0.5).toFixed(3));
-    }, { passive: true });
-  }
+  /* section counter 01/07 */
+  const secs = $$('[data-sec]'), counter = document.getElementById('counter');
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) counter.textContent = e.target.dataset.sec + '/07'; }), { rootMargin: '-40% 0px -55% 0px' });
+  secs.forEach(s => io.observe(s));
 
-  /* ---- the build: scroll position picks the screen and how far it has drawn ---- */
-  const build = document.getElementById('build');
-  const screens = $$('.screen', build).map(s => ({ el: s, parts: $$('[data-at]', s).map(p => ({ el: p, at: +p.dataset.at })) }));
-  const says = $$('.say', build), segs = $$('.segs i', build), navs = $$('.steps-nav li', build);
-  const N = screens.length;
-  let ticking = false;
-  function draw() {
-    ticking = false;
-    const r = build.getBoundingClientRect();
-    const p = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - innerHeight)));
-    const x = Math.min(N - 0.001, p * N), i = Math.floor(x), t = (x - i) / 0.9;   // last 10% of each step is a hold
-    screens.forEach((s, k) => {
-      s.el.classList.toggle('on', k === i);
-      s.parts.forEach(q => q.el.classList.toggle('on', k < i || (k === i && t >= q.at)));
-    });
-    says.forEach((s, k) => s.classList.toggle('on', k === i));
-    segs.forEach((s, k) => s.classList.toggle('on', k <= i));
-    navs.forEach((s, k) => s.classList.toggle('on', k === i));
-  }
-  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(draw); } }, { passive: true });
-  addEventListener('resize', draw);
-  draw();
-
-  /* ---- lock screen shows the visitor's real time ---- */
-  $$('[data-clock]').forEach(e => e.textContent = new Date().toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit', hour12: false }));
-
-  /* ---- live check: the visitor's device pings each real site ----
-     ponytail: a no-cors ping only proves the server answered, not that every page works. Enough for a portfolio. */
-  const works = $$('[data-check]');
-  if (window.fetch && window.AbortSignal && AbortSignal.timeout) {
-    Promise.all(works.map(async w => {
-      const start = performance.now(), live = w.querySelector('.live');
-      try {
-        await fetch(w.dataset.check, { mode: 'no-cors', cache: 'no-store', signal: AbortSignal.timeout(8000) });
-        live.textContent = 'Online now, answered in ' + ((performance.now() - start) / 1000).toFixed(1) + ' s';
-        return true;
-      } catch { w.classList.add('unknown'); live.textContent = 'Could not check from your network'; return false; }
-    })).then(res => {
-      const up = res.filter(Boolean).length;
-      const time = new Date().toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour: 'numeric', minute: '2-digit' });
-      document.getElementById('note').textContent = `Your device just checked them at ${time} Shimoga time. ${up} of ${works.length} answered.`;
-    });
-  }
-
-  /* ---- reels play only while on screen ---- */
-  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? e.target.play().catch(() => {}) : e.target.pause()), { threshold: 0.4 });
-  $$('.reels video').forEach(v => io.observe(v));
+  /* reels play only on screen */
+  const vio = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? e.target.play().catch(() => {}) : e.target.pause()), { threshold: 0.4 });
+  $$('.reels2 video').forEach(v => vio.observe(v));
 })();
+</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<script type="module">
+/* 3D: the extruded A in the about card. Blue rim light, pointer parallax. Falls back to a flat A. */
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+try {
+  const THREE = await import('three');
+  const { FontLoader } = await import('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/FontLoader.js');
+  const { TextGeometry } = await import('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/geometries/TextGeometry.js');
+  const font = await new FontLoader().loadAsync('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/fonts/helvetiker_bold.typeface.json');
+
+  let px = 0, py = 0;
+  if (!reduced) addEventListener('pointermove', e => { px = e.clientX / innerWidth - 0.5; py = e.clientY / innerHeight - 0.5; }, { passive: true });
+
+  const card = document.getElementById('figureCard');
+  const canvas = document.createElement('canvas'); card.appendChild(canvas);
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  const scene = new THREE.Scene();
+  const cam = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+  cam.position.set(0, 0, 9);
+  const geo = new TextGeometry('A', { font, size: 3.6, height: 1.5, curveSegments: 8, bevelEnabled: true, bevelThickness: 0.1, bevelSize: 0.07, bevelSegments: 3 });
+  geo.center();
+  const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: 0x111218, roughness: 0.32, metalness: 0.55 }));
+  scene.add(mesh);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.12));
+  const blue = new THREE.DirectionalLight(0x3D66FF, 9); blue.position.set(-4, 1.5, 2.5); scene.add(blue);
+  const back = new THREE.DirectionalLight(0x7FA0FF, 4); back.position.set(3, -2, -3); scene.add(back);
+  const white = new THREE.DirectionalLight(0xffffff, 1.1); white.position.set(2, 4, 4); scene.add(white);
+  const fit = () => {
+    const r = card.getBoundingClientRect();
+    renderer.setSize(r.width, r.height, false);
+    cam.aspect = r.width / Math.max(1, r.height); cam.updateProjectionMatrix();
+  };
+  fit(); addEventListener('resize', fit);
+  let t = 0;
+  const tick = () => {
+    t += 0.004;
+    mesh.rotation.y = reduced ? 0.35 : Math.sin(t) * 0.55 + px * 0.9;
+    mesh.rotation.x = reduced ? -0.08 : py * 0.45 - 0.05;
+    renderer.render(scene, cam);
+    if (!reduced) requestAnimationFrame(tick);
+  };
+  tick();
+} catch (e) {
+  document.getElementById('figureCard').innerHTML = '<div class="fallbackA">A</div>';
+}
 </script>
 </body>
 </html>
