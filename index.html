@@ -41,9 +41,20 @@
   /* type system */
   .up { text-transform: uppercase; }
   .o { font-family: var(--serif); font-style: italic; font-weight: 400; text-transform: uppercase; font-size: 1.04em; line-height: 0; }
-  .lbl { font-size: clamp(0.8rem, 1vw, 0.95rem); text-transform: uppercase; letter-spacing: 0; line-height: 1.2; }
+  .lbl { font-size: clamp(0.95rem, 1.15vw, 1.1rem); font-weight: 500; text-transform: uppercase; letter-spacing: 0; line-height: 1.2; }
   .dim { color: var(--soft); }
-  .huge { font-weight: 400; text-transform: uppercase; line-height: 0.86; letter-spacing: -0.04em; margin: 0; }
+  .huge { font-weight: 500; text-transform: uppercase; line-height: 0.86; letter-spacing: -0.04em; margin: 0; }
+
+  .menu a, .gc-title h3 { font-weight: 500; }
+
+  /* scroll-scrubbed statement (reference): words light up one by one as you scroll */
+  .statement { padding: clamp(5rem, 14vh, 9rem) var(--gut) clamp(3rem, 8vh, 6rem); }
+  .stmt { margin: 0; font-weight: 500; text-transform: uppercase; font-size: clamp(2.3rem, 6.4vw, 7.4rem); line-height: 0.98; letter-spacing: -0.035em; max-width: 24ch; }
+  .stmt .sw { color: #333333; transition: color 0.35s linear; }
+  .stmt .sw.on { color: var(--ink); }
+  .stmt .sw.acc.on { color: var(--blue-hot); }
+  .stmt .bar { display: inline-block; width: 1.4em; height: 0.09em; vertical-align: 0.3em; background: #333333; transition: background 0.35s linear; }
+  .stmt .bar.on { background: var(--blue-hot); }
 
   /* letter-split reveal (SplitText style) */
   [data-split] .w { display: inline-block; overflow: clip; overflow-clip-margin: 0.12em; vertical-align: top; padding-bottom: 0.06em; margin-bottom: -0.06em; }
@@ -81,10 +92,27 @@
   /* hero: liquid blue glass behind the reference composition */
   .hero { position: relative; height: 100svh; min-height: 560px; overflow: clip; background: radial-gradient(80% 70% at 60% 35%, #1B3592 0%, #0D1A4A 45%, var(--bg) 85%); }
   #fluid { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, #0B0B0BE6 0%, #0B0B0B80 30%, transparent 58%), linear-gradient(to bottom, #0B0B0B99, transparent 22%); }
+  /* the glass dissolves into the page: soft mask at the bottom edge, plus a scroll fade (script) */
+  #fluid { -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 100%); will-change: opacity, transform; }
+  .hero { z-index: 2; background: radial-gradient(80% 60% at 60% 30%, #1B3592 0%, #0D1A4A 40%, var(--bg) 78%); }
+  .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, var(--bg) 0%, #0B0B0BB3 24%, transparent 58%), linear-gradient(to bottom, #0B0B0B99, transparent 22%); }
+
+  /* between hero and footer: faint column lines + a few sharp blue squares and crosshairs, so the theme carries on */
+  main { position: relative; isolation: isolate; }
+  main > section:not(.hero) { position: relative; z-index: 1; }
+  .backdrop { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: clip; }
+  .backdrop .cols { position: absolute; inset: 0 var(--gut); border-right: 1px solid #E7E1D70F; background-image: linear-gradient(to right, #E7E1D70F 1px, transparent 1px); background-size: calc(100% / 6) 100%; }
+  .backdrop .sh { position: absolute; will-change: transform; }
+  .backdrop .f { background: var(--blue-hot); opacity: 0.85; }
+  .backdrop .l { border: 1px solid #5A7DFF66; }
+  .backdrop .x { width: 13px; height: 13px; }
+  .backdrop .x::before, .backdrop .x::after { content: ""; position: absolute; background: #E7E1D766; }
+  .backdrop .x::before { left: 6px; top: 0; width: 1px; height: 13px; } .backdrop .x::after { top: 6px; left: 0; width: 13px; height: 1px; }
+  @media (max-width: 700px) { .backdrop .cols { background-size: calc(100% / 4) 100%; } .backdrop .big { display: none; } }
   .hero-top { position: absolute; z-index: 3; inset: 0 0 auto 0; display: flex; justify-content: space-between; padding: clamp(1.1rem, 3vh, 2rem) var(--gut); }
   .hero-mid { position: absolute; z-index: 3; left: var(--gut); right: var(--gut); top: 40%; display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; }
-  .hero-mid .line { display: flex; gap: 1rem; max-width: 22rem; font-size: clamp(0.95rem, 1.1vw, 1.1rem); line-height: 1.45; }
+  .hero-mid .line { display: flex; gap: 1rem; max-width: min(30rem, 52vw); min-width: 0; font-size: clamp(1.2rem, 1.7vw, 1.7rem); line-height: 1.35; font-weight: 500; }
+  .hero-mid .star { color: var(--ink); }   /* cream, not blue: blue vanished on the blue glass */
   .star { color: var(--blue-hot); flex: none; font-size: 1.5rem; line-height: 1; translate: 0 -0.15em; }
   .hero-name { position: absolute; z-index: 3; left: var(--gut); right: var(--gut); bottom: clamp(5.4rem, 11vh, 7rem); }
   .hero-name h1 { font-size: clamp(5.2rem, 25vw, 29rem); }
@@ -93,6 +121,7 @@
   .hero-name .rule { height: 1px; background: var(--line); margin-bottom: clamp(0.6rem, 1.6vh, 1.2rem); }
   @media (max-width: 700px) {
     .hero-mid { top: 30%; flex-direction: column; gap: 1.2rem; }
+    .hero-mid .line { max-width: none; }
     .hero-name { bottom: 6.4rem; }
   }
 
@@ -106,7 +135,7 @@
   .flatA { display: grid; place-items: center; font: 400 12rem/1 var(--sans); color: var(--blue-hot); }
   .rows { margin: 0; align-self: end; }
   .rows div { display: flex; justify-content: space-between; align-items: baseline; gap: 2rem; padding: 1.1rem 0; border-top: 1px solid var(--line); }
-  .rows dt, .rows dd { margin: 0; text-transform: uppercase; font-size: clamp(0.95rem, 1.25vw, 1.15rem); }
+  .rows dt, .rows dd { margin: 0; text-transform: uppercase; font-size: clamp(1.05rem, 1.4vw, 1.3rem); font-weight: 500; }
   .rows dd { text-align: right; }
   .btn { display: inline-flex; align-items: center; gap: 0.7rem; margin-top: 1.8rem; background: var(--blue); color: #fff; padding: 1rem 1.4rem; border-radius: 0; text-transform: uppercase; font-size: 1rem; transition: background 0.3s; }
   .btn::after { content: ""; width: 6px; height: 6px; border-radius: 0; background: #fff; }
@@ -115,7 +144,7 @@
 
   /* because */
   .because { display: grid; gap: 1.6rem; }
-  .because p { margin: 0; font-size: clamp(1.05rem, 1.35vw, 1.3rem); line-height: 1.5; max-width: 30ch; }
+  .because p { margin: 0; font-size: clamp(1.15rem, 1.6vw, 1.55rem); line-height: 1.45; max-width: 30ch; }
   .because .dim2 { color: var(--soft); }
   @media (min-width: 900px) { .because { grid-template-columns: 1fr 1fr 1fr; } }
 
@@ -135,7 +164,7 @@
   .gc-slide .tile { width: 100%; height: 100%; display: grid; place-items: center; background: radial-gradient(100% 100% at 50% 100%, #1D3496, #0C1230); font: 400 clamp(3rem, 9vw, 8rem)/1 var(--sans); color: var(--ink); }
   .gc-slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, #ffffff10 0%, transparent 30%, transparent 70%, #ffffff0d 100%); pointer-events: none; }
   .gc-foot { position: absolute; z-index: 5; left: 0; right: 0; bottom: clamp(1.2rem, 6vh, 3.6rem); display: grid; justify-items: center; gap: 0.9rem; padding: 0 var(--gut); text-align: center; }
-  .gc-desc { margin: 0; color: var(--soft); max-width: 46ch; font-size: 0.98rem; min-height: 3em; }
+  .gc-desc { margin: 0; color: var(--soft); max-width: 48ch; font-size: clamp(1.02rem, 1.2vw, 1.15rem); min-height: 3em; }
   .gc-ctrl { display: flex; align-items: center; gap: 1.2rem; }
   .gc-ctrl button { width: 48px; height: 48px; border-radius: 0; border: 1px solid var(--line); background: transparent; color: var(--ink); font-size: 1.1rem; cursor: pointer; }
   .gc-ctrl button:hover { border-color: var(--ink); }
@@ -167,7 +196,7 @@
   .foot-ways { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; padding: 0 clamp(1rem, 2.6vw, 2.2rem) 1.6rem; border-bottom: 1px solid var(--line); margin: 0 clamp(1rem, 2.6vw, 2.2rem); padding-inline: 0; }
   .foot-ways div { display: grid; gap: 1.1rem; }
   .foot-ways div:last-child { text-align: right; }
-  .foot-ways a { display: grid; gap: 0.15rem; text-transform: uppercase; font-size: clamp(0.85rem, 1.1vw, 1rem); }
+  .foot-ways a { display: grid; gap: 0.15rem; text-transform: uppercase; font-size: clamp(0.95rem, 1.25vw, 1.15rem); font-weight: 500; }
   .foot-ways a small { color: var(--soft); font-size: 0.85em; }
   .foot-ways a:hover span { color: var(--blue-hot); }
   .marquee { overflow: clip; white-space: nowrap; padding: 0.4rem 0 0; }
@@ -196,6 +225,22 @@
 
 <main id="top">
 
+  <!-- background shapes: top values are % of the page between hero and footer; data-s = parallax speed -->
+  <div class="backdrop" aria-hidden="true">
+    <div class="cols"></div>
+    <span class="sh f" style="left: 83%; top: 15%; width: 14px; height: 14px" data-s="0.18"></span>
+    <span class="sh l big" style="left: 72%; top: 18%; width: 120px; height: 120px" data-s="0.08"></span>
+    <span class="sh x" style="left: calc(var(--gut) + (100% - 2 * var(--gut)) / 6 * 2 - 6px); top: 27%" data-s="0"></span>
+    <span class="sh f" style="left: 6%; top: 34%; width: 9px; height: 9px" data-s="0.25"></span>
+    <span class="sh l" style="left: 88%; top: 44%; width: 34px; height: 34px" data-s="0.14"></span>
+    <span class="sh x" style="left: calc(var(--gut) + (100% - 2 * var(--gut)) / 6 * 4 - 6px); top: 52%" data-s="0"></span>
+    <span class="sh f" style="left: 47%; top: 60%; width: 11px; height: 11px" data-s="0.2"></span>
+    <span class="sh l big" style="left: 4%; top: 66%; width: 180px; height: 180px" data-s="0.06"></span>
+    <span class="sh f" style="left: 91%; top: 74%; width: 22px; height: 22px" data-s="0.12"></span>
+    <span class="sh x" style="left: calc(var(--gut) + (100% - 2 * var(--gut)) / 6 * 1 - 6px); top: 83%" data-s="0"></span>
+    <span class="sh f" style="left: 30%; top: 90%; width: 8px; height: 8px" data-s="0.22"></span>
+  </div>
+
   <section class="hero" aria-label="Intro">
     <canvas id="fluid" aria-hidden="true"></canvas>
     <div class="hero-top lbl"><span>Akash S G</span><span>Portfolio 2026</span></div>
@@ -207,6 +252,10 @@
       <div class="rule"></div>
       <h1 class="huge" data-split>Akash<span class="box" aria-hidden="true"></span></h1>
     </div>
+  </section>
+
+  <section class="statement" aria-label="What I do">
+    <p class="stmt" data-scrub>I build websites and systems that <em>solve real business problems</em> <i class="bar"></i> and the content that makes them famous</p>
   </section>
 
   <section class="sec" id="about" aria-label="About">
@@ -351,8 +400,15 @@
   });
 
   /* ---------- reveals ---------- */
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
-  $$('[data-split], [data-fade]').forEach(el => io.observe(el));
+  /* reveal: hero on load; everything else when it comes into view (observer + scroll check, so nothing can stay hidden) */
+  let pending = $$('[data-split], [data-fade]');
+  const reveal = el => { el.classList.add('in'); pending = pending.filter(x => x !== el); };
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { reveal(e.target); io.unobserve(e.target); } }), { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+  pending.forEach(el => io.observe(el));
+  const checkReveal = () => { if (!pending.length) return; const vh = innerHeight; pending.slice().forEach(el => { const r = el.getBoundingClientRect(); if (r.top < vh * 0.94 && r.bottom > 0) reveal(el); }); };
+  addEventListener('scroll', checkReveal, { passive: true });
+  setTimeout(() => $$('.hero [data-split], .hero [data-fade]').forEach(reveal), 120);
+  setTimeout(checkReveal, 400);
 
   /* ---------- smooth scroll (reference uses inertia scrolling too) ---------- */
   let lenis = null;
@@ -423,6 +479,36 @@
   $('#gcNext').addEventListener('click', () => target = clampT(Math.round(target) + 1));
   gc.addEventListener('keydown', e => { if (e.key === 'ArrowRight') target = clampT(Math.round(target) + 1); if (e.key === 'ArrowLeft') target = clampT(Math.round(target) - 1); });
   addEventListener('resize', layout);
+
+  /* statement scrub: split into words, light them in order with scroll progress */
+  const stmt = $('[data-scrub]');
+  stmt.setAttribute('aria-label', stmt.textContent.replace(/\s+/g, ' ').trim());
+  const parts = [];
+  [...stmt.childNodes].forEach(n => {
+    if (n.nodeType === 3) n.textContent.split(/\s+/).filter(Boolean).forEach(w => parts.push({ w, acc: false }));
+    else if (n.tagName === 'EM') n.textContent.split(/\s+/).filter(Boolean).forEach(w => parts.push({ w, acc: true }));
+    else if (n.classList && n.classList.contains('bar')) parts.push({ bar: true });
+  });
+  stmt.innerHTML = parts.map(p => p.bar ? '<i class="bar sw-i" aria-hidden="true"></i>' : '<span class="sw sw-i' + (p.acc ? ' acc' : '') + '" aria-hidden="true">' + oHTML(p.w) + '</span>').join(' ');
+  const words = $$('.stmt .sw-i');
+  const scrub = () => {
+    const r = stmt.getBoundingClientRect(), vh = innerHeight;
+    const p = reduced ? 1 : Math.max(0, Math.min(1, (vh * 0.82 - r.top) / (r.height + vh * 0.35)));
+    const lit = Math.round(p * words.length);
+    words.forEach((w, i) => w.classList.toggle('on', i < lit));
+  };
+  addEventListener('scroll', scrub, { passive: true }); addEventListener('resize', scrub); scrub();
+
+  /* scroll effects: hero glass fades and sinks away; background shapes drift at their own speeds */
+  const fluid = $('#fluid'), heroEl = $('.hero'), shapes = $$('.backdrop .sh');
+  const onScroll = () => {
+    const y = scrollY, h = heroEl.offsetHeight;
+    const p = Math.min(1, y / (h * 0.85));
+    fluid.style.opacity = (1 - p * p * (3 - 2 * p)).toFixed(3);     /* smoothstep: eases out, no hard cut */
+    fluid.style.transform = 'translateY(' + (y * 0.35).toFixed(1) + 'px) scale(' + (1 + p * 0.08).toFixed(3) + ')';
+    if (!reduced) shapes.forEach(s => { const k = +s.dataset.s; if (k) s.style.transform = 'translateY(' + (-y * k).toFixed(1) + 'px)'; });
+  };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
   /* reels play only on screen */
   const vio = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? e.target.play().catch(() => {}) : e.target.pause()), { threshold: 0.35 });
