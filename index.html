@@ -59,6 +59,11 @@
   .hero-line { color: #141416; }
   .wordmark b { color: #0A0A0B; }
   .hero .rule { background: #00000024; }
+  @media (max-width: 700px) {
+    .hero { background: #E9E9E7; }
+    .portrait img { object-fit: contain; object-position: top center; }
+    .wordmark b { font-size: 17vw; }
+  }
   .hero-line { position: absolute; z-index: 5; right: var(--gut); top: 30%; max-width: 20rem; display: flex; gap: 0.8rem; font-size: 1.02rem; line-height: 1.45; }
   @media (max-width: 700px) { .hero-line { top: 16%; right: var(--gut); left: auto; max-width: 15rem; } }
   .hero-line .star { color: var(--blue-hot); flex: none; font-size: 1.4rem; line-height: 1; }
@@ -102,6 +107,7 @@
   .case h3 { font-size: clamp(1.9rem, 4.6vw, 3.8rem); }
   .case .pic { display: block; border-radius: 10px; overflow: hidden; background: var(--bg2); border: 1px solid var(--line); }
   .case .pic img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: top; display: block; transition: scale .6s var(--sc-ease-out); }
+  @media (max-width: 700px) { .case .pic img, .lab-grid img { aspect-ratio: auto; object-fit: unset; height: auto; } }
   .case a.pic:hover img { scale: 1.025; }
   .case .under { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
   .case .under p { margin: 0; color: var(--soft); max-width: 52ch; }
@@ -202,8 +208,8 @@
   <section data-sec="03">
     <div class="wrap2 because" data-sc-in data-sc-stagger="90">
       <p class="label dim lbl">Because</p>
-      <p>I'm Akash, from Shimoga. I bring <b>strategy, build and content together</b>: the booking system, the website, the WhatsApp bot that answers at midnight, and the reels that bring people in. One person, start to live.</p>
-      <p>I work with real businesses: a pickleball club, a meal kitchen, a training institute, a manufacturer. <b>Their systems run every day.</b> When a project needs more hands, I bring them in. One vision, one build that works as one.</p>
+      <p>I'm Akash. I build <b>websites and systems that solve real business problems</b>: bookings, orders, payments, the WhatsApp bot that answers at midnight, and the content that brings people in.</p>
+      <p>Every build starts from how the business actually works, not from a template. A pickleball club, a meal kitchen, a training institute, a manufacturer: <b>their systems run every day.</b> One person, start to live.</p>
     </div>
   </section>
 
