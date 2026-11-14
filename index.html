@@ -11,7 +11,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080809'/%3E%3Ctext x='16' y='23' font-family='Arial Black' font-size='19' font-weight='900' fill='%232E55FF' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,500..900&family=Instrument+Serif:ital@1&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;800;900&family=Instrument+Serif:ital@1&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="scrollcraft.css">
 <style>
   /* Edit the words in this file to update the site. scrollcraft.js/.css are the engine: leave them. */
@@ -22,17 +22,17 @@
     --sc-canvas: var(--bg); --sc-surface: #141418;
     --sc-ink: var(--ink); --sc-ink-soft: var(--soft);
     --sc-accent: var(--blue); --sc-accent-ink: #fff;
-    --sc-font-display: "Archivo", system-ui, sans-serif;
+    --sc-font-display: "Inter Tight", system-ui, sans-serif;
     --sc-font-text: "Instrument Sans", system-ui, sans-serif;
     --gut: clamp(1.1rem, 4vw, 3.5rem);
   }
   html { background: var(--bg); }
   body { background: var(--bg); color: var(--ink); overflow-x: clip; }
   a { color: inherit; }
-  .disp { font-family: var(--sc-font-display); font-variation-settings: "wdth" 125; font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; line-height: 0.92; margin: 0; }
+  .disp { font-family: var(--sc-font-display); font-weight: 800; text-transform: uppercase; letter-spacing: -0.012em; line-height: 0.94; margin: 0; }
   /* the slanted-O trick, like the reference: every O in display text turns italic serif */
   .oo { font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; text-transform: none; letter-spacing: 0; }
-  .label { font-family: var(--sc-font-display); font-variation-settings: "wdth" 125; font-weight: 600; font-size: clamp(0.72rem, 1.1vw, 0.85rem); text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink); }
+  .label { font-family: var(--sc-font-display); font-weight: 600; font-size: clamp(0.72rem, 1.1vw, 0.85rem); text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink); }
   .label.dim { color: var(--soft); }
 
   /* chrome */
@@ -41,36 +41,36 @@
   .counter { position: fixed; z-index: 60; top: 1.1rem; left: 50%; translate: -50% 0; mix-blend-mode: difference; }
   @media (max-width: 600px) { .counter { display: none; } }
   .menu-btn { position: fixed; z-index: 80; right: var(--gut); bottom: 1.4rem; display: flex; gap: 0.6rem; align-items: center; padding: 0.95em 1.4em; border-radius: 14px; border: 1px solid var(--line); background: #101014E6; color: var(--ink); cursor: pointer; backdrop-filter: blur(10px); }
-  .menu-btn i { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); }
+  .menu-btn i { font-style: normal; color: var(--blue-hot); font-size: 1rem; line-height: 1; transition: rotate .5s var(--sc-ease-out); }
+  .menu-btn:hover i { rotate: 180deg; }
+  /* masked line reveal, Tom style: text slides up out of a crop */
+  .rev { clip-path: inset(-0.1em 0 -0.15em 0); }
+  .rev > .rin { display: block; translate: 0 115%; transition: translate 0.9s cubic-bezier(0.22, 1, 0.26, 1); }
+  .rev.in > .rin { translate: 0 0; }
+  @media (prefers-reduced-motion: reduce) { .rev > .rin { translate: 0 0 !important; transition: none; } }
   .mark3d { position: fixed; z-index: 80; left: var(--gut); bottom: 1.4rem; width: 54px; height: 54px; border-radius: 12px; border: 1px solid var(--line); background: #101014E6; display: grid; place-items: center; font-family: var(--sc-font-display); font-weight: 900; color: var(--blue); font-size: 1.5rem; backdrop-filter: blur(10px); text-decoration: none; }
   .menu { position: fixed; z-index: 90; inset: 0; background: #060607F2; backdrop-filter: blur(14px); display: grid; align-content: center; gap: 0.4rem; padding: 0 var(--gut); opacity: 0; pointer-events: none; transition: opacity .3s; }
   .menu.open { opacity: 1; pointer-events: auto; }
-  .menu a { font-family: var(--sc-font-display); font-variation-settings: "wdth" 125; font-weight: 800; text-transform: uppercase; font-size: clamp(2.2rem, 7vw, 4.6rem); line-height: 1.08; text-decoration: none; color: var(--ink); }
+  .menu a { font-family: var(--sc-font-display); font-weight: 800; text-transform: uppercase; font-size: clamp(2.2rem, 7vw, 4.6rem); line-height: 1.08; text-decoration: none; color: var(--ink); }
   .menu a:hover { color: var(--blue-hot); }
+  .menu a, .menu .small { translate: 0 2.2rem; opacity: 0; transition: translate .55s var(--sc-ease-out), opacity .55s; }
+  .menu.open a, .menu.open .small { translate: 0 0; opacity: 1; }
+  .menu.open a:nth-of-type(2) { transition-delay: .06s; } .menu.open a:nth-of-type(3) { transition-delay: .12s; }
+  .menu.open a:nth-of-type(4) { transition-delay: .18s; } .menu.open .small { transition-delay: .26s; }
   .menu .small { margin-top: 2rem; display: flex; gap: 1.6rem; }
   .menu .small a { font: 600 1rem var(--sc-font-text); text-transform: none; color: var(--soft); }
   .menu-close { position: absolute; top: 1.2rem; right: var(--gut); background: none; border: 1px solid var(--line); color: var(--ink); border-radius: 999px; padding: 0.7em 1.3em; cursor: pointer; font: 600 0.95rem var(--sc-font-text); }
 
-  /* hero */
-  .hero { position: relative; min-height: 100svh; display: grid; overflow: clip; background: radial-gradient(90% 70% at 50% 88%, #11204E 0%, #0B1333 34%, var(--bg) 72%); }
-  .portrait { position: absolute; inset: 0; overflow: hidden; }
-  .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 36%; }
-  /* light photo, so the hero text goes dark */
-  .hero-line { color: #141416; }
-  .wordmark b { color: #0A0A0B; }
-  .hero .rule { background: #00000024; }
-  @media (max-width: 700px) {
-    .hero { background: #E9E9E7; }
-    .portrait img { object-fit: contain; object-position: top center; }
-    .wordmark b { font-size: 17vw; }
-  }
-  .hero-line { position: absolute; z-index: 5; right: var(--gut); top: 30%; max-width: 20rem; display: flex; gap: 0.8rem; font-size: 1.02rem; line-height: 1.45; }
-  @media (max-width: 700px) { .hero-line { top: 16%; right: var(--gut); left: auto; max-width: 15rem; } }
-  .hero-line .star { color: var(--blue-hot); flex: none; font-size: 1.4rem; line-height: 1; }
-  .wordmark { position: absolute; z-index: 5; left: 0; right: 0; bottom: -0.12em; display: flex; justify-content: center; pointer-events: none; }
-  .wordmark b { font-family: var(--sc-font-display); font-variation-settings: "wdth" 125; font-weight: 900; text-transform: uppercase; font-size: clamp(4rem, 19vw, 18rem); line-height: 0.8; letter-spacing: -0.01em; white-space: nowrap; }
-  .wordmark .sg { color: var(--blue-hot); }
-  .hero .rule { position: absolute; z-index: 5; left: var(--gut); right: var(--gut); bottom: clamp(4.2rem, 16.2vw, 15.4rem); height: 1px; background: var(--line); }
+  /* hero: liquid blue glass (shader), name over it like the reference */
+  .hero { position: relative; min-height: 100svh; overflow: clip; background: radial-gradient(90% 70% at 70% 30%, #162E6E 0%, #0B1333 40%, var(--bg) 78%); }
+  #fluid { position: absolute; inset: 0; width: 100%; height: 100%; filter: blur(0.5px); }
+  .hero-inner { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(4.2rem, 9vh, 6rem) var(--gut) clamp(6.2rem, 12vh, 8rem); pointer-events: none; }
+  .hero-name { font-family: var(--sc-font-display); font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; font-size: clamp(4.4rem, 16.5vw, 17rem); line-height: 0.82; margin: 0; }
+  .hero-name .sg { color: var(--blue-hot); }
+  .hero-foot { display: grid; gap: 1.6rem; max-width: 30rem; }
+  .hero-role { display: flex; gap: 0.8rem; align-items: baseline; font-size: clamp(1.3rem, 2.6vw, 2rem); font-weight: 600; margin: 0; }
+  .hero-role .star { color: var(--blue-hot); font-size: 0.9em; }
+  .hero-line { margin: 0; color: #C9CBD6; font-size: 1.02rem; line-height: 1.5; max-width: 26rem; text-shadow: 0 1px 14px #00000066; }
 
   /* sections */
   section { position: relative; }
@@ -101,8 +101,16 @@
 
   /* work */
   .work-word { padding: clamp(3rem, 7vw, 6rem) 0 0; overflow: clip; }
-  .work-word b { display: block; text-align: center; font-family: var(--sc-font-display); font-variation-settings: "wdth" 125; font-weight: 900; text-transform: uppercase; font-size: clamp(5.5rem, 22vw, 21rem); line-height: 0.86; }
+  .work-word b { display: block; text-align: center; font-family: var(--sc-font-display); font-weight: 900; text-transform: uppercase; font-size: clamp(5.5rem, 22vw, 21rem); line-height: 0.86; }
   .case { padding: clamp(3.5rem, 8vw, 7rem) var(--gut); max-width: 90rem; margin-inline: auto; }
+  @media (min-width: 900px) {
+    .work-rail { align-items: center; gap: 3.5vw; padding-inline: var(--gut); height: 100%; }
+    .work-rail .case { flex: none; width: min(60vw, 56rem); max-width: none; padding: 0; margin: 0; }
+    .work-rail .case .pic img { max-height: 56svh; }
+    .rail-cap { flex: none; width: 24rem; }
+  }
+  @media (max-width: 899.9px) { .work-rail[data-sc-pan] { display: block; } .rail-cap { display: none; } }
+  .rail-cap p { font-family: var(--sc-font-display); font-weight: 800; text-transform: uppercase; font-size: 2rem; line-height: 1.05; margin: 0; }
   .case .head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 1.4rem; flex-wrap: wrap; }
   .case h3 { font-size: clamp(1.9rem, 4.6vw, 3.8rem); }
   .case .pic { display: block; border-radius: 10px; overflow: hidden; background: var(--bg2); border: 1px solid var(--line); }
@@ -112,6 +120,7 @@
   .case .under { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
   .case .under p { margin: 0; color: var(--soft); max-width: 52ch; }
   .case .under .label { white-space: nowrap; }
+  @media (max-width: 700px) { .case .under .label { white-space: normal; } }
   .case .label.blue { color: var(--blue-hot); }
 
   /* lab */
@@ -145,7 +154,7 @@
   .contact2 dd a { text-decoration: none; }
   .contact2 dd a:hover { color: var(--blue-hot); }
   .marquee { position: absolute; left: 0; right: 0; bottom: -0.14em; overflow: clip; pointer-events: none; }
-  .marquee b { display: inline-block; font-family: var(--sc-font-display); font-variation-settings: "wdth" 125; font-weight: 900; text-transform: uppercase; font-size: clamp(5rem, 19vw, 18rem); line-height: 0.8; white-space: nowrap; animation: slide 26s linear infinite; }
+  .marquee b { display: inline-block; font-family: var(--sc-font-display); font-weight: 900; text-transform: uppercase; font-size: clamp(5rem, 19vw, 18rem); line-height: 0.8; white-space: nowrap; animation: slide 26s linear infinite; }
   .marquee .sg { color: var(--blue-hot); }
   @keyframes slide { to { translate: -50% 0; } }
   @media (prefers-reduced-motion: reduce) { .marquee b { animation: none; } }
@@ -161,7 +170,7 @@
 </header>
 <span class="label dim counter" id="counter" aria-hidden="true">01/07</span>
 <a class="mark3d" href="#top" aria-label="Top">A</a>
-<button class="menu-btn" id="menuBtn" aria-haspopup="true" aria-expanded="false"><i></i><span class="label">Menu</span></button>
+<button class="menu-btn" id="menuBtn" aria-haspopup="true" aria-expanded="false"><i aria-hidden="true">✦</i><span class="label">Menu</span></button>
 <nav class="menu" id="menu" aria-label="Menu">
   <button class="menu-close" id="menuClose">Close</button>
   <a href="#about">About</a>
@@ -179,10 +188,14 @@
 
   <!-- 01 hero -->
   <section class="hero" data-sec="01">
-    <div class="portrait" aria-hidden="true"><img src="img/akash-gallery.jpg" alt="" fetchpriority="high"></div>
-    <p class="hero-line"><span class="star" aria-hidden="true">✺</span><span>I build the systems businesses run on.<br>And the content that makes them famous.</span></p>
-    <div class="rule" aria-hidden="true"></div>
-    <h1 class="wordmark" aria-label="Akash"><b>Akash<span class="sg">.</span></b></h1>
+    <canvas id="fluid" aria-hidden="true"></canvas>
+    <div class="hero-inner">
+      <h1 class="hero-name rev">Akash<span class="sg">.</span></h1>
+      <div class="hero-foot">
+        <p class="hero-role rev"><span class="star" aria-hidden="true">✺</span>Websites &amp; systems</p>
+        <p class="hero-line rev">I build the systems businesses run on. And the content that makes them famous.</p>
+      </div>
+    </div>
   </section>
 
   <!-- 02 about -->
@@ -217,6 +230,8 @@
   <section id="work" data-sec="04">
     <div class="work-word" aria-hidden="true"><b>W<span class="oo">o</span>rk</b></div>
 
+    <div data-sc-stage>
+      <div class="work-rail" data-sc-pan="0.05">
     <article class="case" data-sc-in>
       <div class="head"><h3 class="disp">Pickl<span class="oo">o</span> Shim<span class="oo">o</span>ga</h3><span class="label blue">01</span></div>
       <a class="pic" href="https://pickloshimoga.com" target="_blank" rel="noopener"><img src="img/picklo.jpg" alt="Picklo Shimoga website" width="1200" height="675" loading="lazy"></a>
@@ -230,9 +245,9 @@
     </article>
 
     <article class="case" data-sc-in>
-      <div class="head"><h3 class="disp">Clean Eats B<span class="oo">o</span>wls</h3><span class="label blue">03</span></div>
-      <div class="pic"><img src="img/bowls.jpg" alt="Clean Eats Bowls ordering app" width="1200" height="675" loading="lazy"></div>
-      <div class="under"><p>Meal subscriptions for a healthy kitchen: day, week and month plans, delivery charged by map distance, and routes for the delivery team. Private app.</p><span class="label dim">Ordering system · Delivery r<span class="oo">o</span>utes</span></div>
+      <div class="head"><h3 class="disp">Clean Eats</h3><span class="label blue">03</span></div>
+      <a class="pic" href="https://cleaneats.in" target="_blank" rel="noopener"><img src="img/cleaneats.jpg" alt="Clean Eats online store" width="1600" height="900" loading="lazy"></a>
+      <div class="under"><p>An online store for a healthy snacks brand, plus Bowls: their meal-subscription system with day, week and month plans, delivery charged by map distance, and daily routes for the delivery team.</p><span class="label dim">Online st<span class="oo">o</span>re · Ordering system · Delivery r<span class="oo">o</span>utes</span></div>
     </article>
 
     <article class="case" data-sc-in>
@@ -252,6 +267,10 @@
       <a class="pic" href="https://finewinesonline.in" target="_blank" rel="noopener"><img src="img/finewines.jpg" alt="Fine Wines online store" width="1600" height="900" loading="lazy"></a>
       <div class="under"><p>An online store with products, prices and a cart. The same client came back for a second store, Clean Eats.</p><span class="label dim">Online st<span class="oo">o</span>re</span></div>
     </article>
+        <div class="rail-cap"><p>That's the live work.<br>The lab is next.</p></div>
+      </div>
+    </div>
+
   </section>
 
   <!-- 05 lab -->
@@ -307,7 +326,27 @@
 
 <script src="scrollcraft.js"></script>
 <script>
+/* the work rail scrolls sideways on desktop, like the reference; phones keep it vertical */
+if (matchMedia('(min-width: 900px)').matches) {
+  const w = document.getElementById('work');
+  w.setAttribute('data-sc-act', 'pan');
+  w.setAttribute('data-sc-span', '6.5');
+}
 ScrollCraft.mount(document.body);
+
+/* masked line reveals on scroll */
+(() => {
+  const targets = [...document.querySelectorAll('.rev, .disp, .case h3')];
+  targets.forEach(el => {
+    el.classList.add('rev');
+    const inner = document.createElement('span');
+    inner.className = 'rin';
+    while (el.firstChild) inner.appendChild(el.firstChild);
+    el.appendChild(inner);
+  });
+  const io2 = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io2.unobserve(e.target); } }), { threshold: 0.25 });
+  targets.forEach(el => io2.observe(el));
+})();
 
 (() => {
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -376,6 +415,62 @@ try {
 } catch (e) {
   document.getElementById('figureCard').innerHTML = '<div class="fallbackA">A</div>';
 }
+</script>
+<script>
+/* Liquid blue glass hero (tiny WebGL shader). If WebGL is missing, the CSS gradient stays. */
+(() => {
+  const cv = document.getElementById('fluid');
+  const gl = cv.getContext('webgl', { antialias: false, depth: false });
+  if (!gl) return;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+  const fs = `precision mediump float;uniform vec2 R;uniform float T;uniform vec2 M;
+float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
+return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
+float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p=p*2.04+17.3;a*=.5;}return v;}
+void main(){
+vec2 uv=gl_FragCoord.xy/R; vec2 p=uv*vec2(R.x/R.y,1.)*2.2;
+float t=T*.05;
+vec2 q=vec2(fbm(p+t),fbm(p+vec2(5.2,1.3)-t));
+vec2 r=vec2(fbm(p+3.2*q+vec2(1.7,9.2)+M*.4),fbm(p+3.2*q+vec2(8.3,2.8)));
+float f=fbm(p+3.5*r);
+vec3 deep=vec3(.016,.027,.09), blue=vec3(.18,.33,1.), ice=vec3(.72,.82,1.);
+vec3 col=mix(deep,blue,smoothstep(.15,.78,f));
+col=mix(col,ice,smoothstep(.62,.9,fbm(p*1.6+4.*r)));           /* glass highlights */
+col=mix(col,deep*.6,smoothstep(.75,.98,q.x)*.8);               /* dark folds */
+col*=.55+.45*smoothstep(0.,.9,1.-uv.y*.6);
+gl_FragColor=vec4(col,1.);}`;
+  const sh = (t, src) => { const o = gl.createShader(t); gl.shaderSource(o, src); gl.compileShader(o); return o; };
+  const pr = gl.createProgram();
+  gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(pr);
+  if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
+  gl.useProgram(pr);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr, 'p');
+  gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const uR = gl.getUniformLocation(pr, 'R'), uT = gl.getUniformLocation(pr, 'T'), uM = gl.getUniformLocation(pr, 'M');
+  let mx = 0, my = 0;
+  if (!reduced) addEventListener('pointermove', e => { mx = e.clientX / innerWidth - 0.5; my = e.clientY / innerHeight - 0.5; }, { passive: true });
+  const fit = () => {
+    const s = Math.min(devicePixelRatio, 1.5) * 0.5;           /* half-res: liquid look, cheap on phones */
+    cv.width = Math.max(2, cv.clientWidth * s); cv.height = Math.max(2, cv.clientHeight * s);
+    gl.viewport(0, 0, cv.width, cv.height);
+  };
+  fit(); addEventListener('resize', fit);
+  const t0 = performance.now();
+  const frame = () => {
+    gl.uniform2f(uR, cv.width, cv.height);
+    gl.uniform1f(uT, (performance.now() - t0) / 1000);
+    gl.uniform2f(uM, mx, my);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    if (!reduced) requestAnimationFrame(frame);
+  };
+  frame();
+})();
 </script>
 </body>
 </html>
