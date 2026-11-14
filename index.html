@@ -152,7 +152,8 @@
   @media (min-width: 900px) { .because { grid-template-columns: 1fr 1fr 1fr; } }
 
   /* work: giant word + glass carousel (drag / swipe / arrows), same on every screen */
-  .work-head { padding: clamp(4rem, 9vw, 8rem) var(--gut) 0; }
+  .work-head { padding: clamp(4rem, 9vw, 8rem) var(--gut) clamp(2rem, 5vw, 3.5rem); }
+  .work-head .lbl { margin-bottom: clamp(1.2rem, 3vw, 2rem) !important; }
   .work-head .huge { font-size: clamp(6rem, 30vw, 34rem); text-align: center; }
   .gc { position: relative; height: min(100svh, 980px); min-height: 560px; overflow: clip; perspective: 1500px; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
   .gc.drag { cursor: grabbing; }
@@ -249,7 +250,7 @@
     <div class="hero-top lbl"><span>Akash S G</span><span>Portfolio 2026</span></div>
     <div class="hero-mid">
       <span class="lbl" data-split>Hi there</span>
-      <p class="line" data-fade><span class="mark" aria-hidden="true"></span><span>Websites, systems and content that help businesses grow.</span></p>
+      <p class="line" data-fade><span class="mark" aria-hidden="true"></span><span>I build websites, systems and content that help businesses grow.</span></p>
     </div>
     <div class="hero-name">
       <div class="rule"></div>
@@ -488,6 +489,17 @@
   gc.addEventListener('keydown', e => { if (e.key === 'ArrowRight') target = clampT(Math.round(target) + 1); if (e.key === 'ArrowLeft') target = clampT(Math.round(target) - 1); });
   addEventListener('resize', layout);
 
+  /* auto-advance while the section is on screen; any touch, drag, hover or key pauses it for a while */
+  let lastTouch = -Infinity;   /* no hover pause: the carousel fills the screen, so the mouse is nearly always over it */
+  /* measured directly: at least half the carousel on screen */
+  const gcInView = () => { const r = gc.getBoundingClientRect(), vh = innerHeight; return Math.min(r.bottom, vh) - Math.max(r.top, 0) > Math.min(r.height, vh) * 0.5; };
+  const touched = () => lastTouch = performance.now();
+  ['pointerdown', 'keydown', 'wheel', 'focusin'].forEach(ev => gc.addEventListener(ev, touched, { passive: true }));
+  if (!reduced) setInterval(() => {
+    if (!gcInView() || dragging || document.hidden || performance.now() - lastTouch < 7000) return;
+    target = Math.round(target) + 1 >= N ? 0 : Math.round(target) + 1;   /* loops back to the first project */
+  }, 3200);
+
   /* statement scrub: split into words, light them in order with scroll progress */
   const stmt = $('[data-scrub]');
   stmt.setAttribute('aria-label', stmt.textContent.replace(/\s+/g, ' ').trim());
@@ -532,8 +544,11 @@
   if (!gl) return;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
-  const fs = `precision mediump float;uniform vec2 R;uniform float T;uniform vec2 M;
-float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+  /* highp: phone GPUs run mediump as 16-bit, which breaks the random-noise hash and flattens the glass to one colour */
+  const hp = gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.HIGH_FLOAT);
+  const prec = hp && hp.precision > 0 ? 'highp' : 'mediump';
+  const fs = `precision ${prec} float;uniform vec2 R;uniform float T;uniform vec2 M;
+float h(vec2 p){vec3 q=fract(vec3(p.xyx)*.1031);q+=dot(q,q.yzx+33.33);return fract((q.x+q.y)*q.z);}
 float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
 return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
 float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p=p*2.04+17.3;a*=.5;}return v;}
