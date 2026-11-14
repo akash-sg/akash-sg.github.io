@@ -90,7 +90,7 @@
   .menu .ways a:hover { color: var(--ink); }
 
   /* hero: liquid blue glass behind the reference composition */
-  .hero { position: relative; height: 100svh; min-height: 560px; overflow: clip; background: radial-gradient(80% 70% at 60% 35%, #1B3592 0%, #0D1A4A 45%, var(--bg) 85%); }
+  .hero { position: relative; height: 100svh; min-height: 420px; overflow: clip; background: radial-gradient(80% 70% at 60% 35%, #1B3592 0%, #0D1A4A 45%, var(--bg) 85%); }
   #fluid { position: absolute; inset: 0; width: 100%; height: 100%; }
   /* the glass dissolves into the page: soft mask at the bottom edge, plus a scroll fade (script) */
   #fluid { -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 100%); will-change: opacity, transform; }
@@ -109,20 +109,22 @@
   .backdrop .x::before, .backdrop .x::after { content: ""; position: absolute; background: #E7E1D766; }
   .backdrop .x::before { left: 6px; top: 0; width: 1px; height: 13px; } .backdrop .x::after { top: 6px; left: 0; width: 13px; height: 1px; }
   @media (max-width: 700px) { .backdrop .cols { background-size: calc(100% / 4) 100%; } .backdrop .big { display: none; } }
-  .hero-top { position: absolute; z-index: 3; inset: 0 0 auto 0; display: flex; justify-content: space-between; padding: clamp(1.1rem, 3vh, 2rem) var(--gut); }
-  .hero-mid { position: absolute; z-index: 3; left: var(--gut); right: var(--gut); top: 40%; display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; }
+  /* stacked layout: top bar / space / intro line / name. Rows can't overlap at any screen shape. */
+  /* bottom room = corner button height + its offset + a little air, so the buttons never sit on AKASH */
+  .hero { display: grid; grid-template-rows: auto 1fr auto auto; padding-bottom: calc(64px + clamp(1rem, 2.4vw, 1.6rem) + 1.2rem); }
+  .hero-top { position: relative; z-index: 3; display: flex; justify-content: space-between; padding: clamp(1.1rem, 3vh, 2rem) var(--gut); grid-row: 1; }
+  .hero-mid { position: relative; z-index: 3; grid-row: 3; padding: 0 var(--gut) clamp(1rem, 3vh, 2.2rem); display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; }
   .hero-mid .line { display: flex; gap: 1rem; max-width: min(30rem, 52vw); min-width: 0; font-size: clamp(1.2rem, 1.7vw, 1.7rem); line-height: 1.35; font-weight: 500; }
   .hero-mid .star { color: var(--ink); }   /* cream, not blue: blue vanished on the blue glass */
   .star { color: var(--blue-hot); flex: none; font-size: 1.5rem; line-height: 1; translate: 0 -0.15em; }
-  .hero-name { position: absolute; z-index: 3; left: var(--gut); right: var(--gut); bottom: clamp(5.4rem, 11vh, 7rem); }
-  .hero-name h1 { font-size: clamp(5.2rem, 25vw, 29rem); }
+  .hero-name { position: relative; z-index: 3; grid-row: 4; padding: 0 var(--gut); }
+  .hero-name h1 { font-size: clamp(4.4rem, min(25vw, 42svh), 29rem); }   /* capped by height too, so short wide windows don't blow it up */
   /* the full stop after AKASH is a sharp blue square */
   .box { display: inline-block; width: 0.15em; height: 0.15em; margin-left: 0.04em; background: var(--blue-hot); vertical-align: baseline; }
   .hero-name .rule { height: 1px; background: var(--line); margin-bottom: clamp(0.6rem, 1.6vh, 1.2rem); }
   @media (max-width: 700px) {
-    .hero-mid { top: 30%; flex-direction: column; gap: 1.2rem; }
+    .hero-mid { flex-direction: column; gap: 1.2rem; }
     .hero-mid .line { max-width: none; }
-    .hero-name { bottom: 6.4rem; }
   }
 
   /* sections */
@@ -295,7 +297,7 @@
           <span class="lbl gc-count" id="gcCount">01/12</span>
           <button type="button" id="gcNext" aria-label="Next project">→</button>
         </div>
-        <a class="gc-open" id="gcOpen" href="#" target="_blank" rel="noopener">Visit site</a>
+        <a class="gc-open" id="gcOpen" href="https://pickloshimoga.com" target="_blank" rel="noopener">Visit site</a>
       </div>
     </div>
   </section>
@@ -418,7 +420,12 @@
     requestAnimationFrame(raf);
   }
   const go = hash => { const t = hash === '#top' ? 0 : $(hash); if (lenis) lenis.scrollTo(t, { offset: 0, duration: 1.4 }); else (t === 0 ? scrollTo(0, 0) : t.scrollIntoView()); };
-  $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const h = a.getAttribute('href'); if (h.length > 1) { e.preventDefault(); setMenu(false); go(h); } }));
+  /* in-page links only: checks the href at click time, so links that change later (Visit site) are left alone */
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href]'); if (!a) return;
+    const h = a.getAttribute('href');
+    if (h.startsWith('#') && h.length > 1 && $(h)) { e.preventDefault(); setMenu(false); go(h); }
+  });
 
   /* ---------- menu open/close ---------- */
   const menu = $('#menu'), btn = $('#menuBtn');
