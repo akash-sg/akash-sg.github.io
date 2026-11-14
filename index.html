@@ -12,7 +12,9 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B0B0B'/%3E%3Ctext x='16' y='23' font-family='Arial' font-size='19' fill='%234B72FF' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
 <style>
   /* One file. Edit the words here to update the site.
      System copied from the reference: regular-weight uppercase grotesk, italic serif O's,
@@ -21,7 +23,7 @@
     --bg: #0B0B0B; --panel: #141414;
     --ink: #E7E1D7; --soft: #8E8A83; --line: #E7E1D71F;
     --blue: #2F5BFF; --blue-hot: #5A7DFF;
-    --sans: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+    --sans: "General Sans", "Helvetica Neue", Arial, sans-serif;
     --serif: "Playfair Display", Georgia, serif;
     --gut: clamp(1rem, 3.4vw, 3rem);
     --ease: cubic-bezier(0.22, 1, 0.26, 1);
@@ -34,14 +36,14 @@
   img, video, canvas { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
   ::selection { background: var(--blue); color: #fff; }
-  :focus-visible { outline: 2px solid var(--blue-hot); outline-offset: 3px; border-radius: 4px; }
+  :focus-visible { outline: 2px solid var(--blue-hot); outline-offset: 3px; border-radius: 0; }
 
   /* type system */
   .up { text-transform: uppercase; }
-  .o { font-family: var(--serif); font-style: italic; font-weight: 400; text-transform: none; }
+  .o { font-family: var(--serif); font-style: italic; font-weight: 400; text-transform: uppercase; font-size: 1.04em; line-height: 0; }
   .lbl { font-size: clamp(0.8rem, 1vw, 0.95rem); text-transform: uppercase; letter-spacing: 0; line-height: 1.2; }
   .dim { color: var(--soft); }
-  .huge { font-weight: 400; text-transform: uppercase; line-height: 0.86; letter-spacing: -0.035em; margin: 0; }
+  .huge { font-weight: 400; text-transform: uppercase; line-height: 0.86; letter-spacing: -0.04em; margin: 0; }
 
   /* letter-split reveal (SplitText style) */
   [data-split] .w { display: inline-block; overflow: clip; overflow-clip-margin: 0.12em; vertical-align: top; padding-bottom: 0.06em; margin-bottom: -0.06em; }
@@ -51,11 +53,11 @@
   [data-fade].in { opacity: 1; translate: 0 0; }
 
   /* fixed chrome: logo square bottom-left, menu bottom-right (reference) */
-  .logo-sq, .menu-btn { position: fixed; z-index: 80; bottom: clamp(1rem, 2.4vw, 1.6rem); height: 64px; border-radius: 12px; background: #1A1A1ACC; border: 1px solid #ffffff14; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: var(--ink); }
+  .logo-sq, .menu-btn { position: fixed; z-index: 80; bottom: clamp(1rem, 2.4vw, 1.6rem); height: 64px; border-radius: 0; background: #1A1A1ACC; border: 1px solid #ffffff14; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: var(--ink); }
   .logo-sq { left: var(--gut); width: 64px; display: grid; place-items: center; font: 400 1.9rem/1 var(--sans); color: var(--blue-hot); }
   .menu-btn { right: var(--gut); display: flex; align-items: center; gap: 0.7rem; padding: 0 1.4rem; cursor: pointer; font: 400 1rem var(--sans); text-transform: uppercase; }
   .menu-btn .dots { position: relative; width: 14px; height: 14px; transition: rotate 0.6s var(--ease); }
-  .menu-btn .dots i { position: absolute; width: 4px; height: 4px; border-radius: 1px; background: var(--blue-hot); }
+  .menu-btn .dots i { position: absolute; width: 4px; height: 4px; border-radius: 0; background: var(--blue-hot); }
   .menu-btn .dots i:nth-child(1) { left: 5px; top: 0; } .menu-btn .dots i:nth-child(2) { left: 0; top: 5px; }
   .menu-btn .dots i:nth-child(3) { right: 0; top: 5px; } .menu-btn .dots i:nth-child(4) { left: 5px; bottom: 0; }
   .menu-btn:hover .dots, .menu-open .menu-btn .dots { rotate: 45deg; }
@@ -85,8 +87,9 @@
   .hero-mid .line { display: flex; gap: 1rem; max-width: 22rem; font-size: clamp(0.95rem, 1.1vw, 1.1rem); line-height: 1.45; }
   .star { color: var(--blue-hot); flex: none; font-size: 1.5rem; line-height: 1; translate: 0 -0.15em; }
   .hero-name { position: absolute; z-index: 3; left: var(--gut); right: var(--gut); bottom: clamp(5.4rem, 11vh, 7rem); }
-  .hero-name h1 { font-size: clamp(5.6rem, 27vw, 31rem); }
-  .hero-name .dot { color: var(--blue-hot); }
+  .hero-name h1 { font-size: clamp(5.2rem, 25vw, 29rem); }
+  /* the full stop after AKASH is a sharp blue square */
+  .box { display: inline-block; width: 0.15em; height: 0.15em; margin-left: 0.04em; background: var(--blue-hot); vertical-align: baseline; }
   .hero-name .rule { height: 1px; background: var(--line); margin-bottom: clamp(0.6rem, 1.6vh, 1.2rem); }
   @media (max-width: 700px) {
     .hero-mid { top: 30%; flex-direction: column; gap: 1.2rem; }
@@ -98,15 +101,15 @@
 
   /* about: 3D mark card + rows (reference layout) */
   .about { display: grid; gap: 2.4rem; }
-  .about .card { position: relative; border-radius: 10px; overflow: hidden; aspect-ratio: 4 / 5; max-height: 78svh; background: radial-gradient(110% 90% at 50% 100%, #233FA6 0%, #10205E 42%, #0A0D1C 100%); }
+  .about .card { position: relative; border-radius: 0; overflow: hidden; aspect-ratio: 4 / 5; max-height: 78svh; background: radial-gradient(110% 90% at 50% 100%, #233FA6 0%, #10205E 42%, #0A0D1C 100%); }
   .about .card canvas, .about .card .flatA { position: absolute; inset: 0; width: 100%; height: 100%; }
   .flatA { display: grid; place-items: center; font: 400 12rem/1 var(--sans); color: var(--blue-hot); }
   .rows { margin: 0; align-self: end; }
   .rows div { display: flex; justify-content: space-between; align-items: baseline; gap: 2rem; padding: 1.1rem 0; border-top: 1px solid var(--line); }
   .rows dt, .rows dd { margin: 0; text-transform: uppercase; font-size: clamp(0.95rem, 1.25vw, 1.15rem); }
   .rows dd { text-align: right; }
-  .btn { display: inline-flex; align-items: center; gap: 0.7rem; margin-top: 1.8rem; background: var(--blue); color: #fff; padding: 1rem 1.4rem; border-radius: 8px; text-transform: uppercase; font-size: 1rem; transition: background 0.3s; }
-  .btn::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #fff; }
+  .btn { display: inline-flex; align-items: center; gap: 0.7rem; margin-top: 1.8rem; background: var(--blue); color: #fff; padding: 1rem 1.4rem; border-radius: 0; text-transform: uppercase; font-size: 1rem; transition: background 0.3s; }
+  .btn::after { content: ""; width: 6px; height: 6px; border-radius: 0; background: #fff; }
   .btn:hover { background: var(--blue-hot); }
   @media (min-width: 900px) { .about { grid-template-columns: 1.1fr 1fr; gap: 4vw; } }
 
@@ -126,15 +129,15 @@
   .gc-title p { margin: 0.5rem 0 0; }
   .gc-track { position: absolute; inset: 0; transform-style: preserve-3d; }
   /* slide width also limited by screen height, so the title above and the text below never sit on the screenshot */
-  .gc { --sw: min(58vw, calc((min(100svh, 980px) - 360px) * 1.6), 940px); }
-  .gc-slide { position: absolute; left: 50%; top: calc(50% - 1.2rem); width: var(--sw); aspect-ratio: 16 / 10; margin: calc(var(--sw) * -0.3125) 0 0 calc(var(--sw) * -0.5); border-radius: 14px; overflow: hidden; background: var(--panel); will-change: transform; box-shadow: 0 40px 80px -40px #000; }
+  .gc { --sw: min(58vw, calc((min(100svh, 980px) - 450px) * 1.6), 900px); }
+  .gc-slide { position: absolute; left: 50%; top: calc(50% - 1.2rem); width: var(--sw); aspect-ratio: 16 / 10; margin: calc(var(--sw) * -0.3125) 0 0 calc(var(--sw) * -0.5); border-radius: 0; overflow: hidden; background: var(--panel); will-change: transform; box-shadow: 0 40px 80px -40px #000; }
   .gc-slide img { width: 100%; height: 100%; object-fit: cover; object-position: top; pointer-events: none; }
   .gc-slide .tile { width: 100%; height: 100%; display: grid; place-items: center; background: radial-gradient(100% 100% at 50% 100%, #1D3496, #0C1230); font: 400 clamp(3rem, 9vw, 8rem)/1 var(--sans); color: var(--ink); }
   .gc-slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, #ffffff10 0%, transparent 30%, transparent 70%, #ffffff0d 100%); pointer-events: none; }
   .gc-foot { position: absolute; z-index: 5; left: 0; right: 0; bottom: clamp(1.2rem, 6vh, 3.6rem); display: grid; justify-items: center; gap: 0.9rem; padding: 0 var(--gut); text-align: center; }
   .gc-desc { margin: 0; color: var(--soft); max-width: 46ch; font-size: 0.98rem; min-height: 3em; }
   .gc-ctrl { display: flex; align-items: center; gap: 1.2rem; }
-  .gc-ctrl button { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--ink); font-size: 1.1rem; cursor: pointer; }
+  .gc-ctrl button { width: 48px; height: 48px; border-radius: 0; border: 1px solid var(--line); background: transparent; color: var(--ink); font-size: 1.1rem; cursor: pointer; }
   .gc-ctrl button:hover { border-color: var(--ink); }
   .gc-count { font-variant-numeric: tabular-nums; min-width: 4.5ch; }
   .gc-open { color: var(--blue-hot); text-transform: uppercase; font-size: 0.95rem; }
@@ -150,14 +153,14 @@
   .also .head .huge { font-size: clamp(2.6rem, 7vw, 6.4rem); }
   .reels { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.5rem, 1.6vw, 1.4rem); }
   .reels figure { margin: 0; }
-  .reels video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 10px; background: #000; }
+  .reels video { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 0; background: #000; }
   .reels figcaption { margin-top: 0.7rem; }
   .marks { margin-top: clamp(2.4rem, 5vw, 4rem); display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
-  .marks img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; background: #fff; }
+  .marks img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 0; background: #fff; }
   @media (min-width: 700px) { .marks { grid-template-columns: repeat(6, 1fr); } }
 
   /* footer: lit panel, contact corners, giant scrolling name (reference) */
-  .foot { position: relative; margin: 0 var(--gut) clamp(6rem, 12vh, 7.5rem); border-radius: 14px; overflow: clip; background: radial-gradient(70% 80% at 50% 105%, #2546C4 0%, #13235F 40%, #121212 80%); min-height: min(92svh, 860px); display: grid; grid-template-rows: auto 1fr auto auto; grid-template-columns: minmax(0, 1fr); /* stops the long marquee line widening the grid */ }
+  .foot { position: relative; margin: 0 var(--gut) clamp(6rem, 12vh, 7.5rem); border-radius: 0; overflow: clip; background: radial-gradient(70% 80% at 50% 105%, #2546C4 0%, #13235F 40%, #121212 80%); min-height: min(92svh, 860px); display: grid; grid-template-rows: auto 1fr auto auto; grid-template-columns: minmax(0, 1fr); /* stops the long marquee line widening the grid */ }
   .foot-top { display: flex; justify-content: space-between; padding: 1.6rem clamp(1rem, 2.6vw, 2.2rem); }
   .foot-mid { display: grid; place-items: center; text-align: center; padding: 1rem; }
   .foot-mid .huge { font-size: clamp(2.4rem, 7.4vw, 7rem); }
@@ -168,7 +171,7 @@
   .foot-ways a small { color: var(--soft); font-size: 0.85em; }
   .foot-ways a:hover span { color: var(--blue-hot); }
   .marquee { overflow: clip; white-space: nowrap; padding: 0.4rem 0 0; }
-  .marquee span { display: inline-block; font-size: clamp(5rem, 17vw, 17rem); line-height: 0.92; text-transform: uppercase; letter-spacing: -0.035em; animation: slide 22s linear infinite; }
+  .marquee span { display: inline-block; font-size: clamp(5rem, 17vw, 17rem); line-height: 0.92; text-transform: uppercase; letter-spacing: -0.04em; animation: slide 22s linear infinite; }
   .marquee .bl { color: var(--blue-hot); }
   @keyframes slide { to { translate: -50% 0; } }
 
@@ -202,7 +205,7 @@
     </div>
     <div class="hero-name">
       <div class="rule"></div>
-      <h1 class="huge" data-split>Akash<span class="dot">.</span></h1>
+      <h1 class="huge" data-split>Akash<span class="box" aria-hidden="true"></span></h1>
     </div>
   </section>
 
@@ -281,7 +284,7 @@
         <a href="https://github.com/akash-sg" target="_blank" rel="noopener"><span>GitHub</span><small>akash-sg</small></a>
       </div>
     </div>
-    <div class="marquee" aria-hidden="true"><span>Akash<b class="bl" style="font-weight:400">.</b>&ensp;Akash<b class="bl" style="font-weight:400">.</b>&ensp;Akash<b class="bl" style="font-weight:400">.</b>&ensp;Akash<b class="bl" style="font-weight:400">.</b>&ensp;</span></div>
+    <div class="marquee" aria-hidden="true"><span>Akash<span class="box"></span>&ensp;Akash<span class="box"></span>&ensp;Akash<span class="box"></span>&ensp;Akash<span class="box"></span>&ensp;</span></div>
   </footer>
 
 </main>
