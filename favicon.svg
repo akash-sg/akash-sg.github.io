@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" fill="#0B0B0B"/>
-  <!-- box and blue corner square: same layout as the approved design -->
-  <rect x="7" y="7.2" width="50.3" height="50.3" fill="none" stroke="#E7E1D7" stroke-width="1.2"/>
-  <!-- A in the site's grotesk (General Sans style) instead of the serif -->
-  <path transform="translate(-3.3 1.84) scale(1.143)" fill="#E7E1D7" fill-rule="evenodd" d="M27.8 13H32.2L43 41H38.4L35.9 34.3H24.1L21.6 41H17Z M25.5 30.4H34.5L30 18.6Z"/>
-  <rect x="52.2" y="53.3" width="5.4" height="5.4" fill="#5A7DFF"/>
-</svg>
