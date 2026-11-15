@@ -217,7 +217,7 @@
   .foot-ways a small { color: var(--soft); font-size: clamp(0.95rem, 1.1vw, 1.05rem); }
   .foot-ways a:hover span { color: var(--blue-hot); }
   .marquee { overflow: clip; white-space: nowrap; padding: 0.4rem 0 0; }
-  .marquee .track { display: inline-block; font-size: clamp(4rem, 12vw, 12rem); line-height: 0.92; text-transform: uppercase; letter-spacing: -0.04em; animation: slide 70s linear infinite; }
+  .marquee .track { display: inline-block; font-size: clamp(2.2rem, 5.6vw, 5.6rem); line-height: 0.92; text-transform: uppercase; letter-spacing: -0.04em; animation: slide 55s linear infinite; }
   .marquee .box { margin: 0 0.35em; vertical-align: 0.12em; }
   @media (max-width: 700px) {
     /* the long email made the right column (Instagram, GitHub) run off screen: one column on phones */
@@ -249,13 +249,10 @@
   .lead-msg { margin: 0; min-height: 1.5em; }
   .lead-msg a { color: var(--blue-hot); }
 
-  /* services: a few chips in About, the full list in a glass panel */
-  .rows .svc-row { align-items: flex-start; }
-  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; }
-  .chips li { border: 1px solid #E7E1D733; padding: 0.45rem 0.7rem; font-size: 0.92em; }
-  .chips li:has(.chip-more) { padding: 0; border: 0; }
-  .chip-more { height: 100%; min-height: 44px; padding: 0.45rem 0.8rem; border: 1px solid var(--blue); border-radius: 0; background: var(--blue); color: #fff; font: 500 0.92em var(--sans); text-transform: uppercase; cursor: pointer; transition: background 0.3s; }
-  .chip-more:hover { background: var(--blue-hot); }
+  /* services: plain text in About, the full list in a glass panel */
+  /* plain text; the blue "& more" opens the full list */
+  .svc-more { padding: 0; border: 0; background: none; color: var(--blue-hot); font: inherit; text-transform: inherit; cursor: pointer; white-space: nowrap; }
+  .svc-more:hover { text-decoration: underline; text-underline-offset: 0.2em; }
   .svc-dlg { width: min(94vw, 56rem); }
   .svc-groups { display: grid; gap: 1.6rem 2.4rem; margin: 1.2rem 0 1.6rem; }
   @media (min-width: 700px) { .svc-groups { grid-template-columns: 1fr 1fr; } }
@@ -263,7 +260,6 @@
   .svc-groups ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.15rem; }
   .svc-groups li { padding: 0.5rem 0; border-top: 1px solid #FFFFFF1A; font-size: clamp(1.02rem, 1.3vw, 1.15rem); text-transform: uppercase; }
   .svc-dlg .btn { border: 0; cursor: pointer; font-family: var(--sans); margin-top: 0; }
-  @media (max-width: 700px) { .rows .svc-row { flex-direction: column; gap: 0.8rem; } .chips { justify-content: flex-start; } }
   @keyframes slide { to { translate: -50% 0; } }
 
   @media (prefers-reduced-motion: reduce) {
@@ -326,7 +322,7 @@
       <div class="card" id="aCard" data-fade></div>
       <div style="display: grid; align-content: end;">
         <dl class="rows" data-fade>
-          <div class="svc-row"><dt class="dim">Services</dt><dd><ul class="chips"><li>Websites</li><li>SEO</li><li>WhatsApp automation</li><li>Reels and content</li><li><button type="button" class="chip-more" id="svcOpen">+ All services</button></li></ul></dd></div>
+          <div><dt class="dim">Services</dt><dd>Websites, SEO, WhatsApp automation, reels and content <button type="button" class="svc-more" id="svcOpen">&amp; more</button></dd></div>
           <div><dt class="dim">Experience</dt><dd>Since 2017</dd></div>
           <div><dt class="dim">Projects</dt><dd>15+ shipped</dd></div>
           <div><dt class="dim">Availability</dt><dd>Taking on new projects</dd></div>
