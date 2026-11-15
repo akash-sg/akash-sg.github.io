@@ -68,6 +68,9 @@
   /* fixed chrome: logo square bottom-left, menu bottom-right (reference) */
   .logo-sq, .menu-btn { position: fixed; z-index: 80; bottom: clamp(1rem, 2.4vw, 1.6rem); height: 64px; border-radius: 0; background: #1A1A1ACC; border: 1px solid #ffffff14; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: var(--ink); }
   .logo-sq { left: var(--gut); width: 64px; display: grid; place-items: center; font: 400 1.9rem/1 var(--sans); color: var(--blue-hot); }
+  .logo-sq[hidden] { display: none; }
+  /* frosted glass menu button */
+  .menu-btn { background: linear-gradient(150deg, #FFFFFF26 0%, #FFFFFF0A 50%, #2F5BFF26 100%), #12121259; border: 1px solid #FFFFFF33; -webkit-backdrop-filter: blur(20px) saturate(170%); backdrop-filter: blur(20px) saturate(170%); box-shadow: inset 0 1px 0 #FFFFFF33, 0 12px 30px -12px #000000B3; }
   .menu-btn { right: var(--gut); display: flex; align-items: center; gap: 0.7rem; padding: 0 1.4rem; cursor: pointer; font: 400 1rem var(--sans); text-transform: uppercase; }
   .menu-btn .dots { position: relative; width: 14px; height: 14px; transition: rotate 0.6s var(--ease); }
   .menu-btn .dots i { position: absolute; width: 4px; height: 4px; border-radius: 0; background: var(--blue-hot); }
@@ -271,7 +274,7 @@
 </head>
 <body>
 
-<a class="logo-sq" href="#top" aria-label="Back to top">A</a>
+<a class="logo-sq" href="#top" aria-label="Back to top" hidden>A</a>   <!-- off for now: remove "hidden" to bring it back -->
 <button class="menu-btn" id="menuBtn" aria-controls="menu" aria-expanded="false"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Menu</button>
 <nav class="menu" id="menu" aria-label="Menu" inert>
   <a href="#about" data-roll>About</a>
