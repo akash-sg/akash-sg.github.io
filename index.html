@@ -31,6 +31,11 @@
     --gut: clamp(1rem, 3.4vw, 3rem);
     --ease: cubic-bezier(0.22, 1, 0.26, 1);
   }
+  /* wide-colour screens (iPhone, Mac, new Android): a deeper blue than sRGB can show. Others keep the hex values. */
+  @media (color-gamut: p3) {
+    :root { --blue: color(display-p3 0.13 0.3 1); --blue-hot: color(display-p3 0.29 0.44 1); }
+    .foot { background: radial-gradient(70% 80% at 50% 105%, color(display-p3 0.1 0.24 0.86) 0%, color(display-p3 0.06 0.12 0.4) 40%, #121212 80%); }
+  }
   * { box-sizing: border-box; }
   html { background: var(--bg); color-scheme: dark; -webkit-text-size-adjust: 100%; }
   html.lenis, html.lenis body { height: auto; }
@@ -849,6 +854,7 @@ void main() {
   const cv = document.getElementById('fluid');
   const gl = cv.getContext('webgl', { antialias: false, depth: false });
   if (!gl) return;
+  if ('drawingBufferColorSpace' in gl && matchMedia('(color-gamut: p3)').matches) gl.drawingBufferColorSpace = 'display-p3';
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
   /* highp: phone GPUs run mediump as 16-bit, which breaks the random-noise hash and flattens the glass to one colour */
