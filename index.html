@@ -546,13 +546,14 @@
 
   /* ---------- glass carousel ---------- */
   const gc = $('#gc'), track = $('#gcTrack');
+  const CLIPV = 'v3';   /* bump after re-rendering clips so browsers drop their saved copies */
   const slides = WORK.map((w, i) => {
     const s = document.createElement('div'); s.className = 'gc-slide';
     /* clip files follow the screenshot name: img/x.jpg -> img/clip-x.mp4 (+ clip-x.jpg first frame).
        Nothing is downloaded up front: src/poster are set only when the slide is next to the centre (see loadNear). */
     const clip = w.img && w.img.replace('img/', 'img/clip-').replace('.jpg', '');
     s.innerHTML = !w.img ? '<div class="tile">WA</div>'
-      : '<video class="sk" muted loop playsinline preload="none" data-poster="' + clip + '.jpg" data-src="' + clip + '.mp4" aria-label="' + w.t + ' website"></video>';
+      : '<video class="sk" muted loop playsinline preload="none" data-poster="' + clip + '.jpg?' + CLIPV + '" data-src="' + clip + '.mp4?' + CLIPV + '" aria-label="' + w.t + ' website"></video>';
     const v = s.querySelector('video');
     if (v) ['loadeddata', 'canplay'].forEach(ev => v.addEventListener(ev, () => v.classList.remove('sk'), { once: true }));
     /* clicking a side slide brings it to the centre; opening the site is only the Visit site button (no surprise new tabs while dragging) */
