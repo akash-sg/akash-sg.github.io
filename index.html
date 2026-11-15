@@ -167,11 +167,10 @@
   .gc { --sw: min(58vw, calc((min(100svh, 980px) - 450px) * 1.6), 900px); }
   .gc-slide { position: absolute; left: 50%; top: calc(50% - 1.2rem); width: var(--sw); aspect-ratio: 16 / 10; margin: calc(var(--sw) * -0.3125) 0 0 calc(var(--sw) * -0.5); border-radius: 0; overflow: hidden; background: var(--panel); will-change: transform; box-shadow: 0 40px 80px -40px #000; }
   .gc-slide img { width: 100%; height: 100%; object-fit: cover; object-position: top; pointer-events: none; }
-  /* reference: each project is a short clip of the site in a sharp browser frame, on a background in the project's own colour */
-  .gc-slide.clip { background: radial-gradient(120% 110% at 50% 115%, var(--c) 0%, color-mix(in oklab, var(--c) 40%, #0B0B0B) 55%, #0F0F0F 100%); }
-  .gc-slide .shot { position: absolute; left: 9%; right: 9%; top: 11%; padding-top: max(10px, calc(var(--sw) * 0.02)); background: #1B1B1B; border: 1px solid #ffffff1F; box-shadow: 0 30px 60px -24px #000000CC; }
-  .gc-slide .shot::before { content: ""; position: absolute; top: 0; left: 0.6em; height: max(10px, calc(var(--sw) * 0.02)); width: 3.2em; background: radial-gradient(circle, #ffffff40 0 0.18em, transparent 0.19em) 0 50% / 0.8em 100% repeat-x; }
-  .gc-slide .shot video, .gc-slide .shot img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; pointer-events: none; background: #111; }
+  .gc-slide video { width: 100%; height: 100%; object-fit: cover; pointer-events: none; background: #141414; }
+  /* skeleton: a soft light sweep over the empty slide until its clip has a frame to show */
+  .gc-slide video.sk { background: linear-gradient(100deg, #141414 30%, #222 50%, #141414 70%) 0 0 / 300% 100%; animation: sk 1.4s linear infinite; }
+  @keyframes sk { from { background-position: 100% 0; } to { background-position: -50% 0; } }
   .gc-slide .tile { width: 100%; height: 100%; display: grid; place-items: center; background: radial-gradient(100% 100% at 50% 100%, #1D3496, #0C1230); font: 400 clamp(3rem, 9vw, 8rem)/1 var(--sans); color: var(--ink); }
   .gc-slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, #ffffff10 0%, transparent 30%, transparent 70%, #ffffff0d 100%); pointer-events: none; }
   .gc-foot { position: absolute; z-index: 5; left: 0; right: 0; bottom: clamp(1.2rem, 6vh, 3.6rem); display: grid; justify-items: center; gap: 0.9rem; padding: 0 var(--gut); text-align: center; }
@@ -364,12 +363,12 @@
 
   /* ---------- work data: every project, one place ---------- */
   const WORK = [
+    { t: 'Fine Wines', tags: 'Online store', img: 'img/finewines.jpg', c: '#7A1028', url: 'https://finewinesonline.in', d: 'An online store with products, prices and a cart. The same client came back for a second store, Clean Eats.' },
+    { t: 'RANKS Institute', tags: 'Website / Demo lessons / SEO', img: 'img/ranks.jpg', c: '#C2551A', url: 'https://ranksinstitute.in', d: 'A training institute with proof up front: every course with fees, free demo lessons behind a short form, a jobs page and student login.' },
     { t: 'Picklo Shimoga', tags: 'Brand / Booking system / WhatsApp bot / Reels', img: 'img/picklo.jpg', c: '#3F7D1C', url: 'https://pickloshimoga.com', d: 'A pickleball club that runs itself: court booking with payments, passes, tournaments, a staff panel on the phone, and a WhatsApp bot that takes bookings.' },
     { t: 'Gmap AI Reviews', tags: 'Own product / AI / Dashboard', img: 'img/gmap.jpg', c: '#1F4FD8', url: 'https://gmap-ai-review.vercel.app', d: 'My own product. A customer scans a code, taps a few answers, and AI writes their Google review in their words, ready to post.' },
     { t: 'Clean Eats', tags: 'Online store / Ordering system / Delivery routes', img: 'img/cleaneats.jpg', c: '#7A5634', url: 'https://cleaneats.in', d: 'An online store for a healthy snacks brand, plus Bowls: meal subscriptions with day, week and month plans, delivery charged by map distance, and daily routes for the team.' },
-    { t: 'RANKS Institute', tags: 'Website / Demo lessons / SEO', img: 'img/ranks.jpg', c: '#C2551A', url: 'https://ranksinstitute.in', d: 'A training institute with proof up front: every course with fees, free demo lessons behind a short form, a jobs page and student login.' },
     { t: 'ARV Equipments', tags: 'Website / Catalogue', img: 'img/arv.jpg', c: '#1E3560', url: 'https://arvequipments.com', d: 'A bakery and kitchen equipment maker in Shivamogga: product lines from rotary ovens to mixers, with WhatsApp enquiries.' },
-    { t: 'Fine Wines', tags: 'Online store', img: 'img/finewines.jpg', c: '#7A1028', url: 'https://finewinesonline.in', d: 'An online store with products, prices and a cart. The same client came back for a second store, Clean Eats.' },
     { t: 'Ganeshotsava Hosanagara', tags: 'Website / Kannada', img: 'img/hms.jpg', c: '#7A1A16', url: 'https://hms-hosanagara-site.vercel.app/', d: 'A Kannada festival website with the full programme, events and a live countdown.' },
     { t: 'Techwiser Store', tags: 'Concept / Store', img: 'img/techwiser.jpg', c: '#D9A800', url: 'https://techwiser-store-demo.netlify.app', d: 'A concept store for a tech creator: every gadget from their videos, sorted, with trending picks.' },
     { t: 'Freelance Manager', tags: 'Web app / Demo', img: 'img/freelance.jpg', c: '#4B2BC9', url: 'https://akash-sg.github.io/freelance-management-platform/', d: 'Tasks, assignments, approvals and payments, each role with its own dashboard. Try the demo login.' },
@@ -468,20 +467,26 @@
   /* ---------- glass carousel ---------- */
   const gc = $('#gc'), track = $('#gcTrack');
   const slides = WORK.map((w, i) => {
-    const s = document.createElement('div'); s.className = 'gc-slide' + (w.c ? ' clip' : ''); if (w.c) s.style.setProperty('--c', w.c);
-    /* clip file follows the screenshot name: img/x.jpg -> img/clip-x.mp4; the screenshot is its poster */
-    const clip = w.img && w.img.replace('img/', 'img/clip-').replace('.jpg', '.mp4');
+    const s = document.createElement('div'); s.className = 'gc-slide';
+    /* clip files follow the screenshot name: img/x.jpg -> img/clip-x.mp4 (+ clip-x.jpg first frame).
+       Nothing is downloaded up front: src/poster are set only when the slide is next to the centre (see loadNear). */
+    const clip = w.img && w.img.replace('img/', 'img/clip-').replace('.jpg', '');
     s.innerHTML = !w.img ? '<div class="tile">WA</div>'
-      : w.c ? '<div class="shot"><video muted loop playsinline preload="none" poster="' + w.img + '" src="' + clip + '" aria-label="' + w.t + ' website"></video></div>'
-      : '<img src="' + w.img + '" alt="' + w.t + '" draggable="false">';
+      : '<video class="sk" muted loop playsinline preload="none" data-poster="' + clip + '.jpg" data-src="' + clip + '.mp4" aria-label="' + w.t + ' website"></video>';
+    const v = s.querySelector('video');
+    if (v) ['loadeddata', 'canplay'].forEach(ev => v.addEventListener(ev, () => v.classList.remove('sk'), { once: true }));
     /* clicking a side slide brings it to the centre; opening the site is only the Visit site button (no surprise new tabs while dragging) */
     s.addEventListener('click', () => { if (moved < 6 && i !== Math.round(pos)) target = i; });
     track.append(s); return s;
   });
   /* only the centre clip plays, and only while the carousel is on screen */
   let gcVisible = false;
-  const syncVideo = () => slides.forEach((s, i) => { const v = s.querySelector('video'); if (!v) return; if (i === cur && gcVisible && !reduced) v.play().catch(() => {}); else v.pause(); });
+  let gcNear = false;
+  /* lazy load: once the carousel is within a screen of view, give the centre slide and its neighbours their poster + clip */
+  const loadNear = () => { if (!gcNear) return; slides.forEach((s, i) => { const v = s.querySelector('video'); if (!v || v.src || Math.abs(i - cur) > 1) return; v.poster = v.dataset.poster; v.preload = i === cur ? 'auto' : 'metadata'; v.src = v.dataset.src; }); };
+  const syncVideo = () => { loadNear(); slides.forEach((s, i) => { const v = s.querySelector('video'); if (!v) return; if (i === cur && gcVisible && !reduced) v.play().catch(() => {}); else v.pause(); }); };
   new IntersectionObserver(es => { gcVisible = es[0].isIntersecting; syncVideo(); }, { threshold: 0.2 }).observe($('#gc'));
+  new IntersectionObserver(es => { if (es[0].isIntersecting) { gcNear = true; syncVideo(); } }, { rootMargin: '100% 0px' }).observe($('#gc'));
   let pos = 0, target = 0, cur = -1, moved = 0;
   const N = WORK.length;
   const show = i => {
@@ -570,26 +575,34 @@
   const vio = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? e.target.play().catch(() => {}) : e.target.pause()), { threshold: 0.35 });
   $$('.reels video').forEach(v => vio.observe(v));
 
-  /* cursor streak: recent mouse points drawn as a tapering blue ribbon that fades in ~0.35s. Mouse/trackpad only. */
+  /* cursor streak: a "head" glides after the mouse every frame (not jumping event to event), and the
+     trail is drawn as one smooth curve through its recent positions, tapering and fading at the tail. Mouse only. */
   if (!reduced && matchMedia('(pointer: fine)').matches) {
     const cv = document.createElement('canvas'); cv.id = 'trail'; cv.setAttribute('aria-hidden', 'true'); document.body.append(cv);
-    const ctx = cv.getContext('2d'), pts = [], LIFE = 350;
-    let running = false;
+    const ctx = cv.getContext('2d'), pts = [], LEN = 22;   /* frames of history */
+    let mx = 0, my = 0, hx = 0, hy = 0, running = false, idle = 0;
     const fit = () => { const d = Math.min(devicePixelRatio, 2); cv.width = innerWidth * d; cv.height = innerHeight * d; ctx.setTransform(d, 0, 0, d, 0, 0); };
     fit(); addEventListener('resize', fit);
     const draw = () => {
-      const now = performance.now();
-      while (pts.length && now - pts[0].t > LIFE) pts.shift();
+      hx += (mx - hx) * 0.42; hy += (my - hy) * 0.42;
+      pts.unshift({ x: hx, y: hy }); if (pts.length > LEN) pts.pop();
       ctx.clearRect(0, 0, innerWidth, innerHeight);
       ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-      for (let i = 1; i < pts.length; i++) {
-        const k = 1 - (now - pts[i].t) / LIFE;
-        ctx.strokeStyle = 'rgba(90,125,255,' + (k * 0.9).toFixed(3) + ')'; ctx.lineWidth = 1 + k * 7;
-        ctx.beginPath(); ctx.moveTo(pts[i - 1].x, pts[i - 1].y); ctx.lineTo(pts[i].x, pts[i].y); ctx.stroke();
+      /* midpoint quadratic curves: no corners between samples */
+      for (let i = 1; i < pts.length - 1; i++) {
+        const k = 1 - i / LEN, a = pts[i - 1], b = pts[i], c = pts[i + 1];
+        ctx.strokeStyle = 'rgba(90,125,255,' + (k * k * 0.85).toFixed(3) + ')'; ctx.lineWidth = 0.5 + k * 6;
+        ctx.beginPath(); ctx.moveTo((a.x + b.x) / 2, (a.y + b.y) / 2); ctx.quadraticCurveTo(b.x, b.y, (b.x + c.x) / 2, (b.y + c.y) / 2); ctx.stroke();
       }
-      running = pts.length > 0; if (running) requestAnimationFrame(draw);
+      const tail = pts[pts.length - 1], still = Math.abs(tail.x - mx) + Math.abs(tail.y - my) < 0.5;
+      idle = still ? idle + 1 : 0;
+      if (idle > 2) { running = false; pts.length = 0; ctx.clearRect(0, 0, innerWidth, innerHeight); } else requestAnimationFrame(draw);
     };
-    addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; pts.push({ x: e.clientX, y: e.clientY, t: performance.now() }); if (!running) { running = true; requestAnimationFrame(draw); } }, { passive: true });
+    addEventListener('pointermove', e => {
+      if (e.pointerType !== 'mouse') return;
+      mx = e.clientX; my = e.clientY;
+      if (!running) { running = true; idle = 0; if (!pts.length) { hx = mx; hy = my; } requestAnimationFrame(draw); }
+    }, { passive: true });
   }
 })();
 </script>
