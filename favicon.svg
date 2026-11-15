@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#0B0B0B"/>
+  <!-- thin box -->
+  <rect x="8" y="8" width="48" height="48" fill="none" stroke="#E7E1D7" stroke-width="1.6"/>
+  <!-- A in the site's lighter grotesk style -->
+  <path transform="translate(1 0)" fill="#E7E1D7" fill-rule="evenodd" d="M27.8 13H32.2L43 41H38.4L35.9 34.3H24.1L21.6 41H17Z M25.5 30.4H34.5L30 18.6Z"/>
+  <!-- blue square, inside the box corner -->
+  <rect x="44" y="44" width="10.5" height="10.5" fill="#5A7DFF"/>
+</svg>
