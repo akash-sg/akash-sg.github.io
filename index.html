@@ -7,7 +7,9 @@
 <meta name="description" content="Akash builds websites and systems that solve real business problems, and the content that brings people in.">
 <meta property="og:title" content="AKASH — Portfolio 2026">
 <meta property="og:description" content="I build the systems businesses run on. And the content that makes them famous.">
-<meta property="og:image" content="https://akash-sg.github.io/img/picklo.jpg">
+<meta property="og:image" content="https://akash-sg.github.io/img/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0B0B0B">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B0B0B'/%3E%3Ctext x='16' y='23' font-family='Arial' font-size='19' fill='%234B72FF' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,10 +52,10 @@
   /* scroll-scrubbed statement (reference): words light up one by one as you scroll */
   .statement { padding: clamp(5rem, 14vh, 9rem) var(--gut) clamp(3rem, 8vh, 6rem); }
   .stmt { margin: 0; font-weight: 500; text-transform: uppercase; font-size: clamp(2.3rem, 6.4vw, 7.4rem); line-height: 0.98; letter-spacing: -0.035em; max-width: 24ch; }
-  .stmt .sw { color: #333333; transition: color 0.35s linear; }
+  .stmt .sw { color: #4A4744; transition: color 0.35s linear; }
   .stmt .sw.on { color: var(--ink); }
   .stmt .sw.acc.on { color: var(--blue-hot); }
-  .stmt .bar { display: inline-block; width: 1.4em; height: 0.09em; vertical-align: 0.3em; background: #333333; transition: background 0.35s linear; }
+  .stmt .bar { display: inline-block; width: 1.4em; height: 0.09em; vertical-align: 0.3em; background: #4A4744; transition: background 0.35s linear; }
   .stmt .bar.on { background: var(--blue-hot); }
 
   /* letter-split reveal (SplitText style) */
@@ -165,6 +167,11 @@
   .gc { --sw: min(58vw, calc((min(100svh, 980px) - 450px) * 1.6), 900px); }
   .gc-slide { position: absolute; left: 50%; top: calc(50% - 1.2rem); width: var(--sw); aspect-ratio: 16 / 10; margin: calc(var(--sw) * -0.3125) 0 0 calc(var(--sw) * -0.5); border-radius: 0; overflow: hidden; background: var(--panel); will-change: transform; box-shadow: 0 40px 80px -40px #000; }
   .gc-slide img { width: 100%; height: 100%; object-fit: cover; object-position: top; pointer-events: none; }
+  /* reference: each project is a short clip of the site in a sharp browser frame, on a background in the project's own colour */
+  .gc-slide.clip { background: radial-gradient(120% 110% at 50% 115%, var(--c) 0%, color-mix(in oklab, var(--c) 40%, #0B0B0B) 55%, #0F0F0F 100%); }
+  .gc-slide .shot { position: absolute; left: 9%; right: 9%; top: 11%; padding-top: max(10px, calc(var(--sw) * 0.02)); background: #1B1B1B; border: 1px solid #ffffff1F; box-shadow: 0 30px 60px -24px #000000CC; }
+  .gc-slide .shot::before { content: ""; position: absolute; top: 0; left: 0.6em; height: max(10px, calc(var(--sw) * 0.02)); width: 3.2em; background: radial-gradient(circle, #ffffff40 0 0.18em, transparent 0.19em) 0 50% / 0.8em 100% repeat-x; }
+  .gc-slide .shot video, .gc-slide .shot img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; pointer-events: none; background: #111; }
   .gc-slide .tile { width: 100%; height: 100%; display: grid; place-items: center; background: radial-gradient(100% 100% at 50% 100%, #1D3496, #0C1230); font: 400 clamp(3rem, 9vw, 8rem)/1 var(--sans); color: var(--ink); }
   .gc-slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, #ffffff10 0%, transparent 30%, transparent 70%, #ffffff0d 100%); pointer-events: none; }
   .gc-foot { position: absolute; z-index: 5; left: 0; right: 0; bottom: clamp(1.2rem, 6vh, 3.6rem); display: grid; justify-items: center; gap: 0.9rem; padding: 0 var(--gut); text-align: center; }
@@ -173,7 +180,13 @@
   .gc-ctrl button { width: 48px; height: 48px; border-radius: 0; border: 1px solid var(--line); background: transparent; color: var(--ink); font-size: 1.1rem; cursor: pointer; }
   .gc-ctrl button:hover { border-color: var(--ink); }
   .gc-count { font-variant-numeric: tabular-nums; min-width: 4.5ch; }
-  .gc-open { color: var(--blue-hot); text-transform: uppercase; font-size: 0.95rem; }
+  .gc-open { display: inline-flex; align-items: center; min-height: 44px; padding: 0 1.1rem; border: 1px solid #5A7DFF66; color: var(--blue-hot); text-transform: uppercase; font-size: 0.95rem; transition: background 0.3s, color 0.3s; }
+  .gc-open:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+  /* cursor streak: a short blue ribbon behind the mouse (mouse/trackpad only) */
+  #trail { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 90; pointer-events: none; }
+  /* hero text stays readable when a bright patch of glass passes behind it */
+  .hero-top, .hero-mid { text-shadow: 0 1px 22px #0B0B0BB3, 0 0 2px #0B0B0B66; }
   .gc-open[aria-disabled="true"] { color: var(--soft); pointer-events: none; }
   @media (max-width: 700px) {
     .gc { height: 92svh; }
@@ -190,6 +203,7 @@
   .reels figcaption { margin-top: 0.7rem; }
   .marks { margin-top: clamp(2.4rem, 5vw, 4rem); display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
   .marks img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 0; background: #fff; }
+  .marks img.wide { object-fit: contain; }   /* banner: show it whole instead of cropping it square */
   @media (min-width: 700px) { .marks { grid-template-columns: repeat(6, 1fr); } }
 
   /* footer: lit panel, contact corners, giant scrolling name (reference) */
@@ -201,7 +215,7 @@
   .foot-ways div { display: grid; gap: 1.1rem; }
   .foot-ways div:last-child { text-align: right; }
   .foot-ways a { display: grid; gap: 0.15rem; text-transform: uppercase; font-size: clamp(0.95rem, 1.25vw, 1.15rem); font-weight: 500; }
-  .foot-ways a small { color: var(--soft); font-size: 0.85em; }
+  .foot-ways a small { color: var(--soft); font-size: clamp(0.95rem, 1.1vw, 1.05rem); }
   .foot-ways a:hover span { color: var(--blue-hot); }
   .marquee { overflow: clip; white-space: nowrap; padding: 0.4rem 0 0; }
   .marquee span { display: inline-block; font-size: clamp(5rem, 17vw, 17rem); line-height: 0.92; text-transform: uppercase; letter-spacing: -0.04em; animation: slide 22s linear infinite; }
@@ -219,7 +233,7 @@
 
 <a class="logo-sq" href="#top" aria-label="Back to top">A</a>
 <button class="menu-btn" id="menuBtn" aria-controls="menu" aria-expanded="false"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Menu</button>
-<nav class="menu" id="menu" aria-label="Menu" aria-hidden="true">
+<nav class="menu" id="menu" aria-label="Menu" inert>
   <a href="#about" data-roll>About</a>
   <a href="#work" data-roll>Work</a>
   <a href="#also" data-roll>Content</a>
@@ -263,7 +277,7 @@
   </section>
 
   <section class="sec" id="about" aria-label="About">
-    <p class="lbl dim" data-split style="margin: 0 0 1.6rem">About</p>
+    <h2 class="lbl dim" data-split style="margin: 0 0 1.6rem">About</h2>
     <div class="about">
       <div class="card" id="aCard" data-fade></div>
       <div style="display: grid; align-content: end;">
@@ -279,7 +293,7 @@
   </section>
 
   <section class="sec because" aria-label="Approach">
-    <p class="lbl dim" data-split>Because</p>
+    <h2 class="lbl dim" data-split style="margin: 0">Because</h2>
     <p data-fade>I'm Akash. I build websites and systems that solve real business problems: bookings, orders, payments, the WhatsApp bot that answers at midnight, and the content that brings people in.</p>
     <p data-fade class="dim2">Every build starts from how the business actually works, not from a template. A pickleball club, a meal kitchen, a training institute, a manufacturer: their systems run every day. One person, start to live.</p>
   </section>
@@ -320,7 +334,7 @@
       <img src="img/tbc.jpg" alt="The Barbel Culture logo" loading="lazy">
       <img src="img/melb.jpg" alt="MELB Designs logo" loading="lazy">
       <img src="img/jsk.jpg" alt="Jai Shree Krushna logo" loading="lazy">
-      <img src="img/gaav.jpg" alt="Gaav Naturals banner" loading="lazy">
+      <img class="wide" src="img/gaav.jpg" alt="Gaav Naturals banner" loading="lazy">
     </div>
   </section>
 
@@ -350,17 +364,17 @@
 
   /* ---------- work data: every project, one place ---------- */
   const WORK = [
-    { t: 'Picklo Shimoga', tags: 'Brand / Booking system / WhatsApp bot / Reels', img: 'img/picklo.jpg', url: 'https://pickloshimoga.com', d: 'A pickleball club that runs itself: court booking with payments, passes, tournaments, a staff panel on the phone, and a WhatsApp bot that takes bookings.' },
-    { t: 'Gmap AI Reviews', tags: 'Own product / AI / Dashboard', img: 'img/gmap.jpg', url: 'https://gmap-ai-review.vercel.app', d: 'My own product. A customer scans a code, taps a few answers, and AI writes their Google review in their words, ready to post.' },
-    { t: 'Clean Eats', tags: 'Online store / Ordering system / Delivery routes', img: 'img/cleaneats.jpg', url: 'https://cleaneats.in', d: 'An online store for a healthy snacks brand, plus Bowls: meal subscriptions with day, week and month plans, delivery charged by map distance, and daily routes for the team.' },
-    { t: 'RANKS Institute', tags: 'Website / Demo lessons / SEO', img: 'img/ranks.jpg', url: 'https://ranksinstitute.in', d: 'A training institute with proof up front: every course with fees, free demo lessons behind a short form, a jobs page and student login.' },
-    { t: 'ARV Equipments', tags: 'Website / Catalogue', img: 'img/arv.jpg', url: 'https://arvequipments.com', d: 'A bakery and kitchen equipment maker in Shivamogga: product lines from rotary ovens to mixers, with WhatsApp enquiries.' },
-    { t: 'Fine Wines', tags: 'Online store', img: 'img/finewines.jpg', url: 'https://finewinesonline.in', d: 'An online store with products, prices and a cart. The same client came back for a second store, Clean Eats.' },
-    { t: 'Ganeshotsava Hosanagara', tags: 'Website / Kannada', img: 'img/hms.jpg', url: 'https://hms-hosanagara-site.vercel.app/', d: 'A Kannada festival website with the full programme, events and a live countdown.' },
-    { t: 'Techwiser Store', tags: 'Concept / Store', img: 'img/techwiser.jpg', url: 'https://techwiser-store-demo.netlify.app', d: 'A concept store for a tech creator: every gadget from their videos, sorted, with trending picks.' },
-    { t: 'Freelance Manager', tags: 'Web app / Demo', img: 'img/freelance.jpg', url: 'https://akash-sg.github.io/freelance-management-platform/', d: 'Tasks, assignments, approvals and payments, each role with its own dashboard. Try the demo login.' },
-    { t: 'Real Estate', tags: 'Landing page', img: 'img/realestate.jpg', url: 'https://akash-sg.github.io/real-estate-website/', d: 'A landing page for a builder: services, a project gallery and a quote request.' },
-    { t: 'Vasudha Organic Mart', tags: 'Website', img: 'img/vasudha.jpg', url: 'https://akash-sg.github.io/vasudha-website/', d: 'A website for an organic store selling spices, oils and traditional foods.' },
+    { t: 'Picklo Shimoga', tags: 'Brand / Booking system / WhatsApp bot / Reels', img: 'img/picklo.jpg', c: '#3F7D1C', url: 'https://pickloshimoga.com', d: 'A pickleball club that runs itself: court booking with payments, passes, tournaments, a staff panel on the phone, and a WhatsApp bot that takes bookings.' },
+    { t: 'Gmap AI Reviews', tags: 'Own product / AI / Dashboard', img: 'img/gmap.jpg', c: '#1F4FD8', url: 'https://gmap-ai-review.vercel.app', d: 'My own product. A customer scans a code, taps a few answers, and AI writes their Google review in their words, ready to post.' },
+    { t: 'Clean Eats', tags: 'Online store / Ordering system / Delivery routes', img: 'img/cleaneats.jpg', c: '#7A5634', url: 'https://cleaneats.in', d: 'An online store for a healthy snacks brand, plus Bowls: meal subscriptions with day, week and month plans, delivery charged by map distance, and daily routes for the team.' },
+    { t: 'RANKS Institute', tags: 'Website / Demo lessons / SEO', img: 'img/ranks.jpg', c: '#C2551A', url: 'https://ranksinstitute.in', d: 'A training institute with proof up front: every course with fees, free demo lessons behind a short form, a jobs page and student login.' },
+    { t: 'ARV Equipments', tags: 'Website / Catalogue', img: 'img/arv.jpg', c: '#1E3560', url: 'https://arvequipments.com', d: 'A bakery and kitchen equipment maker in Shivamogga: product lines from rotary ovens to mixers, with WhatsApp enquiries.' },
+    { t: 'Fine Wines', tags: 'Online store', img: 'img/finewines.jpg', c: '#7A1028', url: 'https://finewinesonline.in', d: 'An online store with products, prices and a cart. The same client came back for a second store, Clean Eats.' },
+    { t: 'Ganeshotsava Hosanagara', tags: 'Website / Kannada', img: 'img/hms.jpg', c: '#7A1A16', url: 'https://hms-hosanagara-site.vercel.app/', d: 'A Kannada festival website with the full programme, events and a live countdown.' },
+    { t: 'Techwiser Store', tags: 'Concept / Store', img: 'img/techwiser.jpg', c: '#D9A800', url: 'https://techwiser-store-demo.netlify.app', d: 'A concept store for a tech creator: every gadget from their videos, sorted, with trending picks.' },
+    { t: 'Freelance Manager', tags: 'Web app / Demo', img: 'img/freelance.jpg', c: '#4B2BC9', url: 'https://akash-sg.github.io/freelance-management-platform/', d: 'Tasks, assignments, approvals and payments, each role with its own dashboard. Try the demo login.' },
+    { t: 'Real Estate', tags: 'Landing page', img: 'img/realestate.jpg', c: '#8A6A2B', url: 'https://akash-sg.github.io/real-estate-website/', d: 'A landing page for a builder: services, a project gallery and a quote request.' },
+    { t: 'Vasudha Organic Mart', tags: 'Website', img: 'img/vasudha.jpg', c: '#2F6B3A', url: 'https://akash-sg.github.io/vasudha-website/', d: 'A website for an organic store selling spices, oils and traditional foods.' },
     { t: 'WhatsApp Broadcast', tags: 'Tool / Open source', img: '', url: 'https://github.com/akash-sg/wa-broadcast-dashboard', d: 'A dashboard that sends one message to hundreds of contacts from a sheet, with live status and a report.' },
   ];
 
@@ -433,20 +447,41 @@
   const menu = $('#menu'), btn = $('#menuBtn');
   function setMenu(open) {
     document.body.classList.toggle('menu-open', open);
-    btn.setAttribute('aria-expanded', open); menu.setAttribute('aria-hidden', !open);
+    btn.setAttribute('aria-expanded', open);
+    /* closed menu can't be reached by Tab; focus moves in on open and back to the button on close */
+    const wasInside = menu.contains(document.activeElement);
+    menu.inert = !open;
+    if (open) setTimeout(() => menu.querySelector('a').focus({ preventScroll: true }), 50);
+    else if (wasInside) btn.focus({ preventScroll: true });
     if (lenis) open ? lenis.stop() : lenis.start();
   }
+  /* keep Tab inside the open menu + button */
+  addEventListener('keydown', e => {
+    if (e.key !== 'Tab' || !document.body.classList.contains('menu-open')) return;
+    const f = [...menu.querySelectorAll('a'), btn], i = f.indexOf(document.activeElement);
+    if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+    else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+  });
   btn.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
   addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 
   /* ---------- glass carousel ---------- */
   const gc = $('#gc'), track = $('#gcTrack');
   const slides = WORK.map((w, i) => {
-    const s = document.createElement('div'); s.className = 'gc-slide';
-    s.innerHTML = w.img ? '<img src="' + w.img + '" alt="' + w.t + '" loading="' + (i < 3 ? 'eager' : 'lazy') + '" draggable="false">' : '<div class="tile">WA</div>';
-    s.addEventListener('click', () => { if (moved < 6) { if (i === Math.round(pos)) window.open(w.url, '_blank', 'noopener'); else target = i; } });
+    const s = document.createElement('div'); s.className = 'gc-slide' + (w.c ? ' clip' : ''); if (w.c) s.style.setProperty('--c', w.c);
+    /* clip file follows the screenshot name: img/x.jpg -> img/clip-x.mp4; the screenshot is its poster */
+    const clip = w.img && w.img.replace('img/', 'img/clip-').replace('.jpg', '.mp4');
+    s.innerHTML = !w.img ? '<div class="tile">WA</div>'
+      : w.c ? '<div class="shot"><video muted loop playsinline preload="none" poster="' + w.img + '" src="' + clip + '" aria-label="' + w.t + ' website"></video></div>'
+      : '<img src="' + w.img + '" alt="' + w.t + '" draggable="false">';
+    /* clicking a side slide brings it to the centre; opening the site is only the Visit site button (no surprise new tabs while dragging) */
+    s.addEventListener('click', () => { if (moved < 6 && i !== Math.round(pos)) target = i; });
     track.append(s); return s;
   });
+  /* only the centre clip plays, and only while the carousel is on screen */
+  let gcVisible = false;
+  const syncVideo = () => slides.forEach((s, i) => { const v = s.querySelector('video'); if (!v) return; if (i === cur && gcVisible && !reduced) v.play().catch(() => {}); else v.pause(); });
+  new IntersectionObserver(es => { gcVisible = es[0].isIntersecting; syncVideo(); }, { threshold: 0.2 }).observe($('#gc'));
   let pos = 0, target = 0, cur = -1, moved = 0;
   const N = WORK.length;
   const show = i => {
@@ -454,6 +489,7 @@
     $('#gcTitle').innerHTML = oHTML(w.t); $('#gcTags').textContent = w.tags; $('#gcDesc').textContent = w.d;
     $('#gcCount').textContent = String(i + 1).padStart(2, '0') + '/' + String(N).padStart(2, '0');
     const open = $('#gcOpen'); open.href = w.url; open.textContent = /github\.com/.test(w.url) ? 'View code' : 'Visit site';
+    syncVideo();
   };
   const layout = () => {
     const sw = slides[0].offsetWidth, gap = sw * (innerWidth < 700 ? 1.02 : 0.86);
@@ -533,6 +569,28 @@
   /* reels play only on screen */
   const vio = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? e.target.play().catch(() => {}) : e.target.pause()), { threshold: 0.35 });
   $$('.reels video').forEach(v => vio.observe(v));
+
+  /* cursor streak: recent mouse points drawn as a tapering blue ribbon that fades in ~0.35s. Mouse/trackpad only. */
+  if (!reduced && matchMedia('(pointer: fine)').matches) {
+    const cv = document.createElement('canvas'); cv.id = 'trail'; cv.setAttribute('aria-hidden', 'true'); document.body.append(cv);
+    const ctx = cv.getContext('2d'), pts = [], LIFE = 350;
+    let running = false;
+    const fit = () => { const d = Math.min(devicePixelRatio, 2); cv.width = innerWidth * d; cv.height = innerHeight * d; ctx.setTransform(d, 0, 0, d, 0, 0); };
+    fit(); addEventListener('resize', fit);
+    const draw = () => {
+      const now = performance.now();
+      while (pts.length && now - pts[0].t > LIFE) pts.shift();
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      for (let i = 1; i < pts.length; i++) {
+        const k = 1 - (now - pts[i].t) / LIFE;
+        ctx.strokeStyle = 'rgba(90,125,255,' + (k * 0.9).toFixed(3) + ')'; ctx.lineWidth = 1 + k * 7;
+        ctx.beginPath(); ctx.moveTo(pts[i - 1].x, pts[i - 1].y); ctx.lineTo(pts[i].x, pts[i].y); ctx.stroke();
+      }
+      running = pts.length > 0; if (running) requestAnimationFrame(draw);
+    };
+    addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; pts.push({ x: e.clientX, y: e.clientY, t: performance.now() }); if (!running) { running = true; requestAnimationFrame(draw); } }, { passive: true });
+  }
 })();
 </script>
 
@@ -624,5 +682,6 @@ try {
   card.innerHTML = '<div class="flatA">A</div>';
 }
 </script>
+<script data-goatcounter="https://akash-sg.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
