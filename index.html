@@ -198,7 +198,7 @@
   .gc-open[aria-disabled="true"] { color: var(--soft); pointer-events: none; }
   @media (max-width: 700px) {
     .gc { height: 80svh; min-height: 520px; }
-    .gc { --sw: 78vw; }
+    .gc { --sw: 70vw; }
     .gc-slide { top: calc(50% - 2.6rem); }
   }
   /* WebGL mode: the canvas draws the slides; the real videos stay in the page (invisible) as its picture source */
@@ -611,19 +611,21 @@
     if (!gl) return null;
     const hp = gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.HIGH_FLOAT);
     const fs = `precision ${hp && hp.precision > 0 ? 'highp' : 'mediump'} float;
-uniform vec2 R; uniform float CY, T, P, B, ST, G, HS, A;
+uniform vec2 R; uniform float CY, P, B, PI, E1, K, G, HS, A;
 uniform sampler2D t0, t1, t2, t3;
 vec4 tx(float s, vec2 uv) { if (s < .5) return texture2D(t0, uv); if (s < 1.5) return texture2D(t1, uv); if (s < 2.5) return texture2D(t2, uv); return texture2D(t3, uv); }
 void main() {
-  vec2 p = vec2(gl_FragCoord.x - R.x * .5, gl_FragCoord.y - CY) / (R.x * .5) * T;
-  float phi = atan(p.x), c = cos(phi);
-  float h = p.y * c * pow(c, A * 3.);                 /* cylinder flare, stronger while moving */
-  float s = phi / ST + P, k = floor(s + .5);
+  vec2 p = vec2(gl_FragCoord.x - R.x * .5, gl_FragCoord.y - CY) / (R.x * .5);   /* -1..1 across the canvas */
+  float ax = abs(p.x), e = E1 * (1. - A * .6);         /* flat zone = the centre slide; it shrinks while moving */
+  float o = max(0., ax - e);
+  float X = sign(p.x) * (min(ax, e) + o * .72);        /* beyond it, slides stretch like the inside of a cylinder */
+  float h = p.y / (1. + K * (1. + A * 1.5) * o * o);   /* and their top and bottom edges flare out */
+  float s = X / PI + P, k = floor(s + .5);
   float u = (s - k) / G + .5, v = .5 - h / (2. * HS), sl = k - B;
   if (u < 0. || u > 1. || v < 0. || v > 1. || sl < -.5 || sl > 3.5) { gl_FragColor = vec4(0.); return; }
   float ca = A * .012;                                /* colour split while moving */
   vec3 col = vec3(tx(sl, vec2(u + ca, v)).r, tx(sl, vec2(u, v)).g, tx(sl, vec2(u - ca, v)).b);
-  col *= 1. - .35 * smoothstep(.25, 1.1, abs(phi));   /* light falls off around the curve */
+  col *= 1. - .4 * smoothstep(0., .5, o);               /* light falls off around the curve */
   gl_FragColor = vec4(col, 1.);
 }`;
     const sh = (t, src) => { const o = gl.createShader(t); gl.shaderSource(o, src); gl.compileShader(o); return o; };
@@ -635,7 +637,7 @@ void main() {
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
     const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-    const U = {}; ['R', 'CY', 'T', 'P', 'B', 'ST', 'G', 'HS', 'A'].forEach(n => U[n] = gl.getUniformLocation(pr, n));
+    const U = {}; ['R', 'CY', 'P', 'B', 'PI', 'E1', 'K', 'G', 'HS', 'A'].forEach(n => U[n] = gl.getUniformLocation(pr, n));
     const dark = new Uint8Array([20, 20, 20, 255]);
     const tex = [0, 1, 2, 3].map(n => {
       const t = gl.createTexture(); gl.activeTexture(gl.TEXTURE0 + n); gl.bindTexture(gl.TEXTURE_2D, t);
@@ -653,7 +655,7 @@ void main() {
       try { src ? gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src) : gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, dark); keys[n] = key; } catch (e) { keys[n] = ''; }
     };
     $('#gc').append(cv); document.documentElement.classList.add('gc-gl');
-    let amt = 0, last = 0, T = 1, ST = 1, G = 0.9;
+    let amt = 0, last = 0, PI = 1, E1 = 0.6, G = 0.9;
     const fit = () => {
       const d = Math.min(devicePixelRatio, 2), r = cv.getBoundingClientRect();
       cv.width = Math.max(2, r.width * d); cv.height = Math.max(2, r.height * d); gl.viewport(0, 0, cv.width, cv.height);
@@ -662,16 +664,18 @@ void main() {
     /* tap a side slide to bring it to the centre */
     cv.addEventListener('click', e => {
       if (moved >= 6) return;
-      const r = cv.getBoundingClientRect(), phi = Math.atan((e.clientX - r.left - r.width / 2) / (r.width / 2) * T);
-      const delta = Math.floor(phi / ST + pos + 0.5) - Math.round(pos);
+      const r = cv.getBoundingClientRect(), x = (e.clientX - r.left - r.width / 2) / (r.width / 2), ax = Math.abs(x);
+      const X = Math.sign(x) * (Math.min(ax, E1) + Math.max(0, ax - E1) * 0.72);
+      const delta = Math.floor(X / PI + pos + 0.5) - Math.round(pos);
       if (delta) target = Math.round(target) + delta;
     });
     return {
       draw() {
         const s0 = slides[0], W = cv.width, H = cv.height, k = W / cv.getBoundingClientRect().width;
         const sw = s0.offsetWidth * k, cy = H - (s0.offsetTop + s0.offsetHeight / 2) * k;   /* same size and place as the CSS slide */
-        const phone = innerWidth < 700; T = phone ? 1.15 : 1; G = phone ? 0.92 : 0.9;
-        const a = Math.atan(sw / W * T); ST = 2 * a / G;
+        const phone = innerWidth < 700; G = phone ? 0.94 : 0.9;
+        PI = 2 * (sw / W) / G; E1 = PI / 2;                 /* slide pitch, and the flat zone = centre slide + half a gap */
+        const K = 0.8 / Math.max(0.02, (1 - E1) * (1 - E1));   /* edges of the screen flare to ~1.8x height */
         const vel = Math.abs(pos - last); last = pos;
         amt += (Math.min(1, vel * 14) - amt) * 0.12;
         const B = Math.floor(pos) - 1;
@@ -680,8 +684,8 @@ void main() {
           if (i === cur && v && v.readyState >= 2) upload(n, v, 'v' + i);
           else { const im = poster(i); upload(n, im && im.complete && im.naturalWidth ? im : null, im && im.complete && im.naturalWidth ? 'p' + i : 'e'); }
         }
-        gl.uniform2f(U.R, W, H); gl.uniform1f(U.CY, cy); gl.uniform1f(U.T, T); gl.uniform1f(U.P, pos); gl.uniform1f(U.B, B);
-        gl.uniform1f(U.ST, ST); gl.uniform1f(U.G, G); gl.uniform1f(U.HS, sw * 0.3125 / (W / 2) * T); gl.uniform1f(U.A, reduced ? 0 : amt);
+        gl.uniform2f(U.R, W, H); gl.uniform1f(U.CY, cy); gl.uniform1f(U.P, pos); gl.uniform1f(U.B, B);
+        gl.uniform1f(U.PI, PI); gl.uniform1f(U.E1, E1); gl.uniform1f(U.K, K); gl.uniform1f(U.G, G); gl.uniform1f(U.HS, sw * 0.3125 / (W / 2)); gl.uniform1f(U.A, reduced ? 0 : amt);
         gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLES, 0, 3);
       }
     };
