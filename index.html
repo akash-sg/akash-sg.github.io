@@ -217,8 +217,36 @@
   .foot-ways a small { color: var(--soft); font-size: clamp(0.95rem, 1.1vw, 1.05rem); }
   .foot-ways a:hover span { color: var(--blue-hot); }
   .marquee { overflow: clip; white-space: nowrap; padding: 0.4rem 0 0; }
-  .marquee span { display: inline-block; font-size: clamp(5rem, 17vw, 17rem); line-height: 0.92; text-transform: uppercase; letter-spacing: -0.04em; animation: slide 22s linear infinite; }
-  .marquee .bl { color: var(--blue-hot); }
+  .marquee .track { display: inline-block; font-size: clamp(4rem, 12vw, 12rem); line-height: 0.92; text-transform: uppercase; letter-spacing: -0.04em; animation: slide 70s linear infinite; }
+  .marquee .box { margin: 0 0.35em; vertical-align: 0.12em; }
+  @media (max-width: 700px) {
+    /* the long email made the right column (Instagram, GitHub) run off screen: one column on phones */
+    .foot-ways { grid-template-columns: minmax(0, 1fr); }
+    .foot-ways div:last-child { text-align: left; }
+  }
+
+  /* the whole footer opens the project form */
+  .foot { cursor: pointer; }
+  .foot a { cursor: pointer; }
+  .foot-cta { margin-top: clamp(1.4rem, 3.5vh, 2.4rem); border: 0; cursor: pointer; font-family: var(--sans); }
+  .lead-dlg { width: min(92vw, 40rem); max-height: 92svh; overflow: auto; padding: clamp(1.2rem, 3vw, 2rem); border: 1px solid #E7E1D733; border-radius: 0; background: #121212; color: var(--ink); }
+  .lead-dlg::backdrop { background: #0B0B0BCC; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .lead { display: grid; gap: 1rem; }
+  .lead-head { display: flex; justify-content: space-between; align-items: center; }
+  .lead-head h2 { margin: 0; color: var(--blue-hot); }
+  .lead-x { width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 0; background: transparent; color: var(--ink); font-size: 1rem; cursor: pointer; }
+  .lead .row2 { display: grid; gap: 1rem; }
+  @media (min-width: 700px) { .lead .row2 { grid-template-columns: 1fr 1fr; } }
+  .lead label { display: grid; gap: 0.45rem; font-size: 0.95rem; font-weight: 500; text-transform: uppercase; color: var(--soft); }
+  .lead input, .lead select, .lead textarea { width: 100%; font: 500 1.05rem/1.4 var(--sans); color: var(--ink); background: #0B0B0B; border: 1px solid #E7E1D733; border-radius: 0; padding: 0.85rem 0.9rem; }
+  .lead textarea { resize: vertical; }
+  .lead input:focus, .lead select:focus, .lead textarea:focus { outline: none; border-color: var(--blue-hot); }
+  .lead [aria-invalid="true"] { border-color: #FF6B5A; }
+  .lead .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .lead .btn { margin-top: 0.2rem; justify-self: start; border: 0; cursor: pointer; font-family: var(--sans); }
+  .lead .btn[disabled] { opacity: 0.6; cursor: wait; }
+  .lead-msg { margin: 0; min-height: 1.5em; }
+  .lead-msg a { color: var(--blue-hot); }
   @keyframes slide { to { translate: -50% 0; } }
 
   @media (prefers-reduced-motion: reduce) {
@@ -339,7 +367,7 @@
 
   <footer class="foot" id="contact" aria-label="Contact">
     <div class="foot-top lbl"><span>Akash S G</span><span>Portfolio 2026</span></div>
-    <div class="foot-mid"><h2 class="huge" data-split>Let's build yours</h2></div>
+    <div class="foot-mid"><h2 class="huge" data-split>Let's build yours</h2><button type="button" class="btn foot-cta" id="leadOpen">Start a project</button></div>
     <div class="foot-ways">
       <div>
         <a href="https://wa.me/918762290104?text=Hi%20Akash%2C%20I%20saw%20your%20portfolio."><span>WhatsApp</span><small>+91 87622 90104</small></a>
@@ -350,8 +378,30 @@
         <a href="https://github.com/akash-sg" target="_blank" rel="noopener"><span>GitHub</span><small>akash-sg</small></a>
       </div>
     </div>
-    <div class="marquee" aria-hidden="true"><span>Akash<span class="box"></span>&ensp;Akash<span class="box"></span>&ensp;Akash<span class="box"></span>&ensp;Akash<span class="box"></span>&ensp;</span></div>
+    <!-- what I do, scrolling; the list is written once and repeated by the script for a seamless loop -->
+    <div class="marquee" aria-hidden="true"><div class="track" id="mq" data-words="Websites|SEO|Google Business|Online stores|Booking systems|WhatsApp automation|Web apps|Reels|Content|Posters|Logos|Branding|Photography|Ads"></div></div>
   </footer>
+
+  <!-- project form: opens when the footer is tapped. Sent by FormSubmit to my mail; _honey is the spam trap -->
+  <dialog class="lead-dlg" id="leadDlg" aria-labelledby="leadTitle">
+    <form class="lead" id="lead" novalidate>
+      <div class="lead-head"><h2 class="lbl" id="leadTitle">Start a project</h2><button type="button" class="lead-x" id="leadClose" aria-label="Close">✕</button></div>
+      <div class="row2">
+        <label>Name<input name="name" required autocomplete="name"></label>
+        <label>Phone or email<input name="contact" required autocomplete="email"></label>
+      </div>
+      <label>What do you need
+        <select name="service">
+          <option>Website</option><option>Online store or booking system</option><option>SEO and Google Business</option>
+          <option>WhatsApp automation</option><option>Reels and content</option><option>Logo and posters</option><option>Something else</option>
+        </select>
+      </label>
+      <label>Tell me a bit about it<textarea name="message" rows="4"></textarea></label>
+      <div class="hp" aria-hidden="true"><label>Leave this empty<input name="_honey" tabindex="-1" autocomplete="off"></label></div>
+      <button class="btn" type="submit" id="leadSend">Send</button>
+      <p class="lead-msg" id="leadMsg" role="status" aria-live="polite"></p>
+    </form>
+  </dialog>
 
 </main>
 
@@ -570,6 +620,40 @@
     if (!reduced) shapes.forEach(s => { const k = +s.dataset.s; if (k) s.style.transform = 'translateY(' + (-y * k).toFixed(1) + 'px)'; });
   };
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  /* footer keywords: written once in data-words, doubled so the -50% slide loops seamlessly */
+  const mq = $('#mq'), mqHTML = mq.dataset.words.split('|').map(w => oHTML(w) + '<span class="box"></span>').join('');
+  mq.innerHTML = mqHTML + mqHTML;
+
+  /* project form: tapping anywhere on the footer (except its links) opens it; sent through FormSubmit */
+  const dlg = $('#leadDlg'), form = $('#lead'), msg = $('#leadMsg'), send = $('#leadSend');
+  let openedAt = 0;
+  const openLead = () => { if (dlg.open) return; dlg.showModal(); openedAt = performance.now(); if (lenis) lenis.stop(); form.elements.name.focus(); };
+  $('.foot').addEventListener('click', e => { if (!e.target.closest('a')) openLead(); });
+  $('#leadClose').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });   /* tap outside the panel closes */
+  dlg.addEventListener('close', () => { if (lenis) lenis.start(); });
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const bad = [form.elements.name, form.contact].filter(i => !i.value.trim());
+    [form.elements.name, form.contact].forEach(i => i.setAttribute('aria-invalid', bad.includes(i)));
+    if (bad.length) { msg.textContent = 'Please add your name and a phone number or email.'; bad[0].focus(); return; }
+    /* spam traps: the hidden field is filled, or the form was sent faster than a person can type */
+    if (form._honey.value || performance.now() - openedAt < 2500) { msg.textContent = 'Thanks! I\'ll get back to you soon.'; form.reset(); return; }
+    send.disabled = true; msg.textContent = 'Sending…';
+    try {
+      const r = await fetch('https://formsubmit.co/ajax/akash.s.gangolli@gmail.com', {
+        method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ name: form.elements.name.value.trim(), contact: form.contact.value.trim(), service: form.service.value, message: form.message.value.trim(),
+          _subject: 'New project enquiry: ' + form.elements.name.value.trim(), _template: 'table', _captcha: 'false', _honey: form._honey.value })
+      });
+      if (!r.ok) throw 0;
+      msg.textContent = 'Thanks! I\'ll get back to you within a day.'; form.reset();
+    } catch {
+      msg.innerHTML = 'Couldn\'t send right now. <a href="https://wa.me/918762290104">Message me on WhatsApp</a> instead.';
+    }
+    send.disabled = false;
+  });
 
   /* reels play only on screen */
   const vio = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? e.target.play().catch(() => {}) : e.target.pause()), { threshold: 0.35 });
