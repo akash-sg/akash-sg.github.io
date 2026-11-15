@@ -142,10 +142,8 @@
   /* sections */
   /* spacing matched to the reference: ~150-190px between sections on laptop, ~70-110px on phone */
   .sec { padding: clamp(2.8rem, 6.4vw, 6.4rem) var(--gut); max-width: 100rem; margin-inline: auto; }
-  .sec.because { padding-top: clamp(1.5rem, 3.5vw, 3.5rem); }   /* reads as the end of About, not a new chapter */
   @media (max-width: 700px) {   /* phone: tighter rhythm */
     .sec { padding-block: 1.9rem; }
-    .sec.because { padding-top: 0.6rem; }
     .statement { padding: 2.6rem var(--gut) 1.2rem; }
     .work-head { padding: 2rem var(--gut) 0.6rem; }
   }
@@ -166,10 +164,10 @@
   @media (min-width: 900px) { .about { grid-template-columns: 1.1fr 1fr; gap: 4vw; } }
 
   /* because */
-  .because { display: grid; gap: 1.6rem; }
-  .because p { margin: 0; font-size: clamp(1.15rem, 1.6vw, 1.55rem); line-height: 1.45; max-width: 30ch; }
+  .because { display: grid; gap: 1.6rem; margin-top: clamp(2.4rem, 5vw, 4.5rem); }
+  .because p { margin: 0; font-size: clamp(1.15rem, 1.6vw, 1.55rem); line-height: 1.45; max-width: 34ch; }
   .because .dim2 { color: var(--soft); }
-  @media (min-width: 900px) { .because { grid-template-columns: 1fr 1fr 1fr; } }
+  @media (min-width: 900px) { .because { grid-template-columns: 1.1fr 1fr; gap: 4vw; } }
 
   /* work: giant word + glass carousel (drag / swipe / arrows), same on every screen */
   .work-head { padding: clamp(3rem, 6vw, 6rem) var(--gut) clamp(1.2rem, 3vw, 2.4rem); }
@@ -353,12 +351,10 @@
         <div><a class="btn" href="#work">View work</a></div>
       </div>
     </div>
-  </section>
-
-  <section class="sec because" aria-label="Approach">
-    <h2 class="lbl dim" data-split style="margin: 0">Because</h2>
-    <p data-fade>I'm Akash. I build websites and systems that solve real business problems: bookings, orders, payments, the WhatsApp bot that answers at midnight, and the content that brings people in.</p>
-    <p data-fade class="dim2">Every build starts from how the business actually works, not from a template. A pickleball club, a meal kitchen, a training institute, a manufacturer: their systems run every day. One person, start to live.</p>
+    <div class="because">
+      <p data-fade>I'm Akash. I build websites and systems that solve real business problems: bookings, orders, payments, the WhatsApp bot that answers at midnight, and the content that brings people in.</p>
+      <p data-fade class="dim2">Every build starts from how the business actually works, not from a template. A pickleball club, a meal kitchen, a training institute, a manufacturer: their systems run every day. One person, start to live.</p>
+    </div>
   </section>
 
   <section id="work" aria-label="Work">
