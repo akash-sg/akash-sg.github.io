@@ -51,7 +51,7 @@
   .menu a, .gc-title h3 { font-weight: 500; }
 
   /* scroll-scrubbed statement (reference): words light up one by one as you scroll */
-  .statement { padding: clamp(5rem, 14vh, 9rem) var(--gut) clamp(3rem, 8vh, 6rem); }
+  .statement { padding: clamp(3.5rem, 10vh, 6.5rem) var(--gut) clamp(2rem, 5vh, 4rem); }
   .stmt { margin: 0; font-weight: 500; text-transform: uppercase; font-size: clamp(2.3rem, 6.4vw, 7.4rem); line-height: 0.98; letter-spacing: -0.035em; max-width: 24ch; }
   .stmt .sw { color: #4A4744; transition: color 0.35s linear; }
   .stmt .sw.on { color: var(--ink); }
@@ -135,7 +135,9 @@
   }
 
   /* sections */
-  .sec { padding: clamp(5rem, 11vw, 10rem) var(--gut); max-width: 100rem; margin-inline: auto; }
+  /* spacing matched to the reference: ~150-190px between sections on laptop, ~70-110px on phone */
+  .sec { padding: clamp(2.8rem, 6.4vw, 6.4rem) var(--gut); max-width: 100rem; margin-inline: auto; }
+  .sec.because { padding-top: clamp(1.5rem, 3.5vw, 3.5rem); }   /* reads as the end of About, not a new chapter */
 
   /* about: 3D mark card + rows (reference layout) */
   .about { display: grid; gap: 2.4rem; }
@@ -146,6 +148,7 @@
   .rows div { display: flex; justify-content: space-between; align-items: baseline; gap: 2rem; padding: 1.1rem 0; border-top: 1px solid var(--line); }
   .rows dt, .rows dd { margin: 0; text-transform: uppercase; font-size: clamp(1.05rem, 1.4vw, 1.3rem); font-weight: 500; }
   .rows dd { text-align: right; }
+  .rows div[hidden] { display: none; }   /* rows marked hidden stay hidden (the flex rule above would show them) */
   .btn { display: inline-flex; align-items: center; gap: 0.7rem; margin-top: 1.8rem; background: var(--blue); color: #fff; padding: 1rem 1.4rem; border-radius: 0; text-transform: uppercase; font-size: 1rem; transition: background 0.3s; }
   .btn::after { content: ""; width: 6px; height: 6px; border-radius: 0; background: #fff; }
   .btn:hover { background: var(--blue-hot); }
@@ -158,7 +161,7 @@
   @media (min-width: 900px) { .because { grid-template-columns: 1fr 1fr 1fr; } }
 
   /* work: giant word + glass carousel (drag / swipe / arrows), same on every screen */
-  .work-head { padding: clamp(4rem, 9vw, 8rem) var(--gut) clamp(2rem, 5vw, 3.5rem); }
+  .work-head { padding: clamp(3rem, 6vw, 6rem) var(--gut) clamp(1.2rem, 3vw, 2.4rem); }
   .work-head .lbl { margin-bottom: clamp(1.2rem, 3vw, 2rem) !important; }
   .work-head .huge { font-size: clamp(6rem, 30vw, 34rem); text-align: center; }
   .gc { position: relative; height: min(100svh, 980px); min-height: 560px; overflow: clip; perspective: 1500px; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
@@ -322,7 +325,7 @@
       <div class="card" id="aCard" data-fade></div>
       <div style="display: grid; align-content: end;">
         <dl class="rows" data-fade>
-          <div><dt class="dim">Services</dt><dd>Websites, SEO, WhatsApp automation, reels and content <button type="button" class="svc-more" id="svcOpen">&amp; more</button></dd></div>
+          <div><dt class="dim">Services</dt><dd>Websites, SEO, WhatsApp automation, reels, content <button type="button" class="svc-more" id="svcOpen">&amp; more</button></dd></div>
           <div hidden><dt class="dim">Experience</dt><dd>Since 2017</dd></div>   <!-- hidden for now: remove "hidden" to show it again -->
           <div><dt class="dim">Projects</dt><dd>15+ shipped</dd></div>
           <div><dt class="dim">Availability</dt><dd>Taking on new projects</dd></div>
