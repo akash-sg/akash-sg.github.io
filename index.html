@@ -178,11 +178,7 @@
   .gc-slide .tile { width: 100%; height: 100%; display: grid; place-items: center; background: radial-gradient(100% 100% at 50% 100%, #1D3496, #0C1230); font: 400 clamp(3rem, 9vw, 8rem)/1 var(--sans); color: var(--ink); }
   .gc-slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, #ffffff10 0%, transparent 30%, transparent 70%, #ffffff0d 100%); pointer-events: none; }
   .gc-foot { position: absolute; z-index: 5; left: 0; right: 0; bottom: clamp(1.2rem, 6vh, 3.6rem); display: grid; justify-items: center; gap: 0.9rem; padding: 0 var(--gut); text-align: center; }
-  .gc-desc { margin: 0; color: var(--soft); max-width: 48ch; font-size: clamp(1.02rem, 1.2vw, 1.15rem); min-height: 3em; }
-  .gc-ctrl { display: flex; align-items: center; gap: 1.2rem; }
-  .gc-ctrl button { width: 48px; height: 48px; border-radius: 0; border: 1px solid var(--line); background: transparent; color: var(--ink); font-size: 1.1rem; cursor: pointer; }
-  .gc-ctrl button:hover { border-color: var(--ink); }
-  .gc-count { font-variant-numeric: tabular-nums; min-width: 4.5ch; }
+  .gc-desc { margin: 0; color: var(--soft); max-width: 64ch; font-size: clamp(1.02rem, 1.2vw, 1.15rem); line-height: 1.45; height: 4.35em; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }   /* fixed 3-line box: long text can never grow up into the slide */
   .gc-open { display: inline-flex; align-items: center; min-height: 44px; padding: 0 1.1rem; border: 1px solid #5A7DFF66; color: var(--blue-hot); text-transform: uppercase; font-size: 0.95rem; transition: background 0.3s, color 0.3s; }
   .gc-open:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
 
@@ -352,11 +348,6 @@
       <div class="gc-track" id="gcTrack"></div>
       <div class="gc-foot">
         <p class="gc-desc" id="gcDesc"></p>
-        <div class="gc-ctrl">
-          <button type="button" id="gcPrev" aria-label="Previous project">←</button>
-          <span class="lbl gc-count" id="gcCount">01/12</span>
-          <button type="button" id="gcNext" aria-label="Next project">→</button>
-        </div>
         <a class="gc-open" id="gcOpen" href="https://pickloshimoga.com" target="_blank" rel="noopener">Visit site</a>
       </div>
     </div>
@@ -546,6 +537,11 @@
 
   /* ---------- glass carousel ---------- */
   const gc = $('#gc'), track = $('#gcTrack');
+  /* new random order on every visit */
+  for (let i = WORK.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [WORK[i], WORK[j]] = [WORK[j], WORK[i]]; }
+  const N = WORK.length;
+  /* endless loop: positions grow forever; wrap() gives each slide's nearest distance from the centre, idx() the project index */
+  const wrap = d => d - N * Math.round(d / N), idx = k => ((Math.round(k) % N) + N) % N;
   const CLIPV = 'v3';   /* bump after re-rendering clips so browsers drop their saved copies */
   const slides = WORK.map((w, i) => {
     const s = document.createElement('div'); s.className = 'gc-slide';
@@ -557,40 +553,40 @@
     const v = s.querySelector('video');
     if (v) ['loadeddata', 'canplay'].forEach(ev => v.addEventListener(ev, () => v.classList.remove('sk'), { once: true }));
     /* clicking a side slide brings it to the centre; opening the site is only the Visit site button (no surprise new tabs while dragging) */
-    s.addEventListener('click', () => { if (moved < 6 && i !== Math.round(pos)) target = i; });
+    s.addEventListener('click', () => { if (moved < 6 && i !== cur) target = Math.round(target) + wrap(i - cur); });
     track.append(s); return s;
   });
   /* only the centre clip plays, and only while the carousel is on screen */
   let gcVisible = false;
   let gcNear = false;
   /* lazy load: once the carousel is within a screen of view, give the centre slide and its neighbours their poster + clip */
-  const loadNear = () => { if (!gcNear) return; slides.forEach((s, i) => { const v = s.querySelector('video'); if (!v || v.src || Math.abs(i - cur) > 1) return; v.poster = v.dataset.poster; v.preload = i === cur ? 'auto' : 'metadata'; v.src = v.dataset.src; }); };
+  const loadNear = () => { if (!gcNear) return; slides.forEach((s, i) => { const v = s.querySelector('video'); if (!v || v.src || Math.abs(wrap(i - cur)) > 1) return; v.poster = v.dataset.poster; v.preload = i === cur ? 'auto' : 'metadata'; v.src = v.dataset.src; }); };
   const syncVideo = () => { loadNear(); slides.forEach((s, i) => { const v = s.querySelector('video'); if (!v) return; if (i === cur && gcVisible && !reduced) v.play().catch(() => {}); else v.pause(); }); };
   new IntersectionObserver(es => { gcVisible = es[0].isIntersecting; syncVideo(); }, { threshold: 0.2 }).observe($('#gc'));
   new IntersectionObserver(es => { if (es[0].isIntersecting) { gcNear = true; syncVideo(); } }, { rootMargin: '100% 0px' }).observe($('#gc'));
   let pos = 0, target = 0, cur = -1, moved = 0, shownAt = 0;
-  const N = WORK.length;
   const show = i => {
     if (i === cur) return; cur = i; shownAt = performance.now(); const w = WORK[i];
     const cv0 = slides[i].querySelector("video"); if (cv0 && cv0.src) cv0.currentTime = 0;   /* clip starts from the top each time its slide arrives */
     $('#gcTitle').innerHTML = oHTML(w.t); $('#gcTags').textContent = w.tags; $('#gcDesc').textContent = w.d;
-    $('#gcCount').textContent = String(i + 1).padStart(2, '0') + '/' + String(N).padStart(2, '0');
     const open = $('#gcOpen'); open.href = w.url; open.textContent = /github\.com/.test(w.url) ? 'View code' : 'Visit site';
     syncVideo();
   };
+  /* reference: slides sit on the INSIDE of a cylinder around the viewer. Side slides swing toward you and
+     turn to face the centre, so the row curves around you like a panorama. */
   const layout = () => {
-    const sw = slides[0].offsetWidth, gap = sw * (innerWidth < 700 ? 1.02 : 0.86);
+    const sw = slides[0].offsetWidth, phone = innerWidth < 700;
+    const R = sw * (phone ? 1.9 : 1.5);                                   /* cylinder radius */
+    const step = 2 * Math.asin(Math.min(0.95, sw * (phone ? 1.06 : 1.02) / 2 / R));   /* angle between slides: a small gap */
     slides.forEach((s, i) => {
-      const d = i - pos, a = Math.min(Math.abs(d), 3);
-      const x = d * gap, ry = Math.max(-1, Math.min(1, d)) * -32, z = -a * 160, sc = 1 - Math.min(a, 1.5) * 0.08;
-      s.style.transform = 'translate3d(' + x + 'px,0,' + z + 'px) rotateY(' + ry + 'deg) scale(' + sc + ')';
-      s.style.opacity = a > 2.6 ? 0 : 1 - a * 0.22;
-      s.style.zIndex = 100 - Math.round(a * 10);
-      s.style.visibility = a > 2.9 ? 'hidden' : 'visible';
+      const d = wrap(i - pos), ad = Math.abs(d), a = d * step;
+      const x = R * Math.sin(a), z = R * (1 - Math.cos(a));
+      s.style.transform = 'translate3d(' + x.toFixed(1) + 'px,0,' + z.toFixed(1) + 'px) rotateY(' + (-a * 180 / Math.PI).toFixed(2) + 'deg)';
+      s.style.opacity = ad > 1.8 ? 0 : Math.min(1, 1.15 - ad * 0.3).toFixed(3);
+      s.style.visibility = ad > 1.95 ? 'hidden' : 'visible';
     });
-    show(Math.max(0, Math.min(N - 1, Math.round(pos))));
+    show(idx(pos));
   };
-  const clampT = v => Math.max(0, Math.min(N - 1, v));
   const loop = () => { pos += (target - pos) * (reduced ? 1 : 0.12); if (Math.abs(target - pos) < 0.0005) pos = target; layout(); requestAnimationFrame(loop); };
   requestAnimationFrame(loop);
   /* drag + swipe */
@@ -602,14 +598,13 @@
     if (!axis && (Math.abs(dx) > 6 || Math.abs(dy) > 6)) axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
     if (axis !== 'x') return;
     gc.classList.add('drag'); moved = Math.abs(dx);
-    target = Math.max(-0.4, Math.min(N - 0.6, st - dx / (slides[0].offsetWidth * 1.15)));
+    target = st - dx / (slides[0].offsetWidth * 1.15);
   });
-  addEventListener('pointerup', () => { if (!dragging) return; dragging = false; gc.classList.remove('drag'); target = clampT(Math.round(target)); setTimeout(() => moved = 0, 0); });
+  addEventListener('pointerup', () => { if (!dragging) return; dragging = false; gc.classList.remove('drag'); target = Math.round(target); setTimeout(() => moved = 0, 0); });
   /* trackpad sideways swipe */
-  gc.addEventListener('wheel', e => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); target = clampT(target + e.deltaX / 600); clearTimeout(gc._t); gc._t = setTimeout(() => target = clampT(Math.round(target)), 140); } }, { passive: false });
-  $('#gcPrev').addEventListener('click', () => target = clampT(Math.round(target) - 1));
-  $('#gcNext').addEventListener('click', () => target = clampT(Math.round(target) + 1));
-  gc.addEventListener('keydown', e => { if (e.key === 'ArrowRight') target = clampT(Math.round(target) + 1); if (e.key === 'ArrowLeft') target = clampT(Math.round(target) - 1); });
+  gc.addEventListener('wheel', e => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); target += e.deltaX / 600; clearTimeout(gc._t); gc._t = setTimeout(() => target = Math.round(target), 140); } }, { passive: false });
+  /* no arrow buttons; keyboard arrows still work for people who use them */
+  gc.addEventListener('keydown', e => { if (e.key === 'ArrowRight') target = Math.round(target) + 1; if (e.key === 'ArrowLeft') target = Math.round(target) - 1; });
   addEventListener('resize', layout);
 
   /* auto-advance while the section is on screen; any touch, drag, hover or key pauses it for a while */
@@ -624,7 +619,7 @@
     const now = performance.now();
     if (!gcInView() || dragging || document.hidden) { shownAt = now; return; }
     if (now - lastTouch < 7000 || now - shownAt < STAY) return;
-    target = Math.round(target) + 1 >= N ? 0 : Math.round(target) + 1;   /* loops back to the first project */
+    target = Math.round(target) + 1;   /* endless: after the last project comes the first again */
   }, 250);
 
   /* statement scrub: split into words, light them in order with scroll progress */
