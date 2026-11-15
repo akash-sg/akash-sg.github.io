@@ -616,16 +616,16 @@ uniform sampler2D t0, t1, t2, t3;
 vec4 tx(float s, vec2 uv) { if (s < .5) return texture2D(t0, uv); if (s < 1.5) return texture2D(t1, uv); if (s < 2.5) return texture2D(t2, uv); return texture2D(t3, uv); }
 void main() {
   vec2 p = vec2(gl_FragCoord.x - R.x * .5, gl_FragCoord.y - CY) / (R.x * .5);   /* -1..1 across the canvas */
-  float ax = abs(p.x), e = E1 * (1. - A * .6);         /* flat zone = the centre slide; it shrinks while moving */
+  float ax = abs(p.x), e = E1 * (1. - A * .25);         /* flat zone = the centre slide; it shrinks while moving */
   float o = max(0., ax - e);
-  float X = sign(p.x) * (min(ax, e) + o * .72);        /* beyond it, slides stretch like the inside of a cylinder */
-  float h = p.y / (1. + K * (1. + A * 1.5) * o * o);   /* and their top and bottom edges flare out */
+  float X = sign(p.x) * (min(ax, e) + o * .88);        /* beyond it, slides stretch like the inside of a cylinder */
+  float h = p.y / (1. + K * (1. + A * .6) * o * o);   /* and their top and bottom edges flare out */
   float s = X / PI + P, k = floor(s + .5);
   float u = (s - k) / G + .5, v = .5 - h / (2. * HS), sl = k - B;
   if (u < 0. || u > 1. || v < 0. || v > 1. || sl < -.5 || sl > 3.5) { gl_FragColor = vec4(0.); return; }
-  float ca = A * .012;                                /* colour split while moving */
+  float ca = A * .004;                                /* colour split while moving */
   vec3 col = vec3(tx(sl, vec2(u + ca, v)).r, tx(sl, vec2(u, v)).g, tx(sl, vec2(u - ca, v)).b);
-  col *= 1. - .4 * smoothstep(0., .5, o);               /* light falls off around the curve */
+  col *= 1. - .25 * smoothstep(0., .5, o);               /* light falls off around the curve */
   gl_FragColor = vec4(col, 1.);
 }`;
     const sh = (t, src) => { const o = gl.createShader(t); gl.shaderSource(o, src); gl.compileShader(o); return o; };
@@ -665,7 +665,7 @@ void main() {
     cv.addEventListener('click', e => {
       if (moved >= 6) return;
       const r = cv.getBoundingClientRect(), x = (e.clientX - r.left - r.width / 2) / (r.width / 2), ax = Math.abs(x);
-      const X = Math.sign(x) * (Math.min(ax, E1) + Math.max(0, ax - E1) * 0.72);
+      const X = Math.sign(x) * (Math.min(ax, E1) + Math.max(0, ax - E1) * 0.88);
       const delta = Math.floor(X / PI + pos + 0.5) - Math.round(pos);
       if (delta) target = Math.round(target) + delta;
     });
@@ -675,9 +675,9 @@ void main() {
         const sw = s0.offsetWidth * k, cy = H - (s0.offsetTop + s0.offsetHeight / 2) * k;   /* same size and place as the CSS slide */
         const phone = innerWidth < 700; G = phone ? 0.94 : 0.9;
         PI = 2 * (sw / W) / G; E1 = PI / 2;                 /* slide pitch, and the flat zone = centre slide + half a gap */
-        const K = 0.8 / Math.max(0.02, (1 - E1) * (1 - E1));   /* edges of the screen flare to ~1.8x height */
+        const K = (phone ? 0.12 : 0.28) / Math.max(0.02, (1 - E1) * (1 - E1));   /* screen edges flare only a little: ~1.3x laptop, ~1.1x phone */
         const vel = Math.abs(pos - last); last = pos;
-        amt += (Math.min(1, vel * 14) - amt) * 0.12;
+        amt += (Math.min(0.7, vel * 8) - amt) * 0.1;
         const B = Math.floor(pos) - 1;
         for (let n = 0; n < 4; n++) {
           const i = idx(B + n), v = slides[i].querySelector('video');
