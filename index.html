@@ -188,6 +188,7 @@
   .gc-slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, #ffffff10 0%, transparent 30%, transparent 70%, #ffffff0d 100%); pointer-events: none; }
   .gc-foot { position: absolute; z-index: 5; left: 0; right: 0; bottom: clamp(1.2rem, 6vh, 3.6rem); display: grid; justify-items: center; gap: 0.9rem; padding: 0 var(--gut); text-align: center; }
   .gc-desc { margin: 0; color: var(--soft); max-width: 64ch; font-size: clamp(1.02rem, 1.2vw, 1.15rem); line-height: 1.45; height: 4.35em; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }   /* fixed 3-line box: long text can never grow up into the slide */
+  .gc-count { font-variant-numeric: tabular-nums; color: var(--soft); }
   .gc-open { display: inline-flex; align-items: center; min-height: 44px; padding: 0 1.1rem; border: 1px solid #5A7DFF66; color: var(--blue-hot); text-transform: uppercase; font-size: 0.95rem; transition: background 0.3s, color 0.3s; }
   .gc-open:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
 
@@ -197,16 +198,18 @@
   .hero-top, .hero-mid { text-shadow: 0 1px 22px #0B0B0BB3, 0 0 2px #0B0B0B66; }
   .gc-open[aria-disabled="true"] { color: var(--soft); pointer-events: none; }
   @media (max-width: 700px) {
-    .gc { height: 80svh; min-height: 520px; }
-    .gc { --sw: 70vw; }
-    .gc-slide { top: calc(50% - 2.6rem); }
+    /* phone: section only as tall as its content; slide right under the title, text right under the slide */
+    .gc { --sw: 70vw; height: calc(70vw * 0.625 + 21.5rem); min-height: 0; }
+    .gc-title { top: 1rem; }
+    .gc-slide { top: calc(8.4rem + 70vw * 0.3125); }
+    .gc-foot { bottom: 1.2rem; gap: 0.7rem; }
   }
   /* WebGL mode: the canvas draws the slides; the real videos stay in the page (invisible) as its picture source */
   .gc-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
   .gc-gl .gc-track { opacity: 0; pointer-events: none; }
   /* reference: a big glass oval rings the work section */
-  .gc::before { content: ""; position: absolute; z-index: 0; inset: 3% -10%; border-radius: 50%; border: 1.5px solid #FFFFFF1C; box-shadow: inset 0 0 50px #5A7DFF14, 0 0 40px #5A7DFF0F; pointer-events: none; }
-  @media (max-width: 700px) { .gc::before { inset: 2% -22%; } }
+  .gc::before { content: ""; position: absolute; z-index: 0; left: 50%; top: 50%; height: 94%; aspect-ratio: 0.68; translate: -50% -50%; border-radius: 50%; border: 1.5px solid #FFFFFF1C; box-shadow: inset 0 0 50px #5A7DFF14, 0 0 40px #5A7DFF0F; pointer-events: none; }
+  @media (max-width: 700px) { .gc::before { height: 97%; aspect-ratio: 0.62; } }
 
   /* also made: reels + marks */
   .also .head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: clamp(2rem, 4vw, 3.4rem); }
@@ -363,6 +366,7 @@
       <div class="gc-track" id="gcTrack"></div>
       <div class="gc-foot">
         <p class="gc-desc" id="gcDesc"></p>
+        <span class="lbl gc-count" id="gcCount" aria-hidden="true">01/12</span>
         <a class="gc-open" id="gcOpen" href="https://pickloshimoga.com" target="_blank" rel="noopener">Visit site</a>
       </div>
     </div>
@@ -583,6 +587,7 @@
   const show = i => {
     if (i === cur) return; cur = i; shownAt = performance.now(); const w = WORK[i];
     const cv0 = slides[i].querySelector("video"); if (cv0 && cv0.src) cv0.currentTime = 0;   /* clip starts from the top each time its slide arrives */
+    $('#gcCount').textContent = String(idx(pos) + 1).padStart(2, '0') + '/' + String(N).padStart(2, '0');
     $('#gcTitle').innerHTML = oHTML(w.t); $('#gcTags').textContent = w.tags; $('#gcDesc').textContent = w.d;
     const open = $('#gcOpen'); open.href = w.url; open.textContent = /github\.com/.test(w.url) ? 'View code' : 'Visit site';
     syncVideo();
@@ -623,8 +628,10 @@ void main() {
   float s = X / PI + P, k = floor(s + .5);
   float u = (s - k) / G + .5, v = .5 - h / (2. * HS), sl = k - B;
   if (u < 0. || u > 1. || v < 0. || v > 1. || sl < -.5 || sl > 3.5) { gl_FragColor = vec4(0.); return; }
-  float ca = A * .004;                                /* colour split while moving */
-  vec3 col = vec3(tx(sl, vec2(u + ca, v)).r, tx(sl, vec2(u, v)).g, tx(sl, vec2(u - ca, v)).b);
+  float ca = A * .004 + o * .01, bl = o * .014;      /* chrome blur: colour split + soft blur, only toward the edges */
+  vec3 col = vec3(0.);
+  for (int i = -1; i <= 1; i++) { float d = float(i) * bl; col += vec3(tx(sl, vec2(u + ca + d, v)).r, tx(sl, vec2(u + d, v)).g, tx(sl, vec2(u - ca + d, v)).b); }
+  col /= 3.;
   col *= 1. - .25 * smoothstep(0., .5, o);               /* light falls off around the curve */
   gl_FragColor = vec4(col, 1.);
 }`;
