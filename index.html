@@ -248,6 +248,22 @@
   .lead .btn[disabled] { opacity: 0.6; cursor: wait; }
   .lead-msg { margin: 0; min-height: 1.5em; }
   .lead-msg a { color: var(--blue-hot); }
+
+  /* services: a few chips in About, the full list in a glass panel */
+  .rows .svc-row { align-items: flex-start; }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; }
+  .chips li { border: 1px solid #E7E1D733; padding: 0.45rem 0.7rem; font-size: 0.92em; }
+  .chips li:has(.chip-more) { padding: 0; border: 0; }
+  .chip-more { height: 100%; min-height: 44px; padding: 0.45rem 0.8rem; border: 1px solid var(--blue); border-radius: 0; background: var(--blue); color: #fff; font: 500 0.92em var(--sans); text-transform: uppercase; cursor: pointer; transition: background 0.3s; }
+  .chip-more:hover { background: var(--blue-hot); }
+  .svc-dlg { width: min(94vw, 56rem); }
+  .svc-groups { display: grid; gap: 1.6rem 2.4rem; margin: 1.2rem 0 1.6rem; }
+  @media (min-width: 700px) { .svc-groups { grid-template-columns: 1fr 1fr; } }
+  .svc-groups h3 { margin: 0 0 0.6rem; font-size: 0.95rem; font-weight: 500; text-transform: uppercase; color: var(--blue-hot); }
+  .svc-groups ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.15rem; }
+  .svc-groups li { padding: 0.5rem 0; border-top: 1px solid #FFFFFF1A; font-size: clamp(1.02rem, 1.3vw, 1.15rem); text-transform: uppercase; }
+  .svc-dlg .btn { border: 0; cursor: pointer; font-family: var(--sans); margin-top: 0; }
+  @media (max-width: 700px) { .rows .svc-row { flex-direction: column; gap: 0.8rem; } .chips { justify-content: flex-start; } }
   @keyframes slide { to { translate: -50% 0; } }
 
   @media (prefers-reduced-motion: reduce) {
@@ -310,7 +326,7 @@
       <div class="card" id="aCard" data-fade></div>
       <div style="display: grid; align-content: end;">
         <dl class="rows" data-fade>
-          <div><dt class="dim">Services</dt><dd>Website design and marketing</dd></div>
+          <div class="svc-row"><dt class="dim">Services</dt><dd><ul class="chips"><li>Websites</li><li>SEO</li><li>WhatsApp automation</li><li>Reels and content</li><li><button type="button" class="chip-more" id="svcOpen">+ All services</button></li></ul></dd></div>
           <div><dt class="dim">Experience</dt><dd>Since 2017</dd></div>
           <div><dt class="dim">Projects</dt><dd>15+ shipped</dd></div>
           <div><dt class="dim">Availability</dt><dd>Taking on new projects</dd></div>
@@ -382,6 +398,19 @@
     <!-- what I do, scrolling; the list is written once and repeated by the script for a seamless loop -->
     <div class="marquee" aria-hidden="true"><div class="track" id="mq" data-words="Websites|SEO|Google Business|Online stores|Booking systems|WhatsApp automation|Web apps|Reels|Content|Posters|Logos|Branding|Photography|Ads"></div></div>
   </footer>
+
+  <!-- every service, grouped; opened by "+ All services" in About -->
+  <dialog class="lead-dlg svc-dlg" id="svcDlg" aria-labelledby="svcTitle">
+    <div class="lead-head"><h2 class="lbl" id="svcTitle">All services</h2><button type="button" class="lead-x" data-close aria-label="Close">✕</button></div>
+    <div class="svc-groups">
+      <section><h3>Build</h3><ul><li>Business websites</li><li>Online stores</li><li>Booking and ordering systems</li><li>Landing pages for ads and offers</li><li>Web apps and dashboards</li><li>Event and festival websites</li></ul></section>
+      <section><h3>Get found</h3><ul><li>SEO</li><li>Google Business setup and reviews</li><li>Speed and SEO fixes for old sites</li><li>Meta ads (Instagram, Facebook)</li><li>Social media management</li></ul></section>
+      <section><h3>Automate</h3><ul><li>WhatsApp automation and chatbots</li><li>WhatsApp broadcasts</li><li>AI tools for business</li></ul></section>
+      <section><h3>Create</h3><ul><li>Reels and video editing</li><li>Posters and social posts</li><li>Logos and brand identity</li><li>Product and business photography</li></ul></section>
+      <section><h3>Look after</h3><ul><li>Domain, hosting and business email</li><li>Monthly website care and updates</li></ul></section>
+    </div>
+    <button type="button" class="btn" id="svcStart">Start a project</button>
+  </dialog>
 
   <!-- project form: opens when the footer is tapped. Sent by FormSubmit to my mail; _honey is the spam trap -->
   <dialog class="lead-dlg" id="leadDlg" aria-labelledby="leadTitle">
@@ -635,6 +664,13 @@
   const dlg = $('#leadDlg'), form = $('#lead'), msg = $('#leadMsg'), send = $('#leadSend');
   let openedAt = 0;
   const openLead = () => { if (dlg.open) return; dlg.showModal(); openedAt = performance.now(); if (lenis) lenis.stop(); form.elements.name.focus(); };
+  /* all-services panel: same glass dialog; its button hands over to the project form */
+  const svc = $('#svcDlg');
+  $('#svcOpen').addEventListener('click', () => { svc.showModal(); if (lenis) lenis.stop(); });
+  svc.querySelector('[data-close]').addEventListener('click', () => svc.close());
+  svc.addEventListener('click', e => { if (e.target === svc) svc.close(); });
+  svc.addEventListener('close', () => { if (lenis && !dlg.open) lenis.start(); });
+  $('#svcStart').addEventListener('click', () => { svc.close(); openLead(); });
   $('.foot').addEventListener('click', e => { if (!e.target.closest('a')) openLead(); });
   $('#leadClose').addEventListener('click', () => dlg.close());
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });   /* tap outside the panel closes */
