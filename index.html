@@ -77,7 +77,7 @@
   .menu-open .menu-btn { color: var(--blue-hot); }
 
   /* menu: full black, four giant centred words, letters roll to blue on hover */
-  .menu { position: fixed; inset: 0; z-index: 70; background: var(--bg); display: grid; place-content: center; text-align: center; clip-path: inset(100% 0 0 0); transition: clip-path 0.8s var(--ease); pointer-events: none; }
+  .menu { position: fixed; inset: 0; z-index: 70; /* frosted glass: the page shows through, blurred and tinted blue */ background: linear-gradient(160deg, #2F5BFF26 0%, #0B0B0B99 45%, #0B0B0BB3 100%); -webkit-backdrop-filter: blur(28px) saturate(150%); backdrop-filter: blur(28px) saturate(150%); display: grid; place-content: center; text-align: center; clip-path: inset(100% 0 0 0); transition: clip-path 0.8s var(--ease); pointer-events: none; }
   .menu-open .menu { clip-path: inset(0 0 0 0); pointer-events: auto; }
   .menu a { display: block; font-size: clamp(3.4rem, 9.4vw, 8.5rem); line-height: 1; text-transform: uppercase; letter-spacing: -0.03em; }
   .roll { display: inline-block; position: relative; overflow: clip; vertical-align: top; }
@@ -229,8 +229,8 @@
   .foot { cursor: pointer; }
   .foot a { cursor: pointer; }
   .foot-cta { margin-top: clamp(1.4rem, 3.5vh, 2.4rem); border: 0; cursor: pointer; font-family: var(--sans); }
-  .lead-dlg { width: min(92vw, 40rem); max-height: 92svh; overflow: auto; padding: clamp(1.2rem, 3vw, 2rem); border: 1px solid #E7E1D733; border-radius: 0; background: #121212; color: var(--ink); }
-  .lead-dlg::backdrop { background: #0B0B0BCC; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .lead-dlg { width: min(92vw, 40rem); max-height: 92svh; overflow: auto; padding: clamp(1.2rem, 3vw, 2rem); border: 1px solid #FFFFFF2E; border-radius: 0; color: var(--ink); /* frosted glass panel */ background: linear-gradient(150deg, #FFFFFF1C 0%, #FFFFFF08 40%, #2F5BFF1A 100%), #12121266; -webkit-backdrop-filter: blur(26px) saturate(160%); backdrop-filter: blur(26px) saturate(160%); box-shadow: inset 0 1px 0 #FFFFFF26, 0 40px 90px -30px #000000CC; }
+  .lead-dlg::backdrop { background: #0B0B0B66; -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
   .lead { display: grid; gap: 1rem; }
   .lead-head { display: flex; justify-content: space-between; align-items: center; }
   .lead-head h2 { margin: 0; color: var(--blue-hot); }
@@ -238,7 +238,8 @@
   .lead .row2 { display: grid; gap: 1rem; }
   @media (min-width: 700px) { .lead .row2 { grid-template-columns: 1fr 1fr; } }
   .lead label { display: grid; gap: 0.45rem; font-size: 0.95rem; font-weight: 500; text-transform: uppercase; color: var(--soft); }
-  .lead input, .lead select, .lead textarea { width: 100%; font: 500 1.05rem/1.4 var(--sans); color: var(--ink); background: #0B0B0B; border: 1px solid #E7E1D733; border-radius: 0; padding: 0.85rem 0.9rem; }
+  .lead input, .lead select, .lead textarea { width: 100%; font: 500 1.05rem/1.4 var(--sans); color: var(--ink); background: #0B0B0B59; border: 1px solid #FFFFFF26; border-radius: 0; padding: 0.85rem 0.9rem; }
+  .lead select option { background: #141414; }
   .lead textarea { resize: vertical; }
   .lead input:focus, .lead select:focus, .lead textarea:focus { outline: none; border-color: var(--blue-hot); }
   .lead [aria-invalid="true"] { border-color: #FF6B5A; }
@@ -537,10 +538,11 @@
   const syncVideo = () => { loadNear(); slides.forEach((s, i) => { const v = s.querySelector('video'); if (!v) return; if (i === cur && gcVisible && !reduced) v.play().catch(() => {}); else v.pause(); }); };
   new IntersectionObserver(es => { gcVisible = es[0].isIntersecting; syncVideo(); }, { threshold: 0.2 }).observe($('#gc'));
   new IntersectionObserver(es => { if (es[0].isIntersecting) { gcNear = true; syncVideo(); } }, { rootMargin: '100% 0px' }).observe($('#gc'));
-  let pos = 0, target = 0, cur = -1, moved = 0;
+  let pos = 0, target = 0, cur = -1, moved = 0, shownAt = 0;
   const N = WORK.length;
   const show = i => {
-    if (i === cur) return; cur = i; const w = WORK[i];
+    if (i === cur) return; cur = i; shownAt = performance.now(); const w = WORK[i];
+    const cv0 = slides[i].querySelector("video"); if (cv0 && cv0.src) cv0.currentTime = 0;   /* clip starts from the top each time its slide arrives */
     $('#gcTitle').innerHTML = oHTML(w.t); $('#gcTags').textContent = w.tags; $('#gcDesc').textContent = w.d;
     $('#gcCount').textContent = String(i + 1).padStart(2, '0') + '/' + String(N).padStart(2, '0');
     const open = $('#gcOpen'); open.href = w.url; open.textContent = /github\.com/.test(w.url) ? 'View code' : 'Visit site';
@@ -586,10 +588,14 @@
   const gcInView = () => { const r = gc.getBoundingClientRect(), vh = innerHeight; return Math.min(r.bottom, vh) - Math.max(r.top, 0) > Math.min(r.height, vh) * 0.5; };
   const touched = () => lastTouch = performance.now();
   ['pointerdown', 'keydown', 'wheel', 'focusin'].forEach(ev => gc.addEventListener(ev, touched, { passive: true }));
+  /* each project stays for one full clip (12s); the clock restarts on every slide change and while off screen */
+  const STAY = 12000;
   if (!reduced) setInterval(() => {
-    if (!gcInView() || dragging || document.hidden || performance.now() - lastTouch < 7000) return;
+    const now = performance.now();
+    if (!gcInView() || dragging || document.hidden) { shownAt = now; return; }
+    if (now - lastTouch < 7000 || now - shownAt < STAY) return;
     target = Math.round(target) + 1 >= N ? 0 : Math.round(target) + 1;   /* loops back to the first project */
-  }, 3200);
+  }, 250);
 
   /* statement scrub: split into words, light them in order with scroll progress */
   const stmt = $('[data-scrub]');
